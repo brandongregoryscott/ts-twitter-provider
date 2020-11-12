@@ -1,0 +1,33 @@
+{
+    "author": "",
+    "dependencies": {
+        "dotenv": "8.2.0",
+        "twitter-v2": "0.1.2"
+    },
+    "description": "A typed wrapper around the Twitter V2 API",
+    "devDependencies": {
+        "@types/jest": "26.0.15",
+        "jest": "26.4.2",
+        "prettier": "1.19.1",
+        "rimraf": "2.6.2",
+        "ts-jest": "26.4.4",
+        "typescript": "4.0.3"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "files": [
+        "dist"
+    ],
+    "license": "ISC",
+    "main": "index.js",
+    "name": "ts-twitterbot",
+    "scripts": {
+        "build": "tsc --pretty",
+        "clean": "rimraf dist",
+        "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
+        "prebuild": "npm run clean && npm run format && echo Using TypeScript && tsc --version",
+        "test": "jest"
+    },
+    "version": "0.0.1"
+}
