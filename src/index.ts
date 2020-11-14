@@ -3,6 +3,8 @@
 // -----------------------------------------------------------------------------------------
 
 export { Endpoint } from "./enums/endpoint";
+export { TweetFields } from "./enums/tweet-fields";
+export { TweetType } from "./enums/tweet-type";
 
 // #endregion Enums
 

@@ -1,0 +1,12 @@
+version: "~> 1.0"
+language: node_js
+node_js:
+    - 10
+install:
+    - npm install -g codecov
+before_script:
+    - npm install
+script:
+    - npm run build
+    - npm run test
+    - codecov --disable=gcov
