@@ -2,16 +2,18 @@
 // #region Enums
 // -----------------------------------------------------------------------------------------
 
-export { Endpoint } from "./enums/endpoint";
+enum TweetType {
+    Retweeted = "retweeted",
+    Quoted = "quoted",
+    RepliedTo = "replied_to",
+}
 
 // #endregion Enums
 
 // -----------------------------------------------------------------------------------------
-// #region Interfaces
+// #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { ListTweetsParams } from "./interfaces/tweets/list-tweets-params";
-export { TwitterResponse } from "./interfaces/twitter-response";
-export { Tweet } from "./interfaces/tweets/tweet";
+export { TweetType };
 
-// #endregion Interfaces
+// #endregion Exports

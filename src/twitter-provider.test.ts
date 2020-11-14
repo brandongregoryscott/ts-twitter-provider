@@ -31,7 +31,9 @@ describe("TwitterProvider", () => {
             const sut = setupSut();
 
             // Act
-            const result = await sut.getTweets({ ids: "1326691582758760450" });
+            const result = await sut.getTweets({
+                ids: "1326691582758760450",
+            });
 
             // Assert
             expect(result.data).toHaveLength(1);

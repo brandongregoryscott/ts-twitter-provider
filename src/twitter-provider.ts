@@ -1,21 +1,54 @@
-import Twitter, { Credentials, CredentialsConstructorArgs } from "twitter-v2";
 import { Endpoint } from "./enums/endpoint";
 import { ListTweetsParams } from "./interfaces/tweets/list-tweets-params";
-import { TwitterResponse } from "./interfaces/twitter-response";
 import { Tweet } from "./interfaces/tweets/tweet";
+import Twitter, { Credentials, TwitterResponse } from "twitter-v2";
+import { ParamMapper } from "./utilities/param-mapper";
 
 class TwitterProvider {
-    private _client: Twitter;
+    // -----------------------------------------------------------------------------------------
+    // #region Public Members
+    // -----------------------------------------------------------------------------------------
 
-    constructor(credentials: CredentialsConstructorArgs) {
-        this._client = new Twitter(credentials);
+    /**
+     * Reference to the underlying Twitter client if direct access is required
+     *
+     * @type {Twitter}
+     * @memberof TwitterProvider
+     */
+    public readonly client: Twitter;
+
+    // #endregion Public Members
+
+    // -----------------------------------------------------------------------------------------
+    // #region Constructor
+    // -----------------------------------------------------------------------------------------
+
+    constructor(credentials: Credentials) {
+        this.client = new Twitter(credentials);
     }
+
+    // #endregion Constructor
+
+    // -----------------------------------------------------------------------------------------
+    // #region Public Methods
+    // -----------------------------------------------------------------------------------------
 
     public getTweets(
         params: ListTweetsParams
     ): Promise<TwitterResponse<Tweet[]>> {
-        return this._client.get(Endpoint.Tweets, params);
+        return this.client.get(
+            Endpoint.Tweets,
+            ParamMapper.mapListTweetParams(params)
+        );
     }
+
+    // #endregion Public Methods
 }
 
+// -----------------------------------------------------------------------------------------
+// #region Exports
+// -----------------------------------------------------------------------------------------
+
 export { TwitterProvider };
+
+// #endregion Exports
