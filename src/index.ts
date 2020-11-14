@@ -17,3 +17,11 @@ export { TwitterResponse } from "./interfaces/twitter-response";
 export { Tweet } from "./interfaces/tweets/tweet";
 
 // #endregion Interfaces
+
+// -----------------------------------------------------------------------------------------
+// #region Providers
+// -----------------------------------------------------------------------------------------
+
+export { TwitterProvider } from "./twitter-provider";
+
+// #endregion Providers

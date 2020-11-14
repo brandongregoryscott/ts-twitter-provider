@@ -28,15 +28,38 @@ describe("TwitterProvider", () => {
     describe("getTweets", () => {
         test("given a valid id, it returns a tweet", async () => {
             // Arrange
+            const ids = "1326691582758760450";
             const sut = setupSut();
 
             // Act
-            const result = await sut.getTweets({
-                ids: "1326691582758760450",
-            });
+            const result = await sut.getTweets({ ids });
 
             // Assert
             expect(result.data).toHaveLength(1);
+        });
+
+        test("given array of valid ids, it returns multiple tweets", async () => {
+            // Arrange
+            const ids = ["1326691582758760450", "1327657800667947008"];
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.getTweets({ ids });
+
+            // Assert
+            expect(result.data).toHaveLength(ids.length);
+        });
+
+        test("given comma separated string of valid ids, it returns multiple tweets", async () => {
+            // Arrange
+            const ids = "1326691582758760450,1327657800667947008";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.getTweets({ ids });
+
+            // Assert
+            expect(result.data).toHaveLength(ids.split(",").length);
         });
     });
 
