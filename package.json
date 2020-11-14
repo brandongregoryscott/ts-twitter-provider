@@ -21,7 +21,7 @@
     ],
     "license": "ISC",
     "main": "index.js",
-    "name": "ts-twitterbot",
+    "name": "ts-twitter-provider",
     "scripts": {
         "build": "tsc --pretty",
         "clean": "rimraf dist",

@@ -1,8 +1,11 @@
 import { Endpoint } from "./enums/endpoint";
 import { ListTweetsParams } from "./interfaces/tweets/list-tweets-params";
 import { Tweet } from "./interfaces/tweets/tweet";
-import Twitter, { Credentials, TwitterResponse } from "twitter-v2";
+// @ts-expect-error
+import Twitter from "twitter-v2";
 import { ParamMapper } from "./utilities/param-mapper";
+import { TwitterResponse } from "./interfaces/twitter-response";
+import { Credentials } from "./interfaces/credentials";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
