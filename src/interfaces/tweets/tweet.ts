@@ -3,13 +3,16 @@
 // -----------------------------------------------------------------------------------------
 
 interface Tweet {
+    id: string;
+    text: string;
+
+    // Additional fields
     author_id?: string;
     conversation_id?: string;
     created_at?: string;
-    id: string;
     in_reply_to_user_id?: string;
+    lang?: string;
     referenced_tweets?: Tweet[];
-    text: string;
 }
 
 // #endregion Interfaces

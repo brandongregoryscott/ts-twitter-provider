@@ -27,7 +27,8 @@
         "clean": "rimraf dist",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
         "prebuild": "npm run clean && npm run format && echo Using TypeScript && tsc --version",
-        "test": "jest"
+        "test": "jest",
+        "test:watch": "jest --watch"
     },
     "version": "0.0.1"
 }

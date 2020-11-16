@@ -36,7 +36,14 @@ class TwitterProvider {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
-    public getTweets(
+    /**
+     * List tweets by given id(s)
+     *
+     * @param {ListTweetsParams} params
+     * @returns {Promise<TwitterResponse<Tweet[]>>}
+     * @memberof TwitterProvider
+     */
+    public listTweets(
         params: ListTweetsParams
     ): Promise<TwitterResponse<Tweet[]>> {
         return this.client.get(

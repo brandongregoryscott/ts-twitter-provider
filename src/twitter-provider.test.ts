@@ -1,5 +1,6 @@
 import { TwitterProvider } from "./twitter-provider";
 import dotenv from "dotenv";
+import { TweetFields } from "./enums/tweet-fields";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -22,17 +23,17 @@ describe("TwitterProvider", () => {
     // #endregion Setup
 
     // -----------------------------------------------------------------------------------------
-    // #region getTweets
+    // #region listTweets
     // -----------------------------------------------------------------------------------------
 
-    describe("getTweets", () => {
+    describe("listTweets", () => {
         test("given a valid id, it returns a tweet", async () => {
             // Arrange
             const ids = "1326691582758760450";
             const sut = setupSut();
 
             // Act
-            const result = await sut.getTweets({ ids });
+            const result = await sut.listTweets({ ids });
 
             // Assert
             expect(result.data).toHaveLength(1);
@@ -44,7 +45,7 @@ describe("TwitterProvider", () => {
             const sut = setupSut();
 
             // Act
-            const result = await sut.getTweets({ ids });
+            const result = await sut.listTweets({ ids });
 
             // Assert
             expect(result.data).toHaveLength(ids.length);
@@ -56,12 +57,28 @@ describe("TwitterProvider", () => {
             const sut = setupSut();
 
             // Act
-            const result = await sut.getTweets({ ids });
+            const result = await sut.listTweets({ ids });
 
             // Assert
             expect(result.data).toHaveLength(ids.split(",").length);
         });
+
+        test("given list of fields, it returns tweets with those included fields", async () => {
+            // Arrange
+            const ids = "1141796911684476929";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweets({
+                ids,
+                fields: [TweetFields.Lang],
+            });
+
+            // Assert
+            expect(result.data).toHaveLength(1);
+            expect(result.data[0].lang).not.toBeUndefined();
+        });
     });
 
-    // #endregion getTweets
+    // #endregion listTweets
 });
