@@ -2,7 +2,7 @@
     "author": "",
     "dependencies": {
         "dotenv": "8.2.0",
-        "twitter-v2": "0.1.2"
+        "twitter-v2": "1.0.6"
     },
     "description": "A typed wrapper around the Twitter V2 API",
     "devDependencies": {
@@ -22,6 +22,10 @@
     "license": "ISC",
     "main": "index.js",
     "name": "ts-twitter-provider",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:brandongregoryscott/ts-twitter-provider.git"
+    },
     "scripts": {
         "build": "tsc --pretty",
         "clean": "rimraf dist",

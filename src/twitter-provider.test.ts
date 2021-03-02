@@ -16,8 +16,8 @@ describe("TwitterProvider", () => {
 
     const setupSut = () =>
         new TwitterProvider({
-            consumer_key: process.env.CONSUMER_KEY,
-            consumer_secret: process.env.CONSUMER_SECRET,
+            consumer_key: process.env.CONSUMER_KEY!,
+            consumer_secret: process.env.CONSUMER_SECRET!,
         });
 
     // #endregion Setup
@@ -81,4 +81,41 @@ describe("TwitterProvider", () => {
     });
 
     // #endregion listTweets
+
+    // -----------------------------------------------------------------------------------------
+    // #region listTweetsByUser
+    // -----------------------------------------------------------------------------------------
+
+    describe.only("listTweetsByUser", () => {
+        test("given userId, returns list of recent tweets", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({ userId });
+
+            // Assert
+            console.log(result);
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+        });
+
+        test("given list of fields, it returns tweets with those included fields", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                fields: [TweetFields.Lang],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].lang).not.toBeUndefined();
+        });
+    });
+
+    // #endregion listTweetsByUser
 });

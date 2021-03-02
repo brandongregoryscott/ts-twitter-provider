@@ -1,11 +1,11 @@
-import { Endpoint } from "./enums/endpoint";
 import { ListTweetsParams } from "./interfaces/tweets/list-tweets-params";
 import { Tweet } from "./interfaces/tweets/tweet";
-// @ts-expect-error
 import Twitter from "twitter-v2";
 import { ParamMapper } from "./utilities/param-mapper";
 import { TwitterResponse } from "./interfaces/twitter-response";
-import { Credentials } from "./interfaces/credentials";
+import { CredentialsArgs } from "twitter-v2/src/Credentials";
+import { Endpoint } from "./utilities/endpoint";
+import { ListTweetsByUserParams } from "./interfaces/tweets/list-tweets-by-user-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class TwitterProvider {
     // #region Constructor
     // -----------------------------------------------------------------------------------------
 
-    constructor(credentials: Credentials) {
+    constructor(credentials: CredentialsArgs) {
         this.client = new Twitter(credentials);
     }
 
@@ -38,17 +38,25 @@ class TwitterProvider {
 
     /**
      * List tweets by given id(s)
-     *
-     * @param {ListTweetsParams} params
-     * @returns {Promise<TwitterResponse<Tweet[]>>}
-     * @memberof TwitterProvider
      */
     public listTweets(
         params: ListTweetsParams
     ): Promise<TwitterResponse<Tweet[]>> {
         return this.client.get(
-            Endpoint.Tweets,
-            ParamMapper.mapListTweetParams(params)
+            Endpoint.tweets(),
+            ParamMapper.mapListTweetsParams(params)
+        );
+    }
+
+    /**
+     * List tweets by given userId
+     */
+    public listTweetsByUser(
+        params: ListTweetsByUserParams
+    ): Promise<TwitterResponse<Tweet[]>> {
+        return this.client.get(
+            Endpoint.userTweets(params.userId),
+            ParamMapper.mapListTweetsByUserParams(params)
         );
     }
 

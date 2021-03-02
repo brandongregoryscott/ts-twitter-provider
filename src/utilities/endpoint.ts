@@ -1,21 +1,25 @@
 // -----------------------------------------------------------------------------------------
-// #region Interfaces
+// #region Public Functions
 // -----------------------------------------------------------------------------------------
 
-interface Credentials {
-    consumer_key?: string;
-    consumer_secret?: string;
-    bearer_token?: string;
-    access_token_key?: string;
-    access_token_secret?: string;
-}
+const Endpoint = {
+    tweets() {
+        return "tweets";
+    },
+    userMentions(userId: string) {
+        return `users/${userId}/mentions`;
+    },
+    userTweets(userId: string) {
+        return `users/${userId}/tweets`;
+    },
+};
 
-// #endregion Interfaces
+// #endregion Public Functions
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Credentials };
+export { Endpoint };
 
 // #endregion Exports

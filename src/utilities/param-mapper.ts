@@ -1,24 +1,40 @@
 import {
+    ListTweetsByUserParams,
+    RawListTweetsByUserParams,
+} from "../interfaces/tweets/list-tweets-by-user-params";
+import {
     ListTweetsParams,
     RawListTweetsParams,
 } from "../interfaces/tweets/list-tweets-params";
+import {
+    RawTweetFieldsParams,
+    TweetFieldsParams,
+} from "../interfaces/tweets/tweet-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
-const mapListTweetParams = (params: ListTweetsParams): RawListTweetsParams => {
-    const transformedParams: Partial<RawListTweetsParams> = {};
+const mapListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
+    let transformedParams: Partial<RawListTweetsParams> = {};
 
     transformedParams.ids = Array.isArray(params.ids)
         ? params.ids.join()
         : _sanitizeCsvString(params.ids).join();
 
-    if (params.fields != null && params.fields.length > 0) {
-        transformedParams["tweet.fields"] = params.fields;
-    }
+    transformedParams = { ...transformedParams, ..._mapTweetFields(params) };
 
     return transformedParams as RawListTweetsParams;
+};
+
+const mapListTweetsByUserParams = (
+    params: ListTweetsByUserParams
+): RawListTweetsByUserParams => {
+    let transformedParams: Partial<RawListTweetsByUserParams> = {};
+
+    transformedParams = { ...transformedParams, ..._mapTweetFields(params) };
+
+    return transformedParams as RawListTweetsByUserParams;
 };
 
 // #endregion Public Functions
@@ -26,6 +42,20 @@ const mapListTweetParams = (params: ListTweetsParams): RawListTweetsParams => {
 // -----------------------------------------------------------------------------------------
 // #region Private Functions
 // -----------------------------------------------------------------------------------------
+
+const _mapTweetFields = <
+    TInputParams extends TweetFieldsParams,
+    TRawParams extends RawTweetFieldsParams
+>(
+    params: TInputParams
+): TRawParams => {
+    const transformedParams: Partial<TRawParams> = {};
+    if (params.fields != null && params.fields.length > 0) {
+        transformedParams["tweet.fields"] = params.fields;
+    }
+
+    return transformedParams as TRawParams;
+};
 
 const _sanitizeCsvString = (input: string): string[] =>
     input.split(",").map((value: string) => value.trim());
@@ -37,7 +67,8 @@ const _sanitizeCsvString = (input: string): string[] =>
 // -----------------------------------------------------------------------------------------
 
 const ParamMapper = {
-    mapListTweetParams,
+    mapListTweetsParams,
+    mapListTweetsByUserParams,
 };
 
 export { ParamMapper };

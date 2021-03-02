@@ -1,17 +1,23 @@
+import { TweetFields } from "../../enums/tweet-fields";
+
 // -----------------------------------------------------------------------------------------
-// #region Enums
+// #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-enum Endpoint {
-    Tweets = "tweets",
+interface TweetFieldsParams {
+    fields?: TweetFields[];
 }
 
-// #endregion Enums
+interface RawTweetFieldsParams {
+    "tweet.fields": string[];
+}
+
+// #endregion Interfaces
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Endpoint };
+export { TweetFieldsParams, RawTweetFieldsParams };
 
 // #endregion Exports
