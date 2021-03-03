@@ -1,12 +1,12 @@
 {
-    "author": "",
+    "author": "Brandon Scott https://github.com/brandongregoryscott",
     "dependencies": {
-        "dotenv": "8.2.0",
         "twitter-v2": "1.0.6"
     },
     "description": "A typed wrapper around the Twitter V2 API",
     "devDependencies": {
         "@types/jest": "26.0.15",
+        "dotenv": "8.2.0",
         "jest": "26.4.2",
         "prettier": "1.19.1",
         "rimraf": "2.6.2",
