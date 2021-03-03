@@ -1,31 +1,30 @@
 import { TweetExpansions } from "../enums/tweet-expansions";
-import { TweetFields } from "../enums/tweet-fields";
 import {
     ListTweetsByUserParams,
     RawListTweetsByUserParams,
-} from "../interfaces/tweets/list-tweets-by-user-params";
+} from "../interfaces/params/list-tweets-by-user-params";
 import {
     ListTweetsParams,
     RawListTweetsParams,
-} from "../interfaces/tweets/list-tweets-params";
+} from "../interfaces/params/list-tweets-params";
 import {
     MediaFieldsParams,
     RawMediaFieldsParams,
-} from "../interfaces/tweets/media-fields-params";
+} from "../interfaces/params/media-fields-params";
 import {
     RawTweetExpansionsParams,
     TweetExpansionsParams,
-} from "../interfaces/tweets/tweet-expansions-params";
+} from "../interfaces/params/tweet-expansions-params";
 import {
     RawTweetFieldsParams,
     TweetFieldsParams,
-} from "../interfaces/tweets/tweet-fields-params";
+} from "../interfaces/params/tweet-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
-const mapListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
+const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
     params = _preprocessInputParams(params);
 
     let transformedParams: Partial<RawListTweetsParams> = {};
@@ -44,7 +43,7 @@ const mapListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
     return transformedParams as RawListTweetsParams;
 };
 
-const mapListTweetsByUserParams = (
+const toListTweetsByUserParams = (
     params: ListTweetsByUserParams
 ): RawListTweetsByUserParams => {
     params = _preprocessInputParams(params);
@@ -148,8 +147,8 @@ const _sanitizeCsvString = (input: string): string[] =>
 // -----------------------------------------------------------------------------------------
 
 const ParamMapper = {
-    mapListTweetsParams,
-    mapListTweetsByUserParams,
+    toListTweetsParams,
+    toListTweetsByUserParams,
 };
 
 export { ParamMapper };

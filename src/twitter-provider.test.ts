@@ -97,9 +97,11 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].author_id).not.toBeUndefined();
-            expect(result.data[0].attachments).not.toBeUndefined();
-            expect(result.data[0].attachments?.media_keys).toHaveLength(1);
+
+            const tweet = result.data[0];
+            expect(tweet.author_id).not.toBeUndefined();
+            expect(tweet.attachments).not.toBeUndefined();
+            expect(tweet.attachments?.media_keys).toHaveLength(1);
         });
     });
 
@@ -154,9 +156,11 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].author_id).not.toBeUndefined();
-            expect(result.data[0].attachments).not.toBeUndefined();
-            expect(result.data[0].attachments?.media_keys).toHaveLength(1);
+
+            const tweet = result.data[0];
+            expect(tweet.author_id).not.toBeUndefined();
+            expect(tweet.attachments).not.toBeUndefined();
+            expect(tweet.attachments?.media_keys).toHaveLength(1);
         });
 
         test(`given list of mediaFields and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`, async () => {

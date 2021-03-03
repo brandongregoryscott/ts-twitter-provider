@@ -1,11 +1,11 @@
-import { ListTweetsParams } from "./interfaces/tweets/list-tweets-params";
+import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
 import { Tweet } from "./interfaces/tweets/tweet";
 import Twitter from "twitter-v2";
 import { ParamMapper } from "./utilities/param-mapper";
 import { TwitterResponse } from "./interfaces/twitter-response";
 import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
-import { ListTweetsByUserParams } from "./interfaces/tweets/list-tweets-by-user-params";
+import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { Includes } from "./interfaces/includes";
 
 class TwitterProvider {
@@ -45,7 +45,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet[]>> {
         return this.client.get(
             Endpoint.tweets(),
-            ParamMapper.mapListTweetsParams(params)
+            ParamMapper.toListTweetsParams(params)
         );
     }
 
@@ -57,7 +57,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet[]> & Includes> {
         return this.client.get(
             Endpoint.userTweets(params.userId),
-            ParamMapper.mapListTweetsByUserParams(params)
+            ParamMapper.toListTweetsByUserParams(params)
         );
     }
 

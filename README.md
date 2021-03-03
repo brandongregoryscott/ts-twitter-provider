@@ -12,10 +12,10 @@ This package is installed via npm or yarn
 
 ```shell
 # npm
-npm install --save-dev ts-twitter-provider
+npm install --save ts-twitter-provider
 
 # yarn
-yarn add ts-twitter-provider --dev
+yarn add ts-twitter-provider
 ```
 
 From there you can import the variety of modules.
@@ -23,3 +23,9 @@ From there you can import the variety of modules.
 ```typescript
 import { TwitterProvider, Tweet } from "ts-twtter-provider";
 ```
+
+## Supported API
+
+| Endpoint                                                                                                | Method       | Params                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| [`/2/tweets`](https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets) | `listTweets` | ✅ expansions <br/> ✅ ids <br/> ✅ media.fields <br/> ❌ place.fields <br/> ❌ poll.fields <br/> ✅ tweet.fields <br/> ❌ user.fields |

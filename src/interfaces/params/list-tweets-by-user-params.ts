@@ -4,7 +4,10 @@ import {
     RawTweetExpansionsParams,
     TweetExpansionsParams,
 } from "./tweet-expansions-params";
-import { TweetFieldsParams, RawTweetFieldsParams } from "./tweet-fields-params";
+import {
+    TweetFieldsParams,
+    RawTweetFieldsParams,
+} from "../params/tweet-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
