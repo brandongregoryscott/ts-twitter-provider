@@ -2,6 +2,7 @@ import { TwitterProvider } from "./twitter-provider";
 import dotenv from "dotenv";
 import { TweetFields } from "./enums/tweet-fields";
 import { TweetExpansions } from "./enums/tweet-expansions";
+import { MediaFields } from "./enums/media-fields";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -156,6 +157,78 @@ describe("TwitterProvider", () => {
             expect(result.data[0].author_id).not.toBeUndefined();
             expect(result.data[0].attachments).not.toBeUndefined();
             expect(result.data[0].attachments?.media_keys).toHaveLength(1);
+        });
+
+        test(`given list of mediaFields and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`, async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                expansions: [TweetExpansions.AttachmentsMediaKeys],
+                mediaFields: [
+                    MediaFields.Height,
+                    MediaFields.MediaKey,
+                    MediaFields.Type,
+                    MediaFields.Width,
+                ],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            const tweet = result.data[0];
+
+            expect(tweet.attachments).toBeDefined();
+            expect(
+                tweet.attachments?.media_keys?.length
+            ).toBeGreaterThanOrEqual(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+
+            const attachment = result.includes?.media?.[0]!;
+            expect(attachment.media_key).toBeDefined();
+            expect(attachment.type).toBeDefined();
+            expect(attachment.width).toBeDefined();
+            expect(attachment.height).toBeDefined();
+        });
+
+        test("given list of mediaFields without specifying expansions, it returns tweets with those media fields", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
+                mediaFields: [
+                    MediaFields.Height,
+                    MediaFields.MediaKey,
+                    MediaFields.Type,
+                    MediaFields.Width,
+                ],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            const tweet = result.data[0];
+
+            expect(tweet.attachments).toBeDefined();
+            expect(
+                tweet.attachments?.media_keys?.length
+            ).toBeGreaterThanOrEqual(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+
+            const attachment = result.includes?.media?.[0]!;
+            expect(attachment.media_key).toBeDefined();
+            expect(attachment.type).toBeDefined();
+            expect(attachment.width).toBeDefined();
+            expect(attachment.height).toBeDefined();
         });
     });
 

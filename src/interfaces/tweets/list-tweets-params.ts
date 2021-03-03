@@ -1,4 +1,5 @@
 import { RequestParameters } from "twitter-v2";
+import { MediaFieldsParams, RawMediaFieldsParams } from "./media-fields-params";
 import {
     RawTweetExpansionsParams,
     TweetExpansionsParams,
@@ -9,7 +10,10 @@ import { RawTweetFieldsParams, TweetFieldsParams } from "./tweet-fields-params";
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListTweetsParams extends TweetFieldsParams, TweetExpansionsParams {
+interface ListTweetsParams
+    extends TweetFieldsParams,
+        TweetExpansionsParams,
+        MediaFieldsParams {
     ids: string | string[];
 }
 
@@ -19,10 +23,9 @@ interface ListTweetsParams extends TweetFieldsParams, TweetExpansionsParams {
 interface RawListTweetsParams
     extends RequestParameters,
         RawTweetFieldsParams,
-        RawTweetExpansionsParams {
+        RawTweetExpansionsParams,
+        RawMediaFieldsParams {
     ids: string;
-    expands?: any;
-    "media.fields"?: any;
     "place.fields"?: any;
     "poll.fields"?: any;
     "user.fields"?: any;
