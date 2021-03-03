@@ -1,21 +1,10 @@
-import { Attachments } from "./attachments";
-
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Tweet {
-    id: string;
-    text: string;
-
-    // Additional fields
-    author_id?: string;
-    attachments?: Attachments;
-    conversation_id?: string;
-    created_at?: string;
-    in_reply_to_user_id?: string;
-    lang?: string;
-    referenced_tweets?: Tweet[];
+interface Attachments {
+    media_keys?: string[];
+    poll_ids?: string[];
 }
 
 // #endregion Interfaces
@@ -24,6 +13,6 @@ interface Tweet {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Tweet };
+export { Attachments };
 
 // #endregion Exports

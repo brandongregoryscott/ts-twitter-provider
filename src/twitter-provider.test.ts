@@ -1,6 +1,7 @@
 import { TwitterProvider } from "./twitter-provider";
 import dotenv from "dotenv";
 import { TweetFields } from "./enums/tweet-fields";
+import { TweetExpansions } from "./enums/tweet-expansions";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -78,6 +79,27 @@ describe("TwitterProvider", () => {
             expect(result.data).toHaveLength(1);
             expect(result.data[0].lang).not.toBeUndefined();
         });
+
+        test("given list of expansions, it returns tweets with those expanded fields", async () => {
+            // Arrange
+            const ids = "1141796911684476929";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweets({
+                ids,
+                expansions: [
+                    TweetExpansions.AttachmentsMediaKeys,
+                    TweetExpansions.AuthorId,
+                ],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].author_id).not.toBeUndefined();
+            expect(result.data[0].attachments).not.toBeUndefined();
+            expect(result.data[0].attachments?.media_keys).toHaveLength(1);
+        });
     });
 
     // #endregion listTweets
@@ -86,7 +108,7 @@ describe("TwitterProvider", () => {
     // #region listTweetsByUser
     // -----------------------------------------------------------------------------------------
 
-    describe.only("listTweetsByUser", () => {
+    describe("listTweetsByUser", () => {
         test("given userId, returns list of recent tweets", async () => {
             // Arrange
             const userId = "953649053631434752";
@@ -96,7 +118,6 @@ describe("TwitterProvider", () => {
             const result = await sut.listTweetsByUser({ userId });
 
             // Assert
-            console.log(result);
             expect(result.data.length).toBeGreaterThanOrEqual(1);
         });
 
@@ -114,6 +135,27 @@ describe("TwitterProvider", () => {
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
             expect(result.data[0].lang).not.toBeUndefined();
+        });
+
+        test("given list of expansions, it returns tweets with those expanded fields", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                expansions: [
+                    TweetExpansions.AttachmentsMediaKeys,
+                    TweetExpansions.AuthorId,
+                ],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].author_id).not.toBeUndefined();
+            expect(result.data[0].attachments).not.toBeUndefined();
+            expect(result.data[0].attachments?.media_keys).toHaveLength(1);
         });
     });
 

@@ -1,21 +1,15 @@
-import { Attachments } from "./attachments";
+import { TweetExpansions } from "../../enums/tweet-expansions";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Tweet {
-    id: string;
-    text: string;
+interface TweetExpansionsParams {
+    expansions?: TweetExpansions[];
+}
 
-    // Additional fields
-    author_id?: string;
-    attachments?: Attachments;
-    conversation_id?: string;
-    created_at?: string;
-    in_reply_to_user_id?: string;
-    lang?: string;
-    referenced_tweets?: Tweet[];
+interface RawTweetExpansionsParams {
+    expansions: string;
 }
 
 // #endregion Interfaces
@@ -24,6 +18,6 @@ interface Tweet {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Tweet };
+export { TweetExpansionsParams, RawTweetExpansionsParams };
 
 // #endregion Exports
