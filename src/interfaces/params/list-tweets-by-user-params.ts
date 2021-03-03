@@ -17,13 +17,13 @@ interface ListTweetsByUserParams
     extends TweetFieldsParams,
         TweetExpansionsParams,
         MediaFieldsParams {
-    end_time?: string;
-    exclude?: "retweets" | "replies";
-    max_results?: number;
-    pagination_token?: string;
-    since_id?: string;
-    start_time?: string;
-    until_id?: string;
+    // end_time?: string;
+    // exclude?: "retweets" | "replies";
+    // max_results?: number;
+    // pagination_token?: string;
+    // since_id?: string;
+    // start_time?: string;
+    // until_id?: string;
     userId: string;
 }
 

@@ -15,9 +15,6 @@ class TwitterProvider {
 
     /**
      * Reference to the underlying Twitter client if direct access is required
-     *
-     * @type {Twitter}
-     * @memberof TwitterProvider
      */
     public readonly client: Twitter;
 
@@ -42,7 +39,7 @@ class TwitterProvider {
      */
     public listTweets(
         params: ListTweetsParams
-    ): Promise<TwitterResponse<Tweet[]>> {
+    ): Promise<TwitterResponse<Tweet[]> & Includes> {
         return this.client.get(
             Endpoint.tweets(),
             ParamMapper.toListTweetsParams(params)
