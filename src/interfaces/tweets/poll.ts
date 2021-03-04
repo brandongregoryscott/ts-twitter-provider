@@ -1,15 +1,15 @@
-import { Media } from "./tweets/media";
-import { Poll } from "./tweets/poll";
-
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Includes {
-    includes?: {
-        media?: Media[];
-        polls?: Poll[];
-    };
+import { PollOption } from "./poll-option";
+
+interface Poll {
+    id: string;
+    options: PollOption[];
+    duration_minutes: number;
+    end_datetime: string;
+    voting_status: string;
 }
 
 // #endregion Interfaces
@@ -18,6 +18,6 @@ interface Includes {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Includes };
+export { Poll };
 
 // #endregion Exports

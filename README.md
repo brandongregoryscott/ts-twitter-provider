@@ -7,6 +7,10 @@
 
 A typed wrapper around the Twitter V2 API
 
+_Package is in development and API is subject to change._
+
+---
+
 ## Getting started
 
 This package is installed via npm or yarn

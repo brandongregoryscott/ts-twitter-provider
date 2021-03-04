@@ -123,6 +123,14 @@ describe("TwitterProvider", () => {
             const tweet = result.data[0];
             expect(tweet.attachments).toBeDefined();
             expect(tweet.attachments?.poll_ids).toHaveLength(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
+
+            const poll = result.includes?.polls?.[0]!;
+            expect(poll.id).toBeDefined();
+            expect(poll.options.length).toBeGreaterThanOrEqual(1);
+            expect(poll.voting_status).toBe("closed");
         });
 
         test.skip("TODO - given list of pollFields without specifying expansions, it returns tweets with list of poll_ids", async () => {
@@ -145,13 +153,12 @@ describe("TwitterProvider", () => {
             expect(tweet.attachments?.poll_ids).toHaveLength(1);
 
             expect(result.includes).toBeDefined();
-            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
 
-            const attachment = result.includes?.media?.[0]!;
-            expect(attachment.media_key).toBeDefined();
-            expect(attachment.type).toBeDefined();
-            expect(attachment.width).toBeDefined();
-            expect(attachment.height).toBeDefined();
+            const poll = result.includes?.polls?.[0]!;
+            expect(poll.id).toBeDefined();
+            expect(poll.options.length).toBeGreaterThanOrEqual(1);
+            expect(poll.voting_status).toBe("closed");
         });
     });
 
