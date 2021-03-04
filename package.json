@@ -6,6 +6,7 @@
     "description": "A typed wrapper around the Twitter V2 API",
     "devDependencies": {
         "@types/jest": "26.0.15",
+        "cross-env": "7.0.3",
         "dotenv": "8.2.0",
         "jest": "26.4.2",
         "prettier": "1.19.1",
@@ -30,7 +31,9 @@
         "build": "tsc --pretty",
         "clean": "rimraf dist",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
+        "postpublish": "cross-env-shell \"git add -A && git commit -m \"$npm_package_version\" && git push origin main\"",
         "prebuild": "npm run clean && npm run format && echo Using TypeScript && tsc --version",
+        "prepublishOnly": "npm run build",
         "test": "jest",
         "test:watch": "jest --watch"
     },
