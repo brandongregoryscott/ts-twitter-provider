@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { TweetFields } from "./enums/tweet-fields";
 import { TweetExpansions } from "./enums/tweet-expansions";
 import { MediaFields } from "./enums/media-fields";
+import { PollFields } from "./enums/poll-fields";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -102,6 +103,55 @@ describe("TwitterProvider", () => {
             expect(tweet.author_id).not.toBeUndefined();
             expect(tweet.attachments).not.toBeUndefined();
             expect(tweet.attachments?.media_keys).toHaveLength(1);
+        });
+
+        test(`given list of pollFields and '${TweetExpansions.AttachmentsPollIds}', it returns tweets with list of poll_ids`, async () => {
+            // Arrange
+            const ids = "1342161609909800963";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweets({
+                ids,
+                expansions: [TweetExpansions.AttachmentsPollIds],
+                pollFields: [PollFields.VotingStatus],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+
+            const tweet = result.data[0];
+            expect(tweet.attachments).toBeDefined();
+            expect(tweet.attachments?.poll_ids).toHaveLength(1);
+        });
+
+        test.skip("TODO - given list of pollFields without specifying expansions, it returns tweets with list of poll_ids", async () => {
+            // Arrange
+            const ids = "1342161609909800963";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweets({
+                ids,
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentsPollIds
+                pollFields: [PollFields.VotingStatus],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+
+            const tweet = result.data[0];
+            expect(tweet.attachments).toBeDefined();
+            expect(tweet.attachments?.poll_ids).toHaveLength(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+
+            const attachment = result.includes?.media?.[0]!;
+            expect(attachment.media_key).toBeDefined();
+            expect(attachment.type).toBeDefined();
+            expect(attachment.width).toBeDefined();
+            expect(attachment.height).toBeDefined();
         });
     });
 

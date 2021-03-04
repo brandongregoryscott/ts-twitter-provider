@@ -20,7 +20,7 @@
         "dist"
     ],
     "license": "ISC",
-    "main": "index.js",
+    "main": "dist/index.js",
     "name": "ts-twitter-provider",
     "repository": {
         "type": "git",

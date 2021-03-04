@@ -1,21 +1,15 @@
-import { RequestParameters } from "twitter-v2";
-import { BaseParams, RawBaseParams } from "./base-params";
+import { PollFields } from "../../enums/poll-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListTweetsParams extends BaseParams {
-    ids: string | string[];
+interface PollFieldsParams {
+    pollFields?: PollFields[];
 }
 
-/**
- * Interface representing what the /tweets endpoint expects directly
- */
-interface RawListTweetsParams extends RequestParameters, RawBaseParams {
-    ids: string;
-    "place.fields"?: any;
-    "user.fields"?: any;
+interface RawPollFieldsParams {
+    "poll.fields": string;
 }
 
 // #endregion Interfaces
@@ -24,6 +18,6 @@ interface RawListTweetsParams extends RequestParameters, RawBaseParams {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { ListTweetsParams, RawListTweetsParams };
+export { PollFieldsParams, RawPollFieldsParams };
 
 // #endregion Exports

@@ -2,6 +2,7 @@
 // #region Enums
 // -----------------------------------------------------------------------------------------
 
+export { PollFields } from "./enums/poll-fields";
 export { MediaFields } from "./enums/media-fields";
 export { TweetExpansions } from "./enums/tweet-expansions";
 export { TweetFields } from "./enums/tweet-fields";

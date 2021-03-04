@@ -11,6 +11,7 @@ import {
     MediaFieldsParams,
     RawMediaFieldsParams,
 } from "../interfaces/params/media-fields-params";
+import { RawBaseParams, BaseParams } from "../interfaces/params/base-params";
 import {
     RawTweetExpansionsParams,
     TweetExpansionsParams,
@@ -19,6 +20,10 @@ import {
     RawTweetFieldsParams,
     TweetFieldsParams,
 } from "../interfaces/params/tweet-fields-params";
+import {
+    PollFieldsParams,
+    RawPollFieldsParams,
+} from "../interfaces/params/poll-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -35,9 +40,7 @@ const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
 
     transformedParams = {
         ...transformedParams,
-        ..._mapTweetFields(params),
-        ..._mapTweetExpansions(params),
-        ..._mapMediaFields(params),
+        ..._mapSharedFields(params),
     };
 
     return transformedParams as RawListTweetsParams;
@@ -47,17 +50,7 @@ const toListTweetsByUserParams = (
     params: ListTweetsByUserParams
 ): RawListTweetsByUserParams => {
     params = _preprocessInputParams(params);
-
-    let transformedParams: Partial<RawListTweetsByUserParams> = {};
-
-    transformedParams = {
-        ...transformedParams,
-        ..._mapTweetFields(params),
-        ..._mapTweetExpansions(params),
-        ..._mapMediaFields(params),
-    };
-
-    return transformedParams as RawListTweetsByUserParams;
+    return _mapSharedFields(params) as RawListTweetsByUserParams;
 };
 
 // #endregion Public Functions
@@ -95,43 +88,44 @@ const _preprocessInputParams = <
     return processed;
 };
 
-const _mapMediaFields = <
-    TParams extends MediaFieldsParams,
-    TRawParams extends RawMediaFieldsParams
->(
-    params: TParams
-): TRawParams => {
-    const transformedParams: Partial<TRawParams> = {};
-    if (params.mediaFields != null && params.mediaFields.length > 0) {
-        transformedParams["media.fields"] = params.mediaFields.join(",");
-    }
+const _mapSharedFields = (params: BaseParams): RawBaseParams => {
+    const transformedParams: RawBaseParams = {
+        ..._mapArrayToCsv<TweetFieldsParams, RawTweetFieldsParams>(
+            "fields",
+            "tweet.fields",
+            params
+        ),
+        ..._mapArrayToCsv<TweetExpansionsParams, RawTweetExpansionsParams>(
+            "expansions",
+            "expansions",
+            params
+        ),
+        ..._mapArrayToCsv<MediaFieldsParams, RawMediaFieldsParams>(
+            "mediaFields",
+            "media.fields",
+            params
+        ),
+        ..._mapArrayToCsv<PollFieldsParams, RawPollFieldsParams>(
+            "pollFields",
+            "poll.fields",
+            params
+        ),
+    };
 
-    return transformedParams as TRawParams;
+    return transformedParams;
 };
 
-const _mapTweetExpansions = <
-    TParams extends TweetExpansionsParams,
-    TRawParams extends RawTweetExpansionsParams
->(
+const _mapArrayToCsv = <TParams, TRawParams>(
+    key: keyof TParams,
+    rawKey: keyof TRawParams,
     params: TParams
 ): TRawParams => {
     const transformedParams: Partial<TRawParams> = {};
-    if (params.expansions != null && params.expansions.length > 0) {
-        transformedParams.expansions = params.expansions.join(",");
-    }
+    const enumValues = (params[key] as any) as any[];
+    const hasEnumValues = enumValues != null && enumValues.length > 0;
 
-    return transformedParams as TRawParams;
-};
-
-const _mapTweetFields = <
-    TParams extends TweetFieldsParams,
-    TRawParams extends RawTweetFieldsParams
->(
-    params: TParams
-): TRawParams => {
-    const transformedParams: Partial<TRawParams> = {};
-    if (params.fields != null && params.fields.length > 0) {
-        transformedParams["tweet.fields"] = params.fields;
+    if (hasEnumValues) {
+        (transformedParams[rawKey] as any) = enumValues.join(",");
     }
 
     return transformedParams as TRawParams;

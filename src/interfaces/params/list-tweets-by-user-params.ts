@@ -1,22 +1,11 @@
 import { RequestParameters } from "twitter-v2";
-import { MediaFieldsParams, RawMediaFieldsParams } from "./media-fields-params";
-import {
-    RawTweetExpansionsParams,
-    TweetExpansionsParams,
-} from "./tweet-expansions-params";
-import {
-    TweetFieldsParams,
-    RawTweetFieldsParams,
-} from "../params/tweet-fields-params";
+import { BaseParams, RawBaseParams } from "./base-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListTweetsByUserParams
-    extends TweetFieldsParams,
-        TweetExpansionsParams,
-        MediaFieldsParams {
+interface ListTweetsByUserParams extends BaseParams {
     // end_time?: string;
     // exclude?: "retweets" | "replies";
     // max_results?: number;
@@ -30,13 +19,8 @@ interface ListTweetsByUserParams
 /**
  * Interface representing what the /users/:id/tweets endpoint expects directly
  */
-interface RawListTweetsByUserParams
-    extends RequestParameters,
-        RawTweetFieldsParams,
-        RawTweetExpansionsParams,
-        RawMediaFieldsParams {
+interface RawListTweetsByUserParams extends RequestParameters, RawBaseParams {
     "place.fields"?: any;
-    "poll.fields"?: any;
     "user.fields"?: any;
 }
 
