@@ -1,8 +1,8 @@
+import { PollOption } from "./poll-option";
+
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
-
-import { PollOption } from "./poll-option";
 
 interface Poll {
     id: string;

@@ -28,6 +28,10 @@ import {
     RawUserFieldsParams,
     UserFieldsParams,
 } from "../interfaces/params/user-fields-params";
+import {
+    PlaceFieldsParams,
+    RawPlaceFieldsParams,
+} from "../interfaces/params/place-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -138,6 +142,11 @@ const _mapSharedFields = (params: BaseParams): RawBaseParams => {
         ..._mapArrayToCsv<UserFieldsParams, RawUserFieldsParams>(
             "userFields",
             "user.fields",
+            params
+        ),
+        ..._mapArrayToCsv<PlaceFieldsParams, RawPlaceFieldsParams>(
+            "placeFields",
+            "place.fields",
             params
         ),
     };

@@ -1,22 +1,15 @@
-import { Attachments } from "./attachments";
+import { PlaceFields } from "../../enums/place-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Tweet {
-    id: string;
-    text: string;
+interface PlaceFieldsParams {
+    placeFields?: PlaceFields[];
+}
 
-    // Additional fields
-    author_id?: string;
-    attachments?: Attachments;
-    conversation_id?: string;
-    created_at?: string;
-    geo?: object;
-    in_reply_to_user_id?: string;
-    lang?: string;
-    referenced_tweets?: Tweet[];
+interface RawPlaceFieldsParams {
+    "place.fields": string;
 }
 
 // #endregion Interfaces
@@ -25,6 +18,6 @@ interface Tweet {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Tweet };
+export { PlaceFieldsParams, RawPlaceFieldsParams };
 
 // #endregion Exports

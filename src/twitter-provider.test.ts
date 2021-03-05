@@ -6,6 +6,7 @@ import { MediaFields } from "./enums/media-fields";
 import { PollFields } from "./enums/poll-fields";
 import faker from "faker";
 import { UserFields } from "./enums/user-fields";
+import { PlaceFields } from "./enums/place-fields";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -161,6 +162,30 @@ describe("TwitterProvider", () => {
             expect(poll.id).toBeDefined();
             expect(poll.options.length).toBeGreaterThanOrEqual(1);
             expect(poll.voting_status).toBe("closed");
+        });
+
+        test(`given list of placeFields and '${TweetExpansions.GeoPlaceId}', it returns tweets with those included fields`, async () => {
+            // Arrange
+            const ids = ["1136048014974423040"];
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweets({
+                ids,
+                expansions: [TweetExpansions.GeoPlaceId],
+                placeFields: [PlaceFields.Country, PlaceFields.Name],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].geo).toBeDefined();
+
+            expect(result.includes?.places).toBeDefined();
+            expect(result.includes?.places?.length).toBeGreaterThanOrEqual(1);
+
+            const place = result.includes?.places?.[0]!;
+            expect(place.country).toBeDefined();
+            expect(place.name).toBeDefined();
         });
     });
 

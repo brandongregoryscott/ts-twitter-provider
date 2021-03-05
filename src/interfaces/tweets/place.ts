@@ -1,22 +1,18 @@
-import { Attachments } from "./attachments";
-
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Tweet {
+interface Place {
     id: string;
-    text: string;
+    full_name: string;
 
     // Additional fields
-    author_id?: string;
-    attachments?: Attachments;
-    conversation_id?: string;
-    created_at?: string;
+    contained_within?: any[];
+    country?: string;
+    country_code?: string;
     geo?: object;
-    in_reply_to_user_id?: string;
-    lang?: string;
-    referenced_tweets?: Tweet[];
+    name?: string;
+    place_type?: string;
 }
 
 // #endregion Interfaces
@@ -25,6 +21,6 @@ interface Tweet {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Tweet };
+export { Place };
 
 // #endregion Exports

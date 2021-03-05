@@ -1,4 +1,5 @@
 import { MediaFieldsParams, RawMediaFieldsParams } from "./media-fields-params";
+import { PlaceFieldsParams, RawPlaceFieldsParams } from "./place-fields-params";
 import { PollFieldsParams, RawPollFieldsParams } from "./poll-fields-params";
 import {
     RawTweetExpansionsParams,
@@ -12,17 +13,19 @@ import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 // -----------------------------------------------------------------------------------------
 
 interface BaseParams
-    extends PollFieldsParams,
-        TweetFieldsParams,
+    extends MediaFieldsParams,
+        PlaceFieldsParams,
+        PollFieldsParams,
         TweetExpansionsParams,
-        MediaFieldsParams,
+        TweetFieldsParams,
         UserFieldsParams {}
 
 interface RawBaseParams
-    extends RawPollFieldsParams,
-        RawTweetFieldsParams,
+    extends RawMediaFieldsParams,
+        RawPlaceFieldsParams,
+        RawPollFieldsParams,
         RawTweetExpansionsParams,
-        RawMediaFieldsParams,
+        RawTweetFieldsParams,
         RawUserFieldsParams {}
 
 // #endregion Interfaces
