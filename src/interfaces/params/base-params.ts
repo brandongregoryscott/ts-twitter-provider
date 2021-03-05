@@ -5,6 +5,7 @@ import {
     TweetExpansionsParams,
 } from "./tweet-expansions-params";
 import { RawTweetFieldsParams, TweetFieldsParams } from "./tweet-fields-params";
+import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
@@ -14,13 +15,15 @@ interface BaseParams
     extends PollFieldsParams,
         TweetFieldsParams,
         TweetExpansionsParams,
-        MediaFieldsParams {}
+        MediaFieldsParams,
+        UserFieldsParams {}
 
 interface RawBaseParams
     extends RawPollFieldsParams,
         RawTweetFieldsParams,
         RawTweetExpansionsParams,
-        RawMediaFieldsParams {}
+        RawMediaFieldsParams,
+        RawUserFieldsParams {}
 
 // #endregion Interfaces
 

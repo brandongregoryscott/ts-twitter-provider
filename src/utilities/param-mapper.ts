@@ -24,6 +24,10 @@ import {
     PollFieldsParams,
     RawPollFieldsParams,
 } from "../interfaces/params/poll-fields-params";
+import {
+    RawUserFieldsParams,
+    UserFieldsParams,
+} from "../interfaces/params/user-fields-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -129,6 +133,11 @@ const _mapSharedFields = (params: BaseParams): RawBaseParams => {
         ..._mapArrayToCsv<PollFieldsParams, RawPollFieldsParams>(
             "pollFields",
             "poll.fields",
+            params
+        ),
+        ..._mapArrayToCsv<UserFieldsParams, RawUserFieldsParams>(
+            "userFields",
+            "user.fields",
             params
         ),
     };

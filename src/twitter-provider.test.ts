@@ -5,6 +5,7 @@ import { TweetExpansions } from "./enums/tweet-expansions";
 import { MediaFields } from "./enums/media-fields";
 import { PollFields } from "./enums/poll-fields";
 import faker from "faker";
+import { UserFields } from "./enums/user-fields";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -80,7 +81,7 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data).toHaveLength(1);
-            expect(result.data[0].lang).not.toBeUndefined();
+            expect(result.data[0].lang).toBeDefined();
         });
 
         test("given list of expansions, it returns tweets with those expanded fields", async () => {
@@ -101,8 +102,8 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeGreaterThanOrEqual(1);
 
             const tweet = result.data[0];
-            expect(tweet.author_id).not.toBeUndefined();
-            expect(tweet.attachments).not.toBeUndefined();
+            expect(tweet.author_id).toBeDefined();
+            expect(tweet.attachments).toBeDefined();
             expect(tweet.attachments?.media_keys).toHaveLength(1);
         });
 
@@ -260,7 +261,7 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].lang).not.toBeUndefined();
+            expect(result.data[0].lang).toBeDefined();
         });
 
         test("given list of expansions, it returns tweets with those expanded fields", async () => {
@@ -281,8 +282,8 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeGreaterThanOrEqual(1);
 
             const tweet = result.data[0];
-            expect(tweet.author_id).not.toBeUndefined();
-            expect(tweet.attachments).not.toBeUndefined();
+            expect(tweet.author_id).toBeDefined();
+            expect(tweet.attachments).toBeDefined();
             expect(tweet.attachments?.media_keys).toHaveLength(1);
         });
 
@@ -356,6 +357,56 @@ describe("TwitterProvider", () => {
             expect(attachment.type).toBeDefined();
             expect(attachment.width).toBeDefined();
             expect(attachment.height).toBeDefined();
+        });
+
+        test(`given list of userFields and '${TweetExpansions.AuthorId}', it returns tweets with those included fields`, async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                expansions: [TweetExpansions.AuthorId],
+                userFields: [UserFields.CreatedAt, UserFields.Verified],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].author_id).toBeDefined();
+
+            expect(result.includes?.users).toBeDefined();
+            expect(result.includes?.users?.length).toBeGreaterThanOrEqual(1);
+
+            const user = result.includes?.users?.[0]!;
+            expect(user.username).toBe("bscottoriginals");
+            expect(user.created_at).toBeDefined();
+            expect(user.verified).toBeDefined();
+        });
+
+        test.skip(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                expansions: [TweetExpansions.AuthorId],
+                userFields: [UserFields.CreatedAt, UserFields.Verified],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            expect(result.data[0].author_id).toBeDefined();
+
+            expect(result.includes?.users).toBeDefined();
+            expect(result.includes?.users?.length).toBeGreaterThanOrEqual(1);
+
+            const user = result.includes?.users?.[0]!;
+            expect(user.username).toBe("bscottoriginals");
+            expect(user.created_at).toBeDefined();
+            expect(user.verified).toBeDefined();
         });
     });
 

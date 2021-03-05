@@ -25,7 +25,6 @@ interface RawListTweetsByUserParams extends RequestParameters, RawBaseParams {
     max_results: string;
     pagination_token: string;
     "place.fields"?: any;
-    "user.fields"?: any;
 }
 
 // #endregion Interfaces

@@ -1,17 +1,15 @@
-import { Media } from "./tweets/media";
-import { Poll } from "./tweets/poll";
-import { User } from "./tweets/user";
+import { UserFields } from "../../enums/user-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Includes {
-    includes?: {
-        media?: Media[];
-        polls?: Poll[];
-        users?: User[];
-    };
+interface UserFieldsParams {
+    userFields?: UserFields[];
+}
+
+interface RawUserFieldsParams {
+    "user.fields": string;
 }
 
 // #endregion Interfaces
@@ -20,6 +18,6 @@ interface Includes {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Includes };
+export { UserFieldsParams, RawUserFieldsParams };
 
 // #endregion Exports

@@ -15,7 +15,6 @@ interface ListTweetsParams extends BaseParams {
 interface RawListTweetsParams extends RequestParameters, RawBaseParams {
     ids: string;
     "place.fields"?: any;
-    "user.fields"?: any;
 }
 
 // #endregion Interfaces
