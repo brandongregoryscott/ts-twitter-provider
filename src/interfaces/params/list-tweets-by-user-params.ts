@@ -9,7 +9,7 @@ interface ListTweetsByUserParams extends BaseParams {
     // end_time?: string;
     // exclude?: "retweets" | "replies";
     max_results?: number;
-    // pagination_token?: string;
+    pagination_token?: string;
     since_id?: string;
     // start_time?: string;
     until_id?: string;
@@ -23,6 +23,7 @@ interface RawListTweetsByUserParams extends RequestParameters, RawBaseParams {
     since_id: string;
     until_id: string;
     max_results: string;
+    pagination_token: string;
     "place.fields"?: any;
     "user.fields"?: any;
 }

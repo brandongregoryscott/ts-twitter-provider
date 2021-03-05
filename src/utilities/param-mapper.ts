@@ -67,6 +67,10 @@ const toListTweetsByUserParams = (
         transformedParams.max_results = params.max_results.toString();
     }
 
+    if (params.pagination_token != null) {
+        transformedParams.pagination_token = params.pagination_token.toString();
+    }
+
     return transformedParams as RawListTweetsByUserParams;
 };
 

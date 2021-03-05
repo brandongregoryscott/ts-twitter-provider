@@ -229,6 +229,24 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeLessThanOrEqual(max_results);
         });
 
+        test("given pagination_token, returns next page of tweets", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const sut = setupSut();
+
+            const pageOne = await sut.listTweetsByUser({ userId });
+            const pagination_token = pageOne.meta?.next_token;
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                pagination_token,
+            });
+
+            // Assert
+            expect(result.meta?.previous_token).toBeDefined();
+        });
+
         test("given list of fields, it returns tweets with those included fields", async () => {
             // Arrange
             const userId = "953649053631434752";

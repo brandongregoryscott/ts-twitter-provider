@@ -1,12 +1,15 @@
-import { Includes } from "./includes";
-import { Meta } from "./meta";
-
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface TwitterResponse<T> extends Includes, Meta {
-    data: T;
+interface Meta {
+    meta?: {
+        newest_id: string;
+        next_token: string;
+        oldest_id: string;
+        previous_token?: string;
+        result_count: number;
+    };
 }
 
 // #endregion Interfaces
@@ -15,6 +18,6 @@ interface TwitterResponse<T> extends Includes, Meta {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { TwitterResponse };
+export { Meta };
 
 // #endregion Exports

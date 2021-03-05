@@ -6,7 +6,6 @@ import { TwitterResponse } from "./interfaces/twitter-response";
 import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
-import { Includes } from "./interfaces/includes";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -39,7 +38,7 @@ class TwitterProvider {
      */
     public listTweets(
         params: ListTweetsParams
-    ): Promise<TwitterResponse<Tweet[]> & Includes> {
+    ): Promise<TwitterResponse<Tweet[]>> {
         return this.client.get(
             Endpoint.tweets(),
             ParamMapper.toListTweetsParams(params)
@@ -51,7 +50,7 @@ class TwitterProvider {
      */
     public listTweetsByUser(
         params: ListTweetsByUserParams
-    ): Promise<TwitterResponse<Tweet[]> & Includes> {
+    ): Promise<TwitterResponse<Tweet[]>> {
         return this.client.get(
             Endpoint.userTweets(params.userId),
             ParamMapper.toListTweetsByUserParams(params)
