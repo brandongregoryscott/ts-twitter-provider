@@ -5,9 +5,11 @@
     },
     "description": "A typed wrapper around the Twitter V2 API",
     "devDependencies": {
+        "@types/faker": "5.1.7",
         "@types/jest": "26.0.15",
         "cross-env": "7.0.3",
         "dotenv": "8.2.0",
+        "faker": "5.4.0",
         "jest": "26.4.2",
         "prettier": "1.19.1",
         "rimraf": "2.6.2",

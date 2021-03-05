@@ -50,7 +50,24 @@ const toListTweetsByUserParams = (
     params: ListTweetsByUserParams
 ): RawListTweetsByUserParams => {
     params = _preprocessInputParams(params);
-    return _mapSharedFields(params) as RawListTweetsByUserParams;
+
+    const transformedParams: Partial<RawListTweetsByUserParams> = {
+        ..._mapSharedFields(params),
+    };
+
+    if (params.until_id != null) {
+        transformedParams.until_id = params.until_id;
+    }
+
+    if (params.since_id != null) {
+        transformedParams.since_id = params.since_id;
+    }
+
+    if (params.max_results != null) {
+        transformedParams.max_results = params.max_results.toString();
+    }
+
+    return transformedParams as RawListTweetsByUserParams;
 };
 
 // #endregion Public Functions

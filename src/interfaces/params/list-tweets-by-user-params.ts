@@ -8,11 +8,11 @@ import { BaseParams, RawBaseParams } from "./base-params";
 interface ListTweetsByUserParams extends BaseParams {
     // end_time?: string;
     // exclude?: "retweets" | "replies";
-    // max_results?: number;
+    max_results?: number;
     // pagination_token?: string;
-    // since_id?: string;
+    since_id?: string;
     // start_time?: string;
-    // until_id?: string;
+    until_id?: string;
     userId: string;
 }
 
@@ -20,6 +20,9 @@ interface ListTweetsByUserParams extends BaseParams {
  * Interface representing what the /users/:id/tweets endpoint expects directly
  */
 interface RawListTweetsByUserParams extends RequestParameters, RawBaseParams {
+    since_id: string;
+    until_id: string;
+    max_results: string;
     "place.fields"?: any;
     "user.fields"?: any;
 }

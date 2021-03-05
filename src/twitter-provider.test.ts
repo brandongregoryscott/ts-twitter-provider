@@ -4,6 +4,7 @@ import { TweetFields } from "./enums/tweet-fields";
 import { TweetExpansions } from "./enums/tweet-expansions";
 import { MediaFields } from "./enums/media-fields";
 import { PollFields } from "./enums/poll-fields";
+import faker from "faker";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -179,6 +180,53 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
+        });
+
+        test("given until_id, returns list of recent tweets up to that id", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const until_id = "1366493658762084362";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({ userId, until_id });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            result.data.forEach((tweet) =>
+                expect(Number(tweet.id)).toBeLessThanOrEqual(Number(until_id))
+            );
+        });
+
+        test("given since_id, returns list of recent tweets after that id", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const since_id = "1366493658762084362";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({ userId, since_id });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            result.data.forEach((tweet) =>
+                expect(Number(tweet.id)).toBeGreaterThanOrEqual(
+                    Number(since_id)
+                )
+            );
+        });
+
+        test("given max_results, returns up to that count of recent tweets", async () => {
+            // Arrange
+            const userId = "953649053631434752";
+            const max_results = faker.random.number({ min: 5, max: 100 });
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({ userId, max_results });
+
+            // Assert
+            expect(result.data.length).toBeLessThanOrEqual(max_results);
         });
 
         test("given list of fields, it returns tweets with those included fields", async () => {
