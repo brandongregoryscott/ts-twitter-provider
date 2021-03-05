@@ -71,6 +71,20 @@ const toListTweetsByUserParams = (
         transformedParams.since_id = params.since_id;
     }
 
+    if (params.start_time != null) {
+        transformedParams.start_time =
+            params.start_time instanceof Date
+                ? params.start_time.toISOString()
+                : params.start_time;
+    }
+
+    if (params.end_time != null) {
+        transformedParams.end_time =
+            params.end_time instanceof Date
+                ? params.end_time.toISOString()
+                : params.end_time;
+    }
+
     if (params.max_results != null) {
         transformedParams.max_results = params.max_results.toString();
     }

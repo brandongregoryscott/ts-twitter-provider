@@ -255,6 +255,58 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeLessThanOrEqual(max_results);
         });
 
+        // Testing string + Date
+        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+            "given start_time string, returns tweets on or after that date",
+            async (start_time) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
+
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    start_time,
+                    fields: [TweetFields.CreatedAt],
+                });
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) => {
+                    expect(tweet.created_at).toBeDefined();
+                    expect(
+                        new Date(tweet.created_at!) >= new Date(start_time)
+                    ).toBe(true);
+                });
+            }
+        );
+
+        // Testing string + Date
+        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+            `given end_time as %p, returns tweets before or on that date`,
+            async (end_time) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
+
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    end_time,
+                    fields: [TweetFields.CreatedAt],
+                });
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) => {
+                    expect(tweet.created_at).toBeDefined();
+                    expect(
+                        new Date(tweet.created_at!) <= new Date(end_time)
+                    ).toBe(true);
+                });
+            }
+        );
+
         test("given pagination_token, returns next page of tweets", async () => {
             // Arrange
             const userId = "953649053631434752";
