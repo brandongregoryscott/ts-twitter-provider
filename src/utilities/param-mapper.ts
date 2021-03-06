@@ -32,6 +32,10 @@ import {
     PlaceFieldsParams,
     RawPlaceFieldsParams,
 } from "../interfaces/params/place-fields-params";
+import {
+    ExcludeParams,
+    RawExcludeParams,
+} from "../interfaces/params/exclude-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -61,6 +65,11 @@ const toListTweetsByUserParams = (
 
     const transformedParams: Partial<RawListTweetsByUserParams> = {
         ..._mapSharedFields(params),
+        ..._mapArrayToCsv<ExcludeParams, RawExcludeParams>(
+            "exclude",
+            "exclude",
+            params
+        ),
     };
 
     if (params.until_id != null) {

@@ -7,6 +7,7 @@ import { PollFields } from "./enums/poll-fields";
 import faker from "faker";
 import { UserFields } from "./enums/user-fields";
 import { PlaceFields } from "./enums/place-fields";
+import { TweetTypes } from "./enums/tweet-types";
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -206,6 +207,26 @@ describe("TwitterProvider", () => {
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
+        });
+
+        test("given list of excludes, it returns tweets without those types", async () => {
+            // Arrange
+            const userId = "326756275";
+            const sut = setupSut();
+
+            // Act
+            const result = await sut.listTweetsByUser({
+                userId,
+                // Despite requesting this field, it should always be undefined
+                fields: [TweetFields.InReplyToUserId],
+                exclude: [TweetTypes.Replies, TweetTypes.Retweets],
+            });
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+            result.data.forEach((tweet) =>
+                expect(tweet.in_reply_to_user_id).toBeUndefined()
+            );
         });
 
         test("given until_id, returns list of recent tweets up to that id", async () => {

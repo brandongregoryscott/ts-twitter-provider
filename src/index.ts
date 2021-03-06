@@ -7,7 +7,7 @@ export { PlaceFields } from "./enums/place-fields";
 export { PollFields } from "./enums/poll-fields";
 export { TweetExpansions } from "./enums/tweet-expansions";
 export { TweetFields } from "./enums/tweet-fields";
-export { TweetType } from "./enums/tweet-type";
+export { TweetTypes } from "./enums/tweet-types";
 export { UserFields } from "./enums/user-fields";
 
 // #endregion Enums

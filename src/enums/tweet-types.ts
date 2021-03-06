@@ -2,10 +2,9 @@
 // #region Enums
 // -----------------------------------------------------------------------------------------
 
-enum TweetType {
-    Retweeted = "retweeted",
-    Quoted = "quoted",
-    RepliedTo = "replied_to",
+enum TweetTypes {
+    Retweets = "retweets",
+    Replies = "replies",
 }
 
 // #endregion Enums
@@ -14,6 +13,6 @@ enum TweetType {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { TweetType };
+export { TweetTypes };
 
 // #endregion Exports

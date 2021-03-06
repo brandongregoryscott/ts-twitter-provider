@@ -1,13 +1,13 @@
 import { RequestParameters } from "twitter-v2";
 import { BaseParams, RawBaseParams } from "./base-params";
+import { ExcludeParams, RawExcludeParams } from "./exclude-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListTweetsByUserParams extends BaseParams {
+interface ListTweetsByUserParams extends BaseParams, ExcludeParams {
     end_time?: string | Date;
-    // exclude?: "retweets" | "replies";
     max_results?: number;
     pagination_token?: string;
     since_id?: string;
@@ -19,7 +19,10 @@ interface ListTweetsByUserParams extends BaseParams {
 /**
  * Interface representing what the /users/:id/tweets endpoint expects directly
  */
-interface RawListTweetsByUserParams extends RequestParameters, RawBaseParams {
+interface RawListTweetsByUserParams
+    extends RequestParameters,
+        RawBaseParams,
+        RawExcludeParams {
     end_time: string;
     max_results: string;
     pagination_token: string;
