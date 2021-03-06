@@ -1,0 +1,67 @@
+name: ts-twitter-provider
+
+on:
+    push:
+        branches: ["*"]
+    pull_request_target:
+        branches: [main]
+    workflow_dispatch:
+
+env:
+    SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
+
+jobs:
+    notify_start:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Notify CI channel start
+              uses: voxmedia/github-action-slack-notify-build@v1
+              with:
+                  channel: ci
+                  color: "#3278BD"
+                  status: STARTED
+    build:
+        runs-on: ${{matrix.os}}
+        needs: [notify_start]
+        strategy:
+            matrix:
+                os:
+                    - ubuntu-latest
+                node:
+                    - 14.15.5
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup node ${{matrix.node}}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{matrix.node}}
+
+            - name: npm install
+              run: |
+                  npm install
+
+            - name: npm run test
+              run: |
+                  npm run test
+
+    notify_end:
+        runs-on: ubuntu-latest
+        if: always()
+        needs: [build]
+        steps:
+            - name: Notify CI channel success
+              if: success()
+              uses: voxmedia/github-action-slack-notify-build@v1
+              with:
+                  channel: ci
+                  color: good
+                  status: SUCCESS
+
+            - name: Notify CI channel failure
+              if: failure()
+              uses: voxmedia/github-action-slack-notify-build@v1
+              with:
+                  channel: ci
+                  color: danger
+                  status: FAILED
