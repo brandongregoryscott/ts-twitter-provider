@@ -8,6 +8,8 @@ on:
     workflow_dispatch:
 
 env:
+    CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+    CONSUMER_SECRET: ${{secrets.CONSUMER_SECRET}}
     SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
 
 jobs:
