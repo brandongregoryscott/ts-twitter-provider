@@ -14,6 +14,7 @@
         "prettier": "1.19.1",
         "rimraf": "2.6.2",
         "ts-jest": "26.4.4",
+        "typedoc": "0.20.30",
         "typescript": "4.0.3"
     },
     "engines": {
@@ -23,6 +24,13 @@
         "dist"
     ],
     "license": "ISC",
+    "keywords": [
+        "api",
+        "typescript",
+        "twitter",
+        "twitter-api",
+        "twitter-client"
+    ],
     "main": "dist/index.js",
     "name": "ts-twitter-provider",
     "repository": {
@@ -31,8 +39,10 @@
     },
     "scripts": {
         "build": "tsc --pretty",
-        "clean": "rimraf dist",
+        "clean": "rimraf dist docs",
+        "docs": "typedoc --excludeExternals src",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
+        "postbuild": "npm run docs",
         "postpublish": "cross-env-shell \"git add -A && git commit -m \"$npm_package_version\" && git push origin main\"",
         "prebuild": "npm run clean && npm run format && echo Using TypeScript && tsc --version",
         "prepublishOnly": "npm run build",
