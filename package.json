@@ -15,6 +15,8 @@
         "rimraf": "2.6.2",
         "ts-jest": "26.4.4",
         "typedoc": "0.20.30",
+        "typedoc-neo-theme": "1.1.0",
+        "typedoc-plugin-merge-modules": "1.0.0",
         "typescript": "4.0.3"
     },
     "engines": {
@@ -40,7 +42,7 @@
     "scripts": {
         "build": "tsc --pretty",
         "clean": "rimraf dist docs",
-        "docs": "typedoc --excludeExternals src",
+        "docs": "typedoc --excludeExternals --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme --plugin typedoc-plugin-merge-modules src",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
         "postbuild": "npm run docs",
         "postpublish": "cross-env-shell \"git add -A && git commit -m \"$npm_package_version\" && git push origin main\"",
