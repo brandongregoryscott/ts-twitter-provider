@@ -65,11 +65,7 @@ const toListTweetsByUserParams = (
 
     const transformedParams: Partial<RawListTweetsByUserParams> = {
         ..._mapSharedFields(params),
-        ..._mapArrayToCsv<ExcludeParams, RawExcludeParams>(
-            "exclude",
-            "exclude",
-            params
-        ),
+        ..._mapArrayToCsv<ExcludeParams, RawExcludeParams>(params, "exclude"),
     };
 
     if (params.until_id != null) {
@@ -143,34 +139,33 @@ const _preprocessInputParams = <
 const _mapSharedFields = (params: BaseParams): RawBaseParams => {
     const transformedParams: RawBaseParams = {
         ..._mapArrayToCsv<TweetFieldsParams, RawTweetFieldsParams>(
+            params,
             "fields",
-            "tweet.fields",
-            params
+            "tweet.fields"
         ),
         ..._mapArrayToCsv<TweetExpansionsParams, RawTweetExpansionsParams>(
-            "expansions",
-            "expansions",
-            params
+            params,
+            "expansions"
         ),
         ..._mapArrayToCsv<MediaFieldsParams, RawMediaFieldsParams>(
+            params,
             "mediaFields",
-            "media.fields",
-            params
+            "media.fields"
         ),
         ..._mapArrayToCsv<PollFieldsParams, RawPollFieldsParams>(
+            params,
             "pollFields",
-            "poll.fields",
-            params
+            "poll.fields"
         ),
         ..._mapArrayToCsv<UserFieldsParams, RawUserFieldsParams>(
+            params,
             "userFields",
-            "user.fields",
-            params
+            "user.fields"
         ),
         ..._mapArrayToCsv<PlaceFieldsParams, RawPlaceFieldsParams>(
+            params,
             "placeFields",
-            "place.fields",
-            params
+            "place.fields"
         ),
     };
 
@@ -178,16 +173,20 @@ const _mapSharedFields = (params: BaseParams): RawBaseParams => {
 };
 
 const _mapArrayToCsv = <TParams, TRawParams>(
+    params: TParams,
     key: keyof TParams,
-    rawKey: keyof TRawParams,
-    params: TParams
+    rawKey?: keyof TRawParams
 ): TRawParams => {
     const transformedParams: Partial<TRawParams> = {};
-    const enumValues = (params[key] as any) as any[];
-    const hasEnumValues = enumValues != null && enumValues.length > 0;
+    if (rawKey == null) {
+        rawKey = key as any;
+    }
 
-    if (hasEnumValues) {
-        (transformedParams[rawKey] as any) = enumValues.join(",");
+    const values = (params[key] as any) as any[];
+    const hasValues = values != null && values.length > 0;
+
+    if (hasValues) {
+        (transformedParams[rawKey!] as any) = values.join(",");
     }
 
     return transformedParams as TRawParams;
