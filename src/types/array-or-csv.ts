@@ -1,24 +1,18 @@
-import { TweetExpansions } from "../../enums/tweet-expansions";
-import { ArrayOrCsv } from "../../types/array-or-csv";
-
 // -----------------------------------------------------------------------------------------
-// #region Interfaces
+// #region Types
 // -----------------------------------------------------------------------------------------
 
-interface TweetExpansionsParams {
-    expansions?: ArrayOrCsv<TweetExpansions>;
-}
+/**
+ * Utility type for endpoints that accept strings representing arrays
+ */
+type ArrayOrCsv<T> = T[] | string;
 
-interface RawTweetExpansionsParams {
-    expansions: string;
-}
-
-// #endregion Interfaces
+// #endregion Types
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { TweetExpansionsParams, RawTweetExpansionsParams };
+export { ArrayOrCsv };
 
 // #endregion Exports

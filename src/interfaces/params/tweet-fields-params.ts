@@ -1,11 +1,12 @@
 import { TweetFields } from "../../enums/tweet-fields";
+import { ArrayOrCsv } from "../../types/array-or-csv";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
 interface TweetFieldsParams {
-    fields?: TweetFields[];
+    fields?: ArrayOrCsv<TweetFields>;
 }
 
 interface RawTweetFieldsParams {

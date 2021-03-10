@@ -7,35 +7,31 @@ import {
     ListTweetsParams,
     RawListTweetsParams,
 } from "../interfaces/params/list-tweets-params";
-import {
-    MediaFieldsParams,
-    RawMediaFieldsParams,
-} from "../interfaces/params/media-fields-params";
+import { MediaFieldsParams } from "../interfaces/params/media-fields-params";
 import { RawBaseParams, BaseParams } from "../interfaces/params/base-params";
-import {
-    RawTweetExpansionsParams,
-    TweetExpansionsParams,
-} from "../interfaces/params/tweet-expansions-params";
-import {
-    RawTweetFieldsParams,
-    TweetFieldsParams,
-} from "../interfaces/params/tweet-fields-params";
-import {
-    PollFieldsParams,
-    RawPollFieldsParams,
-} from "../interfaces/params/poll-fields-params";
-import {
-    RawUserFieldsParams,
-    UserFieldsParams,
-} from "../interfaces/params/user-fields-params";
-import {
-    PlaceFieldsParams,
-    RawPlaceFieldsParams,
-} from "../interfaces/params/place-fields-params";
-import {
-    ExcludeParams,
-    RawExcludeParams,
-} from "../interfaces/params/exclude-params";
+import { TweetExpansionsParams } from "../interfaces/params/tweet-expansions-params";
+
+// -----------------------------------------------------------------------------------------
+// #region Constants
+// -----------------------------------------------------------------------------------------
+
+const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
+    fields: "tweet.fields",
+};
+
+const _unmappedKeys: Array<UnmappedKey> = ["userId"];
+
+// #endregion Constants
+
+// -----------------------------------------------------------------------------------------
+// #region Types
+// -----------------------------------------------------------------------------------------
+
+type CustomMapKey = keyof Pick<BaseParams, "fields">;
+type CustomMapValue = keyof Pick<RawBaseParams, "tweet.fields">;
+type UnmappedKey = keyof Pick<ListTweetsByUserParams, "userId">;
+
+// #endregion Types
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -44,15 +40,8 @@ import {
 const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
     params = _preprocessInputParams(params);
 
-    let transformedParams: Partial<RawListTweetsParams> = {};
-
-    transformedParams.ids = Array.isArray(params.ids)
-        ? params.ids.join()
-        : _sanitizeCsvString(params.ids).join();
-
-    transformedParams = {
-        ...transformedParams,
-        ..._mapSharedFields(params),
+    const transformedParams: Partial<RawListTweetsParams> = {
+        ..._transformAndMapKeys(params),
     };
 
     return transformedParams as RawListTweetsParams;
@@ -64,40 +53,8 @@ const toListTweetsByUserParams = (
     params = _preprocessInputParams(params);
 
     const transformedParams: Partial<RawListTweetsByUserParams> = {
-        ..._mapSharedFields(params),
-        ..._mapArrayToCsv<ExcludeParams, RawExcludeParams>(params, "exclude"),
+        ..._transformAndMapKeys(params),
     };
-
-    if (params.until_id != null) {
-        transformedParams.until_id = params.until_id;
-    }
-
-    if (params.since_id != null) {
-        transformedParams.since_id = params.since_id;
-    }
-
-    if (params.start_time != null) {
-        transformedParams.start_time =
-            params.start_time instanceof Date
-                ? params.start_time.toISOString()
-                : params.start_time;
-    }
-
-    if (params.end_time != null) {
-        transformedParams.end_time =
-            params.end_time instanceof Date
-                ? params.end_time.toISOString()
-                : params.end_time;
-    }
-
-    if (params.max_results != null) {
-        transformedParams.max_results = params.max_results.toString();
-    }
-
-    if (params.pagination_token != null) {
-        transformedParams.pagination_token = params.pagination_token.toString();
-    }
-
     return transformedParams as RawListTweetsByUserParams;
 };
 
@@ -136,64 +93,72 @@ const _preprocessInputParams = <
     return processed;
 };
 
-const _mapSharedFields = (params: BaseParams): RawBaseParams => {
-    const transformedParams: RawBaseParams = {
-        ..._mapArrayToCsv<TweetFieldsParams, RawTweetFieldsParams>(
-            params,
-            "fields",
-            "tweet.fields"
-        ),
-        ..._mapArrayToCsv<TweetExpansionsParams, RawTweetExpansionsParams>(
-            params,
-            "expansions"
-        ),
-        ..._mapArrayToCsv<MediaFieldsParams, RawMediaFieldsParams>(
-            params,
-            "mediaFields",
-            "media.fields"
-        ),
-        ..._mapArrayToCsv<PollFieldsParams, RawPollFieldsParams>(
-            params,
-            "pollFields",
-            "poll.fields"
-        ),
-        ..._mapArrayToCsv<UserFieldsParams, RawUserFieldsParams>(
-            params,
-            "userFields",
-            "user.fields"
-        ),
-        ..._mapArrayToCsv<PlaceFieldsParams, RawPlaceFieldsParams>(
-            params,
-            "placeFields",
-            "place.fields"
-        ),
-    };
-
-    return transformedParams;
-};
-
-const _mapArrayToCsv = <TParams, TRawParams>(
-    params: TParams,
-    key: keyof TParams,
-    rawKey?: keyof TRawParams
+const _transformAndMapKeys = <TParams extends Record<string, any>, TRawParams>(
+    params: TParams
 ): TRawParams => {
-    const transformedParams: Partial<TRawParams> = {};
-    if (rawKey == null) {
-        rawKey = key as any;
-    }
+    const rawParams: Record<string, any> = {};
+    const keyMap = _transformKeysToMap(Object.keys(params));
 
-    const values = (params[key] as any) as any[];
-    const hasValues = values != null && values.length > 0;
+    Object.entries(keyMap).forEach(([original, transformedKey]) => {
+        const value = params[original];
+        let transformedValue: string | undefined = undefined;
+        if (typeof value === "number" || typeof value === "string") {
+            transformedValue = value.toString();
+        }
 
-    if (hasValues) {
-        (transformedParams[rawKey!] as any) = values.join(",");
-    }
+        if (typeof value === "string" && value.includes(",")) {
+            transformedValue = _sanitizeCsv(value);
+        }
 
-    return transformedParams as TRawParams;
+        if (value instanceof Date) {
+            transformedValue = value.toISOString();
+        }
+
+        if (Array.isArray(value)) {
+            transformedValue = value.join();
+        }
+
+        if (transformedValue == null) {
+            throw new Error(
+                `Could not transform original value '${value}' from param key '${original}' - is this a supported param or type?`
+            );
+        }
+
+        rawParams[transformedKey] = transformedValue;
+    });
+
+    return rawParams as TRawParams;
 };
 
-const _sanitizeCsvString = (input: string): string[] =>
-    input.split(",").map((value: string) => value.trim());
+const _transformKeysToMap = (keys: string[]): Record<string, string> => {
+    const keyMap: Record<string, string> = {};
+    keys.filter((key) => !_unmappedKeys.includes(key as UnmappedKey)).forEach(
+        (unmodified) => {
+            if (Object.keys(_customMappedKeys).includes(unmodified)) {
+                keyMap[unmodified] =
+                    _customMappedKeys[unmodified as CustomMapKey];
+                return;
+            }
+
+            const objectFieldsMatch = unmodified.match(/([a-z]+)(Fields)/);
+            if (objectFieldsMatch != null) {
+                keyMap[unmodified] = unmodified.replace("Fields", ".fields");
+                return;
+            }
+
+            keyMap[unmodified] = unmodified;
+            return;
+        }
+    );
+
+    return keyMap;
+};
+
+const _sanitizeCsv = (input: string): string =>
+    input
+        .split(",")
+        .map((value: string) => value.trim())
+        .join();
 
 // #endregion Private Functions
 

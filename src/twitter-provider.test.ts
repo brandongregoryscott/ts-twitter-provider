@@ -46,68 +46,67 @@ describe("TwitterProvider", () => {
             expect(result.data).toHaveLength(1);
         });
 
-        test("given array of valid ids, it returns multiple tweets", async () => {
+        test.each([
+            ["1326691582758760450", "1327657800667947008"],
+            "1326691582758760450,1327657800667947008",
+        ])("given ids %p, it returns multiple tweets", async (ids) => {
             // Arrange
-            const ids = ["1326691582758760450", "1327657800667947008"];
             const sut = setupSut();
 
             // Act
             const result = await sut.listTweets({ ids });
 
             // Assert
-            expect(result.data).toHaveLength(ids.length);
+            expect(result.data).toHaveLength(2);
         });
 
-        test("given comma separated string of valid ids, it returns multiple tweets", async () => {
-            // Arrange
-            const ids = "1326691582758760450,1327657800667947008";
-            const sut = setupSut();
+        test.each([
+            [TweetFields.Lang, TweetFields.Id],
+            `${TweetFields.Lang},${TweetFields.Id}`,
+        ])(
+            "given fields %p, it returns tweets with those included fields",
+            async (fields) => {
+                // Arrange
+                const ids = "1141796911684476929";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweets({ ids });
+                // Act
+                const result = await sut.listTweets({
+                    ids,
+                    fields,
+                });
 
-            // Assert
-            expect(result.data).toHaveLength(ids.split(",").length);
-        });
+                // Assert
+                expect(result.data).toHaveLength(1);
+                expect(result.data[0].lang).toBeDefined();
+            }
+        );
 
-        test("given list of fields, it returns tweets with those included fields", async () => {
-            // Arrange
-            const ids = "1141796911684476929";
-            const sut = setupSut();
+        test.each([
+            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
+            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
+        ])(
+            "given expansions %p, it returns tweets with those expanded fields",
+            async (expansions) => {
+                // Arrange
+                const ids = "1141796911684476929";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweets({
-                ids,
-                fields: [TweetFields.Lang],
-            });
+                // Act
+                const result = await sut.listTweets({
+                    ids,
+                    expansions,
+                });
 
-            // Assert
-            expect(result.data).toHaveLength(1);
-            expect(result.data[0].lang).toBeDefined();
-        });
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
 
-        test("given list of expansions, it returns tweets with those expanded fields", async () => {
-            // Arrange
-            const ids = "1141796911684476929";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({
-                ids,
-                expansions: [
-                    TweetExpansions.AttachmentsMediaKeys,
-                    TweetExpansions.AuthorId,
-                ],
-            });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-            const tweet = result.data[0];
-            expect(tweet.author_id).toBeDefined();
-            expect(tweet.attachments).toBeDefined();
-            expect(tweet.attachments?.media_keys).toHaveLength(1);
-        });
+                const tweet = result.data[0];
+                expect(tweet.author_id).toBeDefined();
+                expect(tweet.attachments).toBeDefined();
+                expect(tweet.attachments?.media_keys).toHaveLength(1);
+            }
+        );
 
         test(`given list of pollFields and '${TweetExpansions.AttachmentsPollIds}', it returns tweets with list of poll_ids`, async () => {
             // Arrange
@@ -209,25 +208,31 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeGreaterThanOrEqual(1);
         });
 
-        test("given list of excludes, it returns tweets without those types", async () => {
-            // Arrange
-            const userId = "326756275";
-            const sut = setupSut();
+        test.each([
+            [TweetTypes.Replies, TweetTypes.Retweets],
+            `${TweetTypes.Replies},${TweetTypes.Retweets}`,
+        ])(
+            "given exclude %p, it returns tweets without those types",
+            async (exclude) => {
+                // Arrange
+                const userId = "326756275";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                // Despite requesting this field, it should always be undefined
-                fields: [TweetFields.InReplyToUserId],
-                exclude: [TweetTypes.Replies, TweetTypes.Retweets],
-            });
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    // Despite requesting this field, it should always be undefined
+                    fields: [TweetFields.InReplyToUserId],
+                    exclude,
+                });
 
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            result.data.forEach((tweet) =>
-                expect(tweet.in_reply_to_user_id).toBeUndefined()
-            );
-        });
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) =>
+                    expect(tweet.in_reply_to_user_id).toBeUndefined()
+                );
+            }
+        );
 
         test("given until_id, returns list of recent tweets up to that id", async () => {
             // Arrange
@@ -278,7 +283,7 @@ describe("TwitterProvider", () => {
 
         // Testing string + Date
         test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            "given start_time string, returns tweets on or after that date",
+            "given start_time %p, returns tweets on or after that date",
             async (start_time) => {
                 // Arrange
                 const userId = "953649053631434752";
@@ -304,7 +309,7 @@ describe("TwitterProvider", () => {
 
         // Testing string + Date
         test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            `given end_time as %p, returns tweets before or on that date`,
+            `given end_time %p, returns tweets before or on that date`,
             async (end_time) => {
                 // Arrange
                 const userId = "953649053631434752";
@@ -346,44 +351,53 @@ describe("TwitterProvider", () => {
             expect(result.meta?.previous_token).toBeDefined();
         });
 
-        test("given list of fields, it returns tweets with those included fields", async () => {
-            // Arrange
-            const userId = "953649053631434752";
-            const sut = setupSut();
+        test.each([
+            [TweetFields.Lang, TweetFields.Id],
+            `${TweetFields.Lang},${TweetFields.Id}`,
+        ])(
+            "given fields %p, it returns tweets with those included fields",
+            async (fields) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                fields: [TweetFields.Lang],
-            });
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    fields,
+                });
 
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].lang).toBeDefined();
-        });
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                expect(result.data[0].lang).toBeDefined();
+            }
+        );
 
-        test("given list of expansions, it returns tweets with those expanded fields", async () => {
-            // Arrange
-            const userId = "953649053631434752";
-            const sut = setupSut();
+        test.each([
+            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
+            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
+        ])(
+            "given expansions %p, it returns tweets with those expanded fields",
+            async (expansions) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                expansions: [
-                    TweetExpansions.AttachmentsMediaKeys,
-                    TweetExpansions.AuthorId,
-                ],
-            });
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    expansions,
+                });
 
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
 
-            const tweet = result.data[0];
-            expect(tweet.author_id).toBeDefined();
-            expect(tweet.attachments).toBeDefined();
-            expect(tweet.attachments?.media_keys).toHaveLength(1);
-        });
+                const tweet = result.data[0];
+                expect(tweet.author_id).toBeDefined();
+                expect(tweet.attachments).toBeDefined();
+                expect(tweet.attachments?.media_keys).toHaveLength(1);
+            }
+        );
 
         test(`given list of mediaFields and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`, async () => {
             // Arrange
@@ -457,30 +471,38 @@ describe("TwitterProvider", () => {
             expect(attachment.height).toBeDefined();
         });
 
-        test(`given list of userFields and '${TweetExpansions.AuthorId}', it returns tweets with those included fields`, async () => {
-            // Arrange
-            const userId = "953649053631434752";
-            const sut = setupSut();
+        test.each([
+            [UserFields.CreatedAt, UserFields.Verified],
+            `${UserFields.CreatedAt},${UserFields.Verified}`,
+        ])(
+            `given userFields %p and '${TweetExpansions.AuthorId}', it returns tweets with those included fields`,
+            async (userFields) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                expansions: [TweetExpansions.AuthorId],
-                userFields: [UserFields.CreatedAt, UserFields.Verified],
-            });
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    expansions: [TweetExpansions.AuthorId],
+                    userFields,
+                });
 
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].author_id).toBeDefined();
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                expect(result.data[0].author_id).toBeDefined();
 
-            expect(result.includes?.users).toBeDefined();
-            expect(result.includes?.users?.length).toBeGreaterThanOrEqual(1);
+                expect(result.includes?.users).toBeDefined();
+                expect(result.includes?.users?.length).toBeGreaterThanOrEqual(
+                    1
+                );
 
-            const user = result.includes?.users?.[0]!;
-            expect(user.username).toBe("bscottoriginals");
-            expect(user.created_at).toBeDefined();
-            expect(user.verified).toBeDefined();
-        });
+                const user = result.includes?.users?.[0]!;
+                expect(user.username).toBe("bscottoriginals");
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
 
         test.skip(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
             // Arrange

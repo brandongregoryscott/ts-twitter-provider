@@ -1,4 +1,5 @@
 import { RequestParameters } from "twitter-v2";
+import { ArrayOrCsv } from "../../types/array-or-csv";
 import { BaseParams, RawBaseParams } from "./base-params";
 
 // -----------------------------------------------------------------------------------------
@@ -6,7 +7,7 @@ import { BaseParams, RawBaseParams } from "./base-params";
 // -----------------------------------------------------------------------------------------
 
 interface ListTweetsParams extends BaseParams {
-    ids: string | string[];
+    ids: ArrayOrCsv<string>;
 }
 
 /**
