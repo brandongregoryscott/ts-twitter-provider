@@ -164,7 +164,39 @@ describe("TwitterProvider", () => {
             expect(poll.voting_status).toBe("closed");
         });
 
-        test(`given list of placeFields and '${TweetExpansions.GeoPlaceId}', it returns tweets with those included fields`, async () => {
+        test.each([
+            [PlaceFields.Country, PlaceFields.Name],
+            `${PlaceFields.Country},${PlaceFields.Name}`,
+        ])(
+            `given placeFields %p and '${TweetExpansions.GeoPlaceId}', it returns tweets with those included fields`,
+            async (placeFields) => {
+                // Arrange
+                const ids = ["1136048014974423040"];
+                const sut = setupSut();
+
+                // Act
+                const result = await sut.listTweets({
+                    ids,
+                    expansions: [TweetExpansions.GeoPlaceId],
+                    placeFields,
+                });
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                expect(result.data[0].geo).toBeDefined();
+
+                expect(result.includes?.places).toBeDefined();
+                expect(result.includes?.places?.length).toBeGreaterThanOrEqual(
+                    1
+                );
+
+                const place = result.includes?.places?.[0]!;
+                expect(place.country).toBeDefined();
+                expect(place.name).toBeDefined();
+            }
+        );
+
+        test("given list of placeFields without specifying expansions, it returns tweets with those included fields", async () => {
             // Arrange
             const ids = ["1136048014974423040"];
             const sut = setupSut();
@@ -172,7 +204,7 @@ describe("TwitterProvider", () => {
             // Act
             const result = await sut.listTweets({
                 ids,
-                expansions: [TweetExpansions.GeoPlaceId],
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.GeoPlaceId
                 placeFields: [PlaceFields.Country, PlaceFields.Name],
             });
 
@@ -399,41 +431,54 @@ describe("TwitterProvider", () => {
             }
         );
 
-        test(`given list of mediaFields and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`, async () => {
-            // Arrange
-            const userId = "953649053631434752";
-            const sut = setupSut();
+        test.each([
+            [
+                MediaFields.Height,
+                MediaFields.MediaKey,
+                MediaFields.Type,
+                MediaFields.Width,
+            ],
+            [
+                MediaFields.Height,
+                MediaFields.MediaKey,
+                MediaFields.Type,
+                MediaFields.Width,
+            ].join(),
+        ])(
+            `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`,
+            async (mediaFields) => {
+                // Arrange
+                const userId = "953649053631434752";
+                const sut = setupSut();
 
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                expansions: [TweetExpansions.AttachmentsMediaKeys],
-                mediaFields: [
-                    MediaFields.Height,
-                    MediaFields.MediaKey,
-                    MediaFields.Type,
-                    MediaFields.Width,
-                ],
-            });
+                // Act
+                const result = await sut.listTweetsByUser({
+                    userId,
+                    expansions: [TweetExpansions.AttachmentsMediaKeys],
+                    mediaFields,
+                });
 
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            const tweet = result.data[0];
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                const tweet = result.data[0];
 
-            expect(tweet.attachments).toBeDefined();
-            expect(
-                tweet.attachments?.media_keys?.length
-            ).toBeGreaterThanOrEqual(1);
+                expect(tweet.attachments).toBeDefined();
+                expect(
+                    tweet.attachments?.media_keys?.length
+                ).toBeGreaterThanOrEqual(1);
 
-            expect(result.includes).toBeDefined();
-            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+                expect(result.includes).toBeDefined();
+                expect(result.includes?.media?.length).toBeGreaterThanOrEqual(
+                    1
+                );
 
-            const attachment = result.includes?.media?.[0]!;
-            expect(attachment.media_key).toBeDefined();
-            expect(attachment.type).toBeDefined();
-            expect(attachment.width).toBeDefined();
-            expect(attachment.height).toBeDefined();
-        });
+                const attachment = result.includes?.media?.[0]!;
+                expect(attachment.media_key).toBeDefined();
+                expect(attachment.type).toBeDefined();
+                expect(attachment.width).toBeDefined();
+                expect(attachment.height).toBeDefined();
+            }
+        );
 
         test("given list of mediaFields without specifying expansions, it returns tweets with those media fields", async () => {
             // Arrange

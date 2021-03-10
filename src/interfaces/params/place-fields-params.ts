@@ -1,11 +1,12 @@
 import { PlaceFields } from "../../enums/place-fields";
+import { ArrayOrCsv } from "../../types/array-or-csv";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
 interface PlaceFieldsParams {
-    placeFields?: PlaceFields[];
+    placeFields?: ArrayOrCsv<PlaceFields>;
 }
 
 interface RawPlaceFieldsParams {

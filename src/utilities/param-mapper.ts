@@ -10,6 +10,7 @@ import {
 import { MediaFieldsParams } from "../interfaces/params/media-fields-params";
 import { RawBaseParams, BaseParams } from "../interfaces/params/base-params";
 import { TweetExpansionsParams } from "../interfaces/params/tweet-expansions-params";
+import { ArrayOrCsv } from "../types/array-or-csv";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -64,29 +65,52 @@ const toListTweetsByUserParams = (
 // #region Private Functions
 // -----------------------------------------------------------------------------------------
 
+const _arrayOrCsvToArray = <T extends string>(
+    value?: ArrayOrCsv<T>
+): string[] => {
+    if (Array.isArray(value)) {
+        return value;
+    }
+
+    if (value != null && value.length < 0) {
+        return _sanitizeCsv(value).split(",");
+    }
+
+    return [];
+};
+
 /**
  * Preprocessing to prevent common mistakes such as requesting media fields without expanding attachments
  */
-const _preprocessInputParams = <
-    TParams extends MediaFieldsParams & TweetExpansionsParams
->(
+const _preprocessInputParams = <TParams extends BaseParams>(
     params: TParams
 ): TParams => {
     let processed: TParams = { ...params };
-    const { expansions, mediaFields } = params;
+    let expansions = _arrayOrCsvToArray(params.expansions);
+    const mediaFields = _arrayOrCsvToArray(params.mediaFields);
+    const placeFields = _arrayOrCsvToArray(params.placeFields);
 
     const requestingMediaFields = mediaFields != null && mediaFields.length > 0;
-    const missingAttachmentExpansion =
-        expansions == null ||
-        !expansions.includes(TweetExpansions.AttachmentsMediaKeys);
+    const missingAttachmentExpansion = !expansions.includes(
+        TweetExpansions.AttachmentsMediaKeys
+    );
 
     if (requestingMediaFields && missingAttachmentExpansion) {
         processed = {
             ...processed,
-            expansions: [
-                ...(expansions ?? []),
-                TweetExpansions.AttachmentsMediaKeys,
-            ],
+            expansions: [...expansions, TweetExpansions.AttachmentsMediaKeys],
+        };
+    }
+
+    const requestingPlaceFields = placeFields != null && placeFields.length > 0;
+    const missingGeoPlaceIdExpansion = !expansions.includes(
+        TweetExpansions.GeoPlaceId
+    );
+
+    if (requestingPlaceFields && missingGeoPlaceIdExpansion) {
+        processed = {
+            ...processed,
+            expansions: [...expansions, TweetExpansions.GeoPlaceId],
         };
     }
 

@@ -1,11 +1,12 @@
 import { MediaFields } from "../../enums/media-fields";
+import { ArrayOrCsv } from "../../types/array-or-csv";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
 interface MediaFieldsParams {
-    mediaFields?: MediaFields[];
+    mediaFields?: ArrayOrCsv<MediaFields>;
 }
 
 interface RawMediaFieldsParams {
