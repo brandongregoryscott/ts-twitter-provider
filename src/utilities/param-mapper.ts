@@ -12,6 +12,10 @@ import { ArrayOrCsv } from "../types/array-or-csv";
 import { MediaFields } from "../enums/media-fields";
 import { PlaceFields } from "../enums/place-fields";
 import { PollFields } from "../enums/poll-fields";
+import {
+    ListMentionsByUserParams,
+    RawListMentionsByUserParams,
+} from "../interfaces/params/list-mentions-by-user-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -57,6 +61,17 @@ type UnmappedKey = keyof Pick<ListTweetsByUserParams, "userId">;
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
+
+const toListMentionsByUserParams = (
+    params: ListMentionsByUserParams
+): RawListMentionsByUserParams => {
+    params = _preprocessInputParams(params);
+
+    const transformedParams: Partial<RawListMentionsByUserParams> = {
+        ..._transformAndMapKeys(params),
+    };
+    return transformedParams as RawListMentionsByUserParams;
+};
 
 const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
     params = _preprocessInputParams(params);
@@ -204,6 +219,7 @@ const _sanitizeCsv = (input: string): string =>
 // -----------------------------------------------------------------------------------------
 
 const ParamMapper = {
+    toListMentionsByUserParams,
     toListTweetsParams,
     toListTweetsByUserParams,
 };

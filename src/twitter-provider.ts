@@ -6,8 +6,10 @@ import { TwitterResponse } from "./interfaces/twitter-response";
 import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
+import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
+import { TwitterProvider as TwitterProviderInterface } from "./interfaces/twitter-provider";
 
-class TwitterProvider {
+class TwitterProvider implements TwitterProviderInterface {
     // -----------------------------------------------------------------------------------------
     // #region Public Members
     // -----------------------------------------------------------------------------------------
@@ -32,6 +34,15 @@ class TwitterProvider {
     // -----------------------------------------------------------------------------------------
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
+
+    public listMentionsByUser(
+        params: ListMentionsByUserParams
+    ): Promise<TwitterResponse<Tweet[]>> {
+        return this.client.get(
+            Endpoint.userMentions(params.userId),
+            ParamMapper.toListMentionsByUserParams(params)
+        );
+    }
 
     /**
      * List tweets by given id(s)

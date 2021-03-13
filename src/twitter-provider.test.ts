@@ -8,6 +8,22 @@ import faker from "faker";
 import { UserFields } from "./enums/user-fields";
 import { PlaceFields } from "./enums/place-fields";
 import { TweetTypes } from "./enums/tweet-types";
+import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
+import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
+import { TwitterProvider as TwitterProviderInterface } from "./interfaces/twitter-provider";
+import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
+
+// -----------------------------------------------------------------------------------------
+// #region Interfaces
+// -----------------------------------------------------------------------------------------
+
+interface TestOptions<TParams> {
+    name?: string;
+    methodName: keyof TwitterProviderInterface;
+    params: TParams;
+}
+
+// #endregion Interfaces
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -27,23 +43,88 @@ describe("TwitterProvider", () => {
             consumer_secret: process.env.CONSUMER_SECRET!,
         });
 
+    const testReturnsTweets = <
+        TParams =
+            | ListTweetsByUserParams
+            | ListMentionsByUserParams
+            | ListTweetsParams
+    >(
+        options: TestOptions<TParams>
+    ) => {
+        const name = options.name ?? "returns tweets";
+        const { methodName, params } = options;
+        test(name, async () => {
+            // Arrange
+            const sut = setupSut();
+
+            // Act
+            const result = await sut[methodName](params as any);
+
+            // Assert
+            expect(result.data.length).toBeGreaterThanOrEqual(1);
+        });
+    };
+
+    const testEndTimeReturnsTweetsOnOrBeforeDate = <
+        TParams = ListTweetsByUserParams | ListMentionsByUserParams
+    >(
+        options: TestOptions<TParams>
+    ) => {
+        const name =
+            options.name ??
+            "given end_time %p, returns tweets before or on that date";
+        const { methodName } = options;
+        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+            name,
+            async (end_time) => {
+                // Arrange
+                const sut = setupSut();
+                const params = Object.assign(options.params, { end_time });
+
+                // Act
+                const result = await sut[methodName](params as any);
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) => {
+                    expect(tweet.created_at).toBeDefined();
+                    expect(
+                        new Date(tweet.created_at!) <= new Date(end_time)
+                    ).toBe(true);
+                });
+            }
+        );
+    };
+
     // #endregion Setup
+
+    // -----------------------------------------------------------------------------------------
+    // #region listMentionsByUser
+    // -----------------------------------------------------------------------------------------
+
+    describe("listMentionsByUser", () => {
+        testReturnsTweets<ListMentionsByUserParams>({
+            methodName: "listMentionsByUser",
+            params: { userId: "63046977" },
+        });
+
+        testEndTimeReturnsTweetsOnOrBeforeDate<ListMentionsByUserParams>({
+            methodName: "listMentionsByUser",
+            params: { userId: "63046977", fields: [TweetFields.CreatedAt] },
+        });
+    });
+
+    // #endregion listMentionsByUser
 
     // -----------------------------------------------------------------------------------------
     // #region listTweets
     // -----------------------------------------------------------------------------------------
 
     describe("listTweets", () => {
-        test("given a valid id, it returns a tweet", async () => {
-            // Arrange
-            const ids = "1326691582758760450";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({ ids });
-
-            // Assert
-            expect(result.data).toHaveLength(1);
+        testReturnsTweets<ListTweetsParams>({
+            name: "given a valid id, it returns a tweet",
+            methodName: "listTweets",
+            params: { ids: "1326691582758760450" },
         });
 
         test.each([
@@ -228,16 +309,9 @@ describe("TwitterProvider", () => {
     // -----------------------------------------------------------------------------------------
 
     describe("listTweetsByUser", () => {
-        test("given userId, returns list of recent tweets", async () => {
-            // Arrange
-            const userId = "953649053631434752";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweetsByUser({ userId });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
+        testReturnsTweets<ListTweetsByUserParams>({
+            methodName: "listTweetsByUser",
+            params: { userId: "63046977" },
         });
 
         test.each([
@@ -339,31 +413,13 @@ describe("TwitterProvider", () => {
             }
         );
 
-        // Testing string + Date
-        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            `given end_time %p, returns tweets before or on that date`,
-            async (end_time) => {
-                // Arrange
-                const userId = "953649053631434752";
-                const sut = setupSut();
-
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    end_time,
-                    fields: [TweetFields.CreatedAt],
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                result.data.forEach((tweet) => {
-                    expect(tweet.created_at).toBeDefined();
-                    expect(
-                        new Date(tweet.created_at!) <= new Date(end_time)
-                    ).toBe(true);
-                });
-            }
-        );
+        testEndTimeReturnsTweetsOnOrBeforeDate<ListTweetsByUserParams>({
+            methodName: "listTweetsByUser",
+            params: {
+                userId: "953649053631434752",
+                fields: [TweetFields.CreatedAt],
+            },
+        });
 
         test("given pagination_token, returns next page of tweets", async () => {
             // Arrange
@@ -549,7 +605,7 @@ describe("TwitterProvider", () => {
             }
         );
 
-        test.skip(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
+        test(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
             // Arrange
             const userId = "953649053631434752";
             const sut = setupSut();
