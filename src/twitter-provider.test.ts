@@ -136,7 +136,7 @@ describe("TwitterProvider", () => {
             expect(poll.voting_status).toBe("closed");
         });
 
-        test.skip("TODO - given list of pollFields without specifying expansions, it returns tweets with list of poll_ids", async () => {
+        test("given list of pollFields without specifying expansions, it returns tweets with list of poll_ids", async () => {
             // Arrange
             const ids = "1342161609909800963";
             const sut = setupSut();

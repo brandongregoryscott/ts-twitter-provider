@@ -7,10 +7,11 @@ import {
     ListTweetsParams,
     RawListTweetsParams,
 } from "../interfaces/params/list-tweets-params";
-import { MediaFieldsParams } from "../interfaces/params/media-fields-params";
 import { RawBaseParams, BaseParams } from "../interfaces/params/base-params";
-import { TweetExpansionsParams } from "../interfaces/params/tweet-expansions-params";
 import { ArrayOrCsv } from "../types/array-or-csv";
+import { MediaFields } from "../enums/media-fields";
+import { PlaceFields } from "../enums/place-fields";
+import { PollFields } from "../enums/poll-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -19,6 +20,21 @@ import { ArrayOrCsv } from "../types/array-or-csv";
 const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
     fields: "tweet.fields",
 };
+
+const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
+    {
+        requestedFields: Object.values(MediaFields),
+        expansion: TweetExpansions.AttachmentsMediaKeys,
+    },
+    {
+        requestedFields: Object.values(PlaceFields),
+        expansion: TweetExpansions.GeoPlaceId,
+    },
+    {
+        requestedFields: Object.values(PollFields),
+        expansion: TweetExpansions.AttachmentsPollIds,
+    },
+];
 
 const _unmappedKeys: Array<UnmappedKey> = ["userId"];
 
@@ -30,6 +46,10 @@ const _unmappedKeys: Array<UnmappedKey> = ["userId"];
 
 type CustomMapKey = keyof Pick<BaseParams, "fields">;
 type CustomMapValue = keyof Pick<RawBaseParams, "tweet.fields">;
+type FieldToExpansionMap = {
+    requestedFields: MediaFields[] | PlaceFields[] | PollFields[] | any[];
+    expansion: TweetExpansions;
+};
 type UnmappedKey = keyof Pick<ListTweetsByUserParams, "userId">;
 
 // #endregion Types
@@ -65,15 +85,13 @@ const toListTweetsByUserParams = (
 // #region Private Functions
 // -----------------------------------------------------------------------------------------
 
-const _arrayOrCsvToArray = <T extends string>(
-    value?: ArrayOrCsv<T>
-): string[] => {
+const _arrayOrCsvToArray = <T extends string>(value?: ArrayOrCsv<T>): T[] => {
     if (Array.isArray(value)) {
         return value;
     }
 
     if (value != null && value.length < 0) {
-        return _sanitizeCsv(value).split(",");
+        return _sanitizeCsv(value).split(",") as T[];
     }
 
     return [];
@@ -87,32 +105,27 @@ const _preprocessInputParams = <TParams extends BaseParams>(
 ): TParams => {
     let processed: TParams = { ...params };
     let expansions = _arrayOrCsvToArray(params.expansions);
-    const mediaFields = _arrayOrCsvToArray(params.mediaFields);
-    const placeFields = _arrayOrCsvToArray(params.placeFields);
 
-    const requestingMediaFields = mediaFields != null && mediaFields.length > 0;
-    const missingAttachmentExpansion = !expansions.includes(
-        TweetExpansions.AttachmentsMediaKeys
-    );
+    const keys = Object.keys(params).filter((key) => key.endsWith("Fields"));
+    const values = keys
+        .map((key) => _arrayOrCsvToArray((params as any)[key]))
+        .flat();
 
-    if (requestingMediaFields && missingAttachmentExpansion) {
+    _fieldToExpansionMappings.forEach((map) => {
+        const { requestedFields, expansion } = map;
+        if (!values.some((field) => requestedFields.includes(field))) {
+            return;
+        }
+
+        if (expansions.includes(expansion)) {
+            return;
+        }
+
         processed = {
             ...processed,
-            expansions: [...expansions, TweetExpansions.AttachmentsMediaKeys],
+            expansions: [...expansions, expansion],
         };
-    }
-
-    const requestingPlaceFields = placeFields != null && placeFields.length > 0;
-    const missingGeoPlaceIdExpansion = !expansions.includes(
-        TweetExpansions.GeoPlaceId
-    );
-
-    if (requestingPlaceFields && missingGeoPlaceIdExpansion) {
-        processed = {
-            ...processed,
-            expansions: [...expansions, TweetExpansions.GeoPlaceId],
-        };
-    }
+    });
 
     return processed;
 };
