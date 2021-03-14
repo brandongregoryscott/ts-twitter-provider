@@ -10,8 +10,9 @@ import { PlaceFields } from "./enums/place-fields";
 import { TweetTypes } from "./enums/tweet-types";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
-import { TwitterProvider as TwitterProviderInterface } from "./interfaces/twitter-provider";
 import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
+import { TwitterResponse } from "./interfaces/twitter-response";
+import { Tweet } from "./interfaces/tweets/tweet";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
@@ -19,13 +20,21 @@ import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
 
 interface TestOptions<TParams> {
     name?: string;
-    methodName: keyof TwitterProviderInterface;
+    method: (
+        sut: TwitterProvider
+    ) => (params: TParams) => Promise<TwitterResponse<Tweet[]>>;
     params: TParams;
 }
 
 // #endregion Interfaces
 
+// -----------------------------------------------------------------------------------------
+// #region Constants
+// -----------------------------------------------------------------------------------------
+
 const USERID_BSCOTTORIGINALS = "953649053631434752";
+
+// #endregion Constants
 
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
@@ -53,14 +62,14 @@ describe("TwitterProvider", () => {
     >(
         options: TestOptions<TParams>
     ) => {
-        const { methodName, params } = options;
+        const { method, params } = options;
         const name = options.name ?? "returns tweets";
         test(name, async () => {
             // Arrange
             const sut = setupSut();
 
             // Act
-            const result = await sut[methodName](params as any);
+            const result = await method(sut)(params);
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
@@ -76,7 +85,7 @@ describe("TwitterProvider", () => {
             "given end_time %p, returns tweets before or on that date",
             async (end_time) => {
                 // Arrange
-                const { methodName } = options;
+                const { method } = options;
                 const sut = setupSut();
                 const params = Object.assign(options.params, {
                     end_time,
@@ -84,7 +93,7 @@ describe("TwitterProvider", () => {
                 });
 
                 // Act
-                const result = await sut[methodName](params as any);
+                const result = await method(sut)(params);
 
                 // Assert
                 expect(result.data.length).toBeGreaterThanOrEqual(1);
@@ -109,12 +118,12 @@ describe("TwitterProvider", () => {
             "given expansions %p, it returns tweets with those expanded fields",
             async (expansions) => {
                 // Arrange
-                const { methodName } = options;
+                const { method } = options;
                 const params = Object.assign(options.params, { expansions });
                 const sut = setupSut();
 
                 // Act
-                const result = await sut[methodName](params as any);
+                const result = await method(sut)(params);
 
                 // Assert
                 expect(result.data.length).toBeGreaterThanOrEqual(1);
@@ -136,16 +145,49 @@ describe("TwitterProvider", () => {
             "given fields %p, it returns tweets with those included fields",
             async (fields) => {
                 // Arrange
-                const { methodName } = options;
+                const { method } = options;
                 const params = Object.assign(options.params, { fields });
                 const sut = setupSut();
 
                 // Act
-                const result = await sut[methodName](params as any);
+                const result = await method(sut)(params);
 
                 // Assert
                 expect(result.data.length).toBeGreaterThanOrEqual(1);
                 expect(result.data[0].lang).toBeDefined();
+            }
+        );
+
+    const testStartTimeReturnsTweetsOnOrAfterDate = <
+        TParams extends
+            | ListTweetsByUserParams
+            | ListMentionsByUserParams
+            | ListTweetsParams
+    >(
+        options: TestOptions<TParams>
+    ) =>
+        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+            "given start_time %p, returns tweets on or after that date",
+            async (start_time) => {
+                // Arrange
+                const { method } = options;
+                const params = Object.assign(options.params, {
+                    start_time,
+                    fields: [TweetFields.CreatedAt],
+                });
+                const sut = setupSut();
+
+                // Act
+                const result = await method(sut)(params);
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) => {
+                    expect(tweet.created_at).toBeDefined();
+                    expect(
+                        new Date(tweet.created_at!) >= new Date(start_time)
+                    ).toBe(true);
+                });
             }
         );
 
@@ -157,22 +199,27 @@ describe("TwitterProvider", () => {
 
     describe("listMentionsByUser", () => {
         testReturnsTweets<ListMentionsByUserParams>({
-            methodName: "listMentionsByUser",
+            method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListMentionsByUserParams>({
-            methodName: "listMentionsByUser",
+            method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
 
         testExpansionsReturnsExpandedFields<ListMentionsByUserParams>({
-            methodName: "listMentionsByUser",
+            method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
 
         testFieldsReturnsRequestedFields<ListMentionsByUserParams>({
-            methodName: "listMentionsByUser",
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
+        testStartTimeReturnsTweetsOnOrAfterDate<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
     });
@@ -186,29 +233,29 @@ describe("TwitterProvider", () => {
     describe("listTweets", () => {
         testReturnsTweets<ListTweetsParams>({
             name: "given a valid id, it returns a tweet",
-            methodName: "listTweets",
+            method: (sut) => sut.listTweets,
             params: { ids: "1326691582758760450" },
         });
 
         testReturnsTweets<ListTweetsParams>({
             name: "given comma separated ids, it returns tweets",
-            methodName: "listTweets",
+            method: (sut) => sut.listTweets,
             params: { ids: "1326691582758760450,1327657800667947008" },
         });
 
         testReturnsTweets<ListTweetsParams>({
             name: "given array of ids, it returns tweets",
-            methodName: "listTweets",
+            method: (sut) => sut.listTweets,
             params: { ids: ["1326691582758760450", "1327657800667947008"] },
         });
 
         testFieldsReturnsRequestedFields<ListTweetsParams>({
-            methodName: "listTweets",
+            method: (sut) => sut.listTweets,
             params: { ids: "1141796911684476929" },
         });
 
         testExpansionsReturnsExpandedFields<ListTweetsParams>({
-            methodName: "listTweets",
+            method: (sut) => sut.listTweets,
             params: { ids: "1141796911684476929" },
         });
 
@@ -333,7 +380,7 @@ describe("TwitterProvider", () => {
 
     describe("listTweetsByUser", () => {
         testReturnsTweets<ListTweetsByUserParams>({
-            methodName: "listTweetsByUser",
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: "63046977" },
         });
 
@@ -410,34 +457,13 @@ describe("TwitterProvider", () => {
             expect(result.data.length).toBeLessThanOrEqual(max_results);
         });
 
-        // Testing string + Date
-        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            "given start_time %p, returns tweets on or after that date",
-            async (start_time) => {
-                // Arrange
-                const userId = USERID_BSCOTTORIGINALS;
-                const sut = setupSut();
-
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    start_time,
-                    fields: [TweetFields.CreatedAt],
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                result.data.forEach((tweet) => {
-                    expect(tweet.created_at).toBeDefined();
-                    expect(
-                        new Date(tweet.created_at!) >= new Date(start_time)
-                    ).toBe(true);
-                });
-            }
-        );
+        testStartTimeReturnsTweetsOnOrAfterDate<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
+        });
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListTweetsByUserParams>({
-            methodName: "listTweetsByUser",
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
@@ -459,13 +485,13 @@ describe("TwitterProvider", () => {
             expect(result.meta?.previous_token).toBeDefined();
         });
 
-        testFieldsReturnsRequestedFields<ListMentionsByUserParams>({
-            methodName: "listMentionsByUser",
+        testFieldsReturnsRequestedFields<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
-        testExpansionsReturnsExpandedFields<ListMentionsByUserParams>({
-            methodName: "listTweetsByUser",
+        testExpansionsReturnsExpandedFields<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 

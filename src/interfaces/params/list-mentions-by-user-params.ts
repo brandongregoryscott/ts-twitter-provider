@@ -9,6 +9,7 @@ import { ExcludeParams, RawExcludeParams } from "./exclude-params";
 interface ListMentionsByUserParams extends BaseParams, ExcludeParams {
     userId: string;
     end_time?: string | Date;
+    start_time?: string | Date;
 }
 
 /**
@@ -17,7 +18,10 @@ interface ListMentionsByUserParams extends BaseParams, ExcludeParams {
 interface RawListMentionsByUserParams
     extends RequestParameters,
         RawBaseParams,
-        RawExcludeParams {}
+        RawExcludeParams {
+    end_time: string;
+    start_time: string;
+}
 
 // #endregion Interfaces
 
