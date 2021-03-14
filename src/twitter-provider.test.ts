@@ -25,6 +25,8 @@ interface TestOptions<TParams> {
 
 // #endregion Interfaces
 
+const USERID_BSCOTTORIGINALS = "953649053631434752";
+
 /**
  * Writing integration tests for ease of development until the API is further fleshed out.
  * The suite expects API keys from a .env file
@@ -51,8 +53,8 @@ describe("TwitterProvider", () => {
     >(
         options: TestOptions<TParams>
     ) => {
-        const name = options.name ?? "returns tweets";
         const { methodName, params } = options;
+        const name = options.name ?? "returns tweets";
         test(name, async () => {
             // Arrange
             const sut = setupSut();
@@ -69,17 +71,17 @@ describe("TwitterProvider", () => {
         TParams = ListTweetsByUserParams | ListMentionsByUserParams
     >(
         options: TestOptions<TParams>
-    ) => {
-        const name =
-            options.name ??
-            "given end_time %p, returns tweets before or on that date";
-        const { methodName } = options;
+    ) =>
         test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            name,
+            "given end_time %p, returns tweets before or on that date",
             async (end_time) => {
                 // Arrange
+                const { methodName } = options;
                 const sut = setupSut();
-                const params = Object.assign(options.params, { end_time });
+                const params = Object.assign(options.params, {
+                    end_time,
+                    fields: [TweetFields.CreatedAt],
+                });
 
                 // Act
                 const result = await sut[methodName](params as any);
@@ -94,7 +96,58 @@ describe("TwitterProvider", () => {
                 });
             }
         );
-    };
+
+    const testExpansionsReturnsExpandedFields = <
+        TParams = ListTweetsByUserParams | ListMentionsByUserParams
+    >(
+        options: TestOptions<TParams>
+    ) =>
+        test.each([
+            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
+            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
+        ])(
+            "given expansions %p, it returns tweets with those expanded fields",
+            async (expansions) => {
+                // Arrange
+                const { methodName } = options;
+                const params = Object.assign(options.params, { expansions });
+                const sut = setupSut();
+
+                // Act
+                const result = await sut[methodName](params as any);
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+
+                const tweet = result.data[0];
+                expect(tweet.author_id).toBeDefined();
+            }
+        );
+
+    const testFieldsReturnsRequestedFields = <
+        TParams = ListTweetsByUserParams | ListMentionsByUserParams
+    >(
+        options: TestOptions<TParams>
+    ) =>
+        test.each([
+            [TweetFields.Lang, TweetFields.Id],
+            `${TweetFields.Lang},${TweetFields.Id}`,
+        ])(
+            "given fields %p, it returns tweets with those included fields",
+            async (fields) => {
+                // Arrange
+                const { methodName } = options;
+                const params = Object.assign(options.params, { fields });
+                const sut = setupSut();
+
+                // Act
+                const result = await sut[methodName](params as any);
+
+                // Assert
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                expect(result.data[0].lang).toBeDefined();
+            }
+        );
 
     // #endregion Setup
 
@@ -110,7 +163,17 @@ describe("TwitterProvider", () => {
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListMentionsByUserParams>({
             methodName: "listMentionsByUser",
-            params: { userId: "63046977", fields: [TweetFields.CreatedAt] },
+            params: { userId: "63046977" },
+        });
+
+        testExpansionsReturnsExpandedFields<ListMentionsByUserParams>({
+            methodName: "listMentionsByUser",
+            params: { userId: "63046977" },
+        });
+
+        testFieldsReturnsRequestedFields<ListMentionsByUserParams>({
+            methodName: "listMentionsByUser",
+            params: { userId: "63046977" },
         });
     });
 
@@ -127,67 +190,27 @@ describe("TwitterProvider", () => {
             params: { ids: "1326691582758760450" },
         });
 
-        test.each([
-            ["1326691582758760450", "1327657800667947008"],
-            "1326691582758760450,1327657800667947008",
-        ])("given ids %p, it returns multiple tweets", async (ids) => {
-            // Arrange
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({ ids });
-
-            // Assert
-            expect(result.data).toHaveLength(2);
+        testReturnsTweets<ListTweetsParams>({
+            name: "given comma separated ids, it returns tweets",
+            methodName: "listTweets",
+            params: { ids: "1326691582758760450,1327657800667947008" },
         });
 
-        test.each([
-            [TweetFields.Lang, TweetFields.Id],
-            `${TweetFields.Lang},${TweetFields.Id}`,
-        ])(
-            "given fields %p, it returns tweets with those included fields",
-            async (fields) => {
-                // Arrange
-                const ids = "1141796911684476929";
-                const sut = setupSut();
+        testReturnsTweets<ListTweetsParams>({
+            name: "given array of ids, it returns tweets",
+            methodName: "listTweets",
+            params: { ids: ["1326691582758760450", "1327657800667947008"] },
+        });
 
-                // Act
-                const result = await sut.listTweets({
-                    ids,
-                    fields,
-                });
+        testFieldsReturnsRequestedFields<ListTweetsParams>({
+            methodName: "listTweets",
+            params: { ids: "1141796911684476929" },
+        });
 
-                // Assert
-                expect(result.data).toHaveLength(1);
-                expect(result.data[0].lang).toBeDefined();
-            }
-        );
-
-        test.each([
-            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
-            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
-        ])(
-            "given expansions %p, it returns tweets with those expanded fields",
-            async (expansions) => {
-                // Arrange
-                const ids = "1141796911684476929";
-                const sut = setupSut();
-
-                // Act
-                const result = await sut.listTweets({
-                    ids,
-                    expansions,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-                const tweet = result.data[0];
-                expect(tweet.author_id).toBeDefined();
-                expect(tweet.attachments).toBeDefined();
-                expect(tweet.attachments?.media_keys).toHaveLength(1);
-            }
-        );
+        testExpansionsReturnsExpandedFields<ListTweetsParams>({
+            methodName: "listTweets",
+            params: { ids: "1141796911684476929" },
+        });
 
         test(`given list of pollFields and '${TweetExpansions.AttachmentsPollIds}', it returns tweets with list of poll_ids`, async () => {
             // Arrange
@@ -342,7 +365,7 @@ describe("TwitterProvider", () => {
 
         test("given until_id, returns list of recent tweets up to that id", async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const until_id = "1366493658762084362";
             const sut = setupSut();
 
@@ -358,7 +381,7 @@ describe("TwitterProvider", () => {
 
         test("given since_id, returns list of recent tweets after that id", async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const since_id = "1366493658762084362";
             const sut = setupSut();
 
@@ -376,7 +399,7 @@ describe("TwitterProvider", () => {
 
         test("given max_results, returns up to that count of recent tweets", async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const max_results = faker.random.number({ min: 5, max: 100 });
             const sut = setupSut();
 
@@ -392,7 +415,7 @@ describe("TwitterProvider", () => {
             "given start_time %p, returns tweets on or after that date",
             async (start_time) => {
                 // Arrange
-                const userId = "953649053631434752";
+                const userId = USERID_BSCOTTORIGINALS;
                 const sut = setupSut();
 
                 // Act
@@ -415,15 +438,12 @@ describe("TwitterProvider", () => {
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListTweetsByUserParams>({
             methodName: "listTweetsByUser",
-            params: {
-                userId: "953649053631434752",
-                fields: [TweetFields.CreatedAt],
-            },
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         test("given pagination_token, returns next page of tweets", async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const sut = setupSut();
 
             const pageOne = await sut.listTweetsByUser({ userId });
@@ -439,53 +459,15 @@ describe("TwitterProvider", () => {
             expect(result.meta?.previous_token).toBeDefined();
         });
 
-        test.each([
-            [TweetFields.Lang, TweetFields.Id],
-            `${TweetFields.Lang},${TweetFields.Id}`,
-        ])(
-            "given fields %p, it returns tweets with those included fields",
-            async (fields) => {
-                // Arrange
-                const userId = "953649053631434752";
-                const sut = setupSut();
+        testFieldsReturnsRequestedFields<ListMentionsByUserParams>({
+            methodName: "listMentionsByUser",
+            params: { userId: USERID_BSCOTTORIGINALS },
+        });
 
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    fields,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                expect(result.data[0].lang).toBeDefined();
-            }
-        );
-
-        test.each([
-            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
-            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
-        ])(
-            "given expansions %p, it returns tweets with those expanded fields",
-            async (expansions) => {
-                // Arrange
-                const userId = "953649053631434752";
-                const sut = setupSut();
-
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    expansions,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-                const tweet = result.data[0];
-                expect(tweet.author_id).toBeDefined();
-                expect(tweet.attachments).toBeDefined();
-                expect(tweet.attachments?.media_keys).toHaveLength(1);
-            }
-        );
+        testExpansionsReturnsExpandedFields<ListMentionsByUserParams>({
+            methodName: "listTweetsByUser",
+            params: { userId: USERID_BSCOTTORIGINALS },
+        });
 
         test.each([
             [
@@ -504,7 +486,7 @@ describe("TwitterProvider", () => {
             `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`,
             async (mediaFields) => {
                 // Arrange
-                const userId = "953649053631434752";
+                const userId = USERID_BSCOTTORIGINALS;
                 const sut = setupSut();
 
                 // Act
@@ -538,7 +520,7 @@ describe("TwitterProvider", () => {
 
         test("given list of mediaFields without specifying expansions, it returns tweets with those media fields", async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const sut = setupSut();
 
             // Act
@@ -579,7 +561,7 @@ describe("TwitterProvider", () => {
             `given userFields %p and '${TweetExpansions.AuthorId}', it returns tweets with those included fields`,
             async (userFields) => {
                 // Arrange
-                const userId = "953649053631434752";
+                const userId = USERID_BSCOTTORIGINALS;
                 const sut = setupSut();
 
                 // Act
@@ -607,7 +589,7 @@ describe("TwitterProvider", () => {
 
         test(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
             // Arrange
-            const userId = "953649053631434752";
+            const userId = USERID_BSCOTTORIGINALS;
             const sut = setupSut();
 
             // Act
