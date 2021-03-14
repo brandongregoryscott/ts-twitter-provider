@@ -11,22 +11,12 @@ import { TweetTypes } from "./enums/tweet-types";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
 import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
-import { TwitterResponse } from "./interfaces/twitter-response";
-import { Tweet } from "./interfaces/tweets/tweet";
-
-// -----------------------------------------------------------------------------------------
-// #region Interfaces
-// -----------------------------------------------------------------------------------------
-
-interface TestOptions<TParams> {
-    name?: string;
-    method: (
-        sut: TwitterProvider
-    ) => (params: TParams) => Promise<TwitterResponse<Tweet[]>>;
-    params: TParams;
-}
-
-// #endregion Interfaces
+import { TestOptions } from "./tests/interfaces/test-option";
+import { testReturnsTweets } from "./tests/shared/test-returns-tweets";
+import { testEndTimeReturnsTweetsOnOrBeforeDate } from "./tests/shared/test-end-time-returns-tweets";
+import { testStartTimeReturnsTweetsOnOrAfterDate } from "./tests/shared/test-start-time-returns-tweets";
+import { testExpansionsReturnsExpandedFields } from "./tests/shared/test-expansions-returns-expanded-fields";
+import { testFieldsReturnsRequestedFields } from "./tests/shared/test-fields-returns-requested-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -53,143 +43,6 @@ describe("TwitterProvider", () => {
             consumer_key: process.env.CONSUMER_KEY!,
             consumer_secret: process.env.CONSUMER_SECRET!,
         });
-
-    const testReturnsTweets = <
-        TParams =
-            | ListTweetsByUserParams
-            | ListMentionsByUserParams
-            | ListTweetsParams
-    >(
-        options: TestOptions<TParams>
-    ) => {
-        const { method, params } = options;
-        const name = options.name ?? "returns tweets";
-        test(name, async () => {
-            // Arrange
-            const sut = setupSut();
-
-            // Act
-            const result = await method(sut)(params);
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-        });
-    };
-
-    const testEndTimeReturnsTweetsOnOrBeforeDate = <
-        TParams = ListTweetsByUserParams | ListMentionsByUserParams
-    >(
-        options: TestOptions<TParams>
-    ) =>
-        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            "given end_time %p, returns tweets before or on that date",
-            async (end_time) => {
-                // Arrange
-                const { method } = options;
-                const sut = setupSut();
-                const params = Object.assign(options.params, {
-                    end_time,
-                    fields: [TweetFields.CreatedAt],
-                });
-
-                // Act
-                const result = await method(sut)(params);
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                result.data.forEach((tweet) => {
-                    expect(tweet.created_at).toBeDefined();
-                    expect(
-                        new Date(tweet.created_at!) <= new Date(end_time)
-                    ).toBe(true);
-                });
-            }
-        );
-
-    const testExpansionsReturnsExpandedFields = <
-        TParams = ListTweetsByUserParams | ListMentionsByUserParams
-    >(
-        options: TestOptions<TParams>
-    ) =>
-        test.each([
-            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
-            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
-        ])(
-            "given expansions %p, it returns tweets with those expanded fields",
-            async (expansions) => {
-                // Arrange
-                const { method } = options;
-                const params = Object.assign(options.params, { expansions });
-                const sut = setupSut();
-
-                // Act
-                const result = await method(sut)(params);
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-                const tweet = result.data[0];
-                expect(tweet.author_id).toBeDefined();
-            }
-        );
-
-    const testFieldsReturnsRequestedFields = <
-        TParams = ListTweetsByUserParams | ListMentionsByUserParams
-    >(
-        options: TestOptions<TParams>
-    ) =>
-        test.each([
-            [TweetFields.Lang, TweetFields.Id],
-            `${TweetFields.Lang},${TweetFields.Id}`,
-        ])(
-            "given fields %p, it returns tweets with those included fields",
-            async (fields) => {
-                // Arrange
-                const { method } = options;
-                const params = Object.assign(options.params, { fields });
-                const sut = setupSut();
-
-                // Act
-                const result = await method(sut)(params);
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                expect(result.data[0].lang).toBeDefined();
-            }
-        );
-
-    const testStartTimeReturnsTweetsOnOrAfterDate = <
-        TParams extends
-            | ListTweetsByUserParams
-            | ListMentionsByUserParams
-            | ListTweetsParams
-    >(
-        options: TestOptions<TParams>
-    ) =>
-        test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
-            "given start_time %p, returns tweets on or after that date",
-            async (start_time) => {
-                // Arrange
-                const { method } = options;
-                const params = Object.assign(options.params, {
-                    start_time,
-                    fields: [TweetFields.CreatedAt],
-                });
-                const sut = setupSut();
-
-                // Act
-                const result = await method(sut)(params);
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                result.data.forEach((tweet) => {
-                    expect(tweet.created_at).toBeDefined();
-                    expect(
-                        new Date(tweet.created_at!) >= new Date(start_time)
-                    ).toBe(true);
-                });
-            }
-        );
 
     // #endregion Setup
 
