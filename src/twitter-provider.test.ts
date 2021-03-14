@@ -17,6 +17,7 @@ import { testEndTimeReturnsTweetsOnOrBeforeDate } from "./tests/shared/test-end-
 import { testStartTimeReturnsTweetsOnOrAfterDate } from "./tests/shared/test-start-time-returns-tweets";
 import { testExpansionsReturnsExpandedFields } from "./tests/shared/test-expansions-returns-expanded-fields";
 import { testFieldsReturnsRequestedFields } from "./tests/shared/test-fields-returns-requested-fields";
+import { testPaginationTokenReturnsNextPageOfTweets } from "./tests/shared/test-pagination-token-returns-next-page";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -72,6 +73,11 @@ describe("TwitterProvider", () => {
         });
 
         testStartTimeReturnsTweetsOnOrAfterDate<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
+        testPaginationTokenReturnsNextPageOfTweets<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
@@ -237,7 +243,7 @@ describe("TwitterProvider", () => {
             params: { userId: "63046977" },
         });
 
-        test.each([
+        test.skip.each([
             [TweetTypes.Replies, TweetTypes.Retweets],
             `${TweetTypes.Replies},${TweetTypes.Retweets}`,
         ])(
@@ -251,14 +257,15 @@ describe("TwitterProvider", () => {
                 const result = await sut.listTweetsByUser({
                     userId,
                     // Despite requesting this field, it should always be undefined
-                    fields: [TweetFields.InReplyToUserId],
+                    fields: [TweetFields.ReferencedTweets],
                     exclude,
                 });
 
                 // Assert
+                console.log(result);
                 expect(result.data.length).toBeGreaterThanOrEqual(1);
                 result.data.forEach((tweet) =>
-                    expect(tweet.in_reply_to_user_id).toBeUndefined()
+                    expect(tweet.referenced_tweets).toBeUndefined()
                 );
             }
         );
@@ -320,22 +327,9 @@ describe("TwitterProvider", () => {
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
-        test("given pagination_token, returns next page of tweets", async () => {
-            // Arrange
-            const userId = USERID_BSCOTTORIGINALS;
-            const sut = setupSut();
-
-            const pageOne = await sut.listTweetsByUser({ userId });
-            const pagination_token = pageOne.meta?.next_token;
-
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                pagination_token,
-            });
-
-            // Assert
-            expect(result.meta?.previous_token).toBeDefined();
+        testPaginationTokenReturnsNextPageOfTweets<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         testFieldsReturnsRequestedFields<ListTweetsByUserParams>({

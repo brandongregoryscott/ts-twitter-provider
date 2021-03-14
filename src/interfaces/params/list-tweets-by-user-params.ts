@@ -1,17 +1,19 @@
 import { RequestParameters } from "twitter-v2";
 import { BaseParams, RawBaseParams } from "./base-params";
 import { ExcludeParams, RawExcludeParams } from "./exclude-params";
+import { RawTimeFilterParams, TimeFilterParams } from "./time-filter-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListTweetsByUserParams extends BaseParams, ExcludeParams {
-    end_time?: string | Date;
+interface ListTweetsByUserParams
+    extends BaseParams,
+        ExcludeParams,
+        TimeFilterParams {
     max_results?: number;
     pagination_token?: string;
     since_id?: string;
-    start_time?: string | Date;
     until_id?: string;
     userId: string;
 }
@@ -22,12 +24,11 @@ interface ListTweetsByUserParams extends BaseParams, ExcludeParams {
 interface RawListTweetsByUserParams
     extends RequestParameters,
         RawBaseParams,
-        RawExcludeParams {
-    end_time: string;
+        RawExcludeParams,
+        RawTimeFilterParams {
     max_results: string;
     pagination_token: string;
     since_id: string;
-    start_time: string;
     until_id: string;
 }
 
