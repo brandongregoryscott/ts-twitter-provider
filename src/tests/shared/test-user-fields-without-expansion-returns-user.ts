@@ -1,8 +1,6 @@
 import { TweetExpansions } from "../../enums/tweet-expansions";
 import { UserFields } from "../../enums/user-fields";
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { ListTweetsParams } from "../../interfaces/params/list-tweets-params";
+import { BaseParams } from "../../interfaces/params/base-params";
 import { TestOptions } from "../interfaces/test-option";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
@@ -10,12 +8,7 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testUserFieldsWithExpansionReturnsUser = <
-    TParams =
-        | ListTweetsByUserParams
-        | ListMentionsByUserParams
-        | ListTweetsParams
->(
+const testUserFieldsWithoutExpansionReturnsUser = <TParams extends BaseParams>(
     options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;
@@ -23,11 +16,11 @@ const testUserFieldsWithExpansionReturnsUser = <
         [UserFields.CreatedAt, UserFields.Verified],
         `${UserFields.CreatedAt},${UserFields.Verified}`,
     ])(
-        `given userFields %p and '${TweetExpansions.AuthorId}', it returns user`,
+        `given userFields %p without specifying expansions, it returns user`,
         async (userFields) => {
             // Arrange
             const params = Object.assign(options.params, {
-                expansions: [TweetExpansions.AuthorId],
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.AuthorId
                 userFields,
             });
 
@@ -55,6 +48,6 @@ const testUserFieldsWithExpansionReturnsUser = <
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { testUserFieldsWithExpansionReturnsUser };
+export { testUserFieldsWithoutExpansionReturnsUser };
 
 // #endregion Exports

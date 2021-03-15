@@ -16,6 +16,7 @@ import {
     ListMentionsByUserParams,
     RawListMentionsByUserParams,
 } from "../interfaces/params/list-mentions-by-user-params";
+import { UserFields } from "../enums/user-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -29,6 +30,10 @@ const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
     {
         requestedFields: Object.values(MediaFields),
         expansion: TweetExpansions.AttachmentsMediaKeys,
+    },
+    {
+        requestedFields: Object.values(UserFields),
+        expansion: TweetExpansions.AuthorId,
     },
     {
         requestedFields: Object.values(PlaceFields),
@@ -105,7 +110,7 @@ const _arrayOrCsvToArray = <T extends string>(value?: ArrayOrCsv<T>): T[] => {
         return value;
     }
 
-    if (value != null && value.length < 0) {
+    if (value != null && value.length > 0) {
         return _sanitizeCsv(value).split(",") as T[];
     }
 
