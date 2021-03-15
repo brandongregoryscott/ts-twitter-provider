@@ -18,6 +18,8 @@ import { testStartTimeReturnsTweetsOnOrAfterDate } from "./tests/shared/test-sta
 import { testExpansionsReturnsExpandedFields } from "./tests/shared/test-expansions-returns-expanded-fields";
 import { testFieldsReturnsRequestedFields } from "./tests/shared/test-fields-returns-requested-fields";
 import { testPaginationTokenReturnsNextPageOfTweets } from "./tests/shared/test-pagination-token-returns-next-page";
+import { testPollFieldsWithExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-with-expansion-returns-poll-ids";
+import { testPollFieldsWithoutExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-without-expansion-returns-poll-ids";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -118,60 +120,14 @@ describe("TwitterProvider", () => {
             params: { ids: "1141796911684476929" },
         });
 
-        test(`given list of pollFields and '${TweetExpansions.AttachmentsPollIds}', it returns tweets with list of poll_ids`, async () => {
-            // Arrange
-            const ids = "1342161609909800963";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({
-                ids,
-                expansions: [TweetExpansions.AttachmentsPollIds],
-                pollFields: [PollFields.VotingStatus],
-            });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-            const tweet = result.data[0];
-            expect(tweet.attachments).toBeDefined();
-            expect(tweet.attachments?.poll_ids).toHaveLength(1);
-
-            expect(result.includes).toBeDefined();
-            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
-
-            const poll = result.includes?.polls?.[0]!;
-            expect(poll.id).toBeDefined();
-            expect(poll.options.length).toBeGreaterThanOrEqual(1);
-            expect(poll.voting_status).toBe("closed");
+        testPollFieldsWithExpansionReturnsPollIds<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1342161609909800963" },
         });
 
-        test("given list of pollFields without specifying expansions, it returns tweets with list of poll_ids", async () => {
-            // Arrange
-            const ids = "1342161609909800963";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({
-                ids,
-                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentsPollIds
-                pollFields: [PollFields.VotingStatus],
-            });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-
-            const tweet = result.data[0];
-            expect(tweet.attachments).toBeDefined();
-            expect(tweet.attachments?.poll_ids).toHaveLength(1);
-
-            expect(result.includes).toBeDefined();
-            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
-
-            const poll = result.includes?.polls?.[0]!;
-            expect(poll.id).toBeDefined();
-            expect(poll.options.length).toBeGreaterThanOrEqual(1);
-            expect(poll.voting_status).toBe("closed");
+        testPollFieldsWithoutExpansionReturnsPollIds<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1342161609909800963" },
         });
 
         test.each([
