@@ -21,6 +21,7 @@ import { testPaginationTokenReturnsNextPageOfTweets } from "./tests/shared/test-
 import { testPollFieldsWithExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-with-expansion-returns-poll-ids";
 import { testPollFieldsWithoutExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-without-expansion-returns-poll-ids";
 import { testMaxResultsReturnsUpToCount } from "./tests/shared/test-max-results-returns-up-to-count";
+import { testUserFieldsWithExpansionReturnsUser } from "./tests/shared/test-user-fields-with-expansion-returns-user";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -90,6 +91,11 @@ describe("TwitterProvider", () => {
             params: { userId: "63046977" },
         });
 
+        testUserFieldsWithExpansionReturnsUser<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
         // Skipping these for now until there's an easier way to set up a test
         // testPollFieldsWithExpansionReturnsPollIds<ListMentionsByUserParams>({
         //     method: (sut) => sut.listMentionsByUser,
@@ -147,6 +153,11 @@ describe("TwitterProvider", () => {
         });
 
         testPollFieldsWithoutExpansionReturnsPollIds<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1342161609909800963" },
+        });
+
+        testUserFieldsWithExpansionReturnsUser<ListTweetsParams>({
             method: (sut) => sut.listTweets,
             params: { ids: "1342161609909800963" },
         });
@@ -396,38 +407,10 @@ describe("TwitterProvider", () => {
             expect(attachment.height).toBeDefined();
         });
 
-        test.each([
-            [UserFields.CreatedAt, UserFields.Verified],
-            `${UserFields.CreatedAt},${UserFields.Verified}`,
-        ])(
-            `given userFields %p and '${TweetExpansions.AuthorId}', it returns tweets with those included fields`,
-            async (userFields) => {
-                // Arrange
-                const userId = USERID_BSCOTTORIGINALS;
-                const sut = setupSut();
-
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    expansions: [TweetExpansions.AuthorId],
-                    userFields,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                expect(result.data[0].author_id).toBeDefined();
-
-                expect(result.includes?.users).toBeDefined();
-                expect(result.includes?.users?.length).toBeGreaterThanOrEqual(
-                    1
-                );
-
-                const user = result.includes?.users?.[0]!;
-                expect(user.username).toBe("bscottoriginals");
-                expect(user.created_at).toBeDefined();
-                expect(user.verified).toBeDefined();
-            }
-        );
+        testUserFieldsWithExpansionReturnsUser<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
+        });
 
         test(`given list of userFields without specifying expansions, it returns tweets with those included fields`, async () => {
             // Arrange
