@@ -20,6 +20,7 @@ import { testFieldsReturnsRequestedFields } from "./tests/shared/test-fields-ret
 import { testPaginationTokenReturnsNextPageOfTweets } from "./tests/shared/test-pagination-token-returns-next-page";
 import { testPollFieldsWithExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-with-expansion-returns-poll-ids";
 import { testPollFieldsWithoutExpansionReturnsPollIds } from "./tests/shared/test-poll-fields-without-expansion-returns-poll-ids";
+import { testMaxResultsReturnsUpToCount } from "./tests/shared/test-max-results-returns-up-to-count";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -83,6 +84,26 @@ describe("TwitterProvider", () => {
             method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
+
+        testMaxResultsReturnsUpToCount<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
+        // Skipping these for now until there's an easier way to set up a test
+        // testPollFieldsWithExpansionReturnsPollIds<ListMentionsByUserParams>({
+        //     method: (sut) => sut.listMentionsByUser,
+        //     params: {
+        //         userId: "1205666185"
+        //     },
+        // });
+
+        // testPollFieldsWithoutExpansionReturnsPollIds<ListMentionsByUserParams>({
+        //     method: (sut) => sut.listMentionsByUser,
+        //     params: {
+        //         userId: "1205666185"
+        //     },
+        // });
     });
 
     // #endregion listMentionsByUser
@@ -260,17 +281,9 @@ describe("TwitterProvider", () => {
             );
         });
 
-        test("given max_results, returns up to that count of recent tweets", async () => {
-            // Arrange
-            const userId = USERID_BSCOTTORIGINALS;
-            const max_results = faker.random.number({ min: 5, max: 100 });
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweetsByUser({ userId, max_results });
-
-            // Assert
-            expect(result.data.length).toBeLessThanOrEqual(max_results);
+        testMaxResultsReturnsUpToCount<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         testStartTimeReturnsTweetsOnOrAfterDate<ListTweetsByUserParams>({

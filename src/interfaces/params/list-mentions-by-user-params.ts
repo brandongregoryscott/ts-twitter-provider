@@ -1,6 +1,8 @@
 import { RequestParameters } from "twitter-v2";
 import { BaseParams, RawBaseParams } from "./base-params";
 import { ExcludeParams, RawExcludeParams } from "./exclude-params";
+import { IdFilterParams, RawIdFilterParams } from "./id-filter-params";
+import { PagingParams, RawPagingParams } from "./paging-params";
 import { RawTimeFilterParams, TimeFilterParams } from "./time-filter-params";
 
 // -----------------------------------------------------------------------------------------
@@ -10,7 +12,9 @@ import { RawTimeFilterParams, TimeFilterParams } from "./time-filter-params";
 interface ListMentionsByUserParams
     extends BaseParams,
         ExcludeParams,
-        TimeFilterParams {
+        TimeFilterParams,
+        IdFilterParams,
+        PagingParams {
     userId: string;
 }
 
@@ -21,7 +25,9 @@ interface RawListMentionsByUserParams
     extends RequestParameters,
         RawBaseParams,
         RawExcludeParams,
-        RawTimeFilterParams {}
+        RawTimeFilterParams,
+        RawIdFilterParams,
+        RawPagingParams {}
 
 // #endregion Interfaces
 
