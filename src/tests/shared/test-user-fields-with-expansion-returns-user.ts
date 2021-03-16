@@ -1,21 +1,14 @@
 import { TweetExpansions } from "../../enums/tweet-expansions";
 import { UserFields } from "../../enums/user-fields";
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { ListTweetsParams } from "../../interfaces/params/list-tweets-params";
-import { TestOptions } from "../interfaces/test-option";
+import { BaseParams } from "../../interfaces/params/base-params";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testUserFieldsWithExpansionReturnsUser = <
-    TParams =
-        | ListTweetsByUserParams
-        | ListMentionsByUserParams
-        | ListTweetsParams
->(
+const testUserFieldsWithExpansionReturnsUser = <TParams extends BaseParams>(
     options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;

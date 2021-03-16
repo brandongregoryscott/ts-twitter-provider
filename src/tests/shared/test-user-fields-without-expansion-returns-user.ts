@@ -1,14 +1,15 @@
-import { TweetExpansions } from "../../enums/tweet-expansions";
 import { UserFields } from "../../enums/user-fields";
 import { BaseParams } from "../../interfaces/params/base-params";
-import { TestOptions } from "../interfaces/test-option";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testUserFieldsWithoutExpansionReturnsUser = <TParams extends BaseParams>(
+const testUserFieldsWithoutExpansionReturnsUser = <
+    TParams extends BaseParams = BaseParams
+>(
     options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;

@@ -1,9 +1,7 @@
 import faker from "faker";
 import { TweetFields } from "../../enums/tweet-fields";
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { ListTweetsParams } from "../../interfaces/params/list-tweets-params";
-import { TestOptions } from "../interfaces/test-option";
+import { TimeFilterParams } from "../../interfaces/params/time-filter-params";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
@@ -11,10 +9,7 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // -----------------------------------------------------------------------------------------
 
 const testStartTimeReturnsTweetsOnOrAfterDate = <
-    TParams extends
-        | ListTweetsByUserParams
-        | ListMentionsByUserParams
-        | ListTweetsParams
+    TParams extends TimeFilterParams
 >(
     options: TestOptions<TParams>
 ) =>

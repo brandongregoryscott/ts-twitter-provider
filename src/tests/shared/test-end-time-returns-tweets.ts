@@ -1,8 +1,7 @@
 import faker from "faker";
 import { TweetFields } from "../../enums/tweet-fields";
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { TestOptions } from "../interfaces/test-option";
+import { TimeFilterParams } from "../../interfaces/params/time-filter-params";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
@@ -10,9 +9,9 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // -----------------------------------------------------------------------------------------
 
 const testEndTimeReturnsTweetsOnOrBeforeDate = <
-    TParams = ListTweetsByUserParams | ListMentionsByUserParams
+    TParams extends TimeFilterParams
 >(
-    options: TestOptions<TParams>
+    options: Omit<TestOptions<TParams>, "name">
 ) =>
     test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
         "given end_time %p, returns tweets before or on that date",

@@ -1,5 +1,5 @@
 import { IdFilterParams } from "../../interfaces/params/id-filter-params";
-import { TestOptions } from "../interfaces/test-option";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------

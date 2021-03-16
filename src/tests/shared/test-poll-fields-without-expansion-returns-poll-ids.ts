@@ -1,8 +1,6 @@
 import { PollFields } from "../../enums/poll-fields";
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { ListTweetsParams } from "../../interfaces/params/list-tweets-params";
-import { TestOptions } from "../interfaces/test-option";
+import { BaseParams } from "../../interfaces/params/base-params";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
@@ -10,18 +8,12 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // -----------------------------------------------------------------------------------------
 
 const testPollFieldsWithoutExpansionReturnsPollIds = <
-    TParams =
-        | ListTweetsByUserParams
-        | ListMentionsByUserParams
-        | ListTweetsParams
+    TParams extends BaseParams
 >(
-    options: TestOptions<TParams>
+    options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;
-    const name =
-        options.name ??
-        "given pollFields without specifying expansions, it returns tweets with list of poll_ids";
-    test(name, async () => {
+    test("given pollFields without specifying expansions, it returns tweets with poll_ids", async () => {
         // Arrange
         const params = Object.assign(options.params, {
             expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentsPollIds

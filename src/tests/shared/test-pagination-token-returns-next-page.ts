@@ -1,7 +1,5 @@
-import { ListMentionsByUserParams } from "../../interfaces/params/list-mentions-by-user-params";
-import { ListTweetsByUserParams } from "../../interfaces/params/list-tweets-by-user-params";
-import { ListTweetsParams } from "../../interfaces/params/list-tweets-params";
-import { TestOptions } from "../interfaces/test-option";
+import { PagingParams } from "../../interfaces/params/paging-params";
+import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
@@ -9,7 +7,7 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // -----------------------------------------------------------------------------------------
 
 const testPaginationTokenReturnsNextPageOfTweets = <
-    TParams = ListTweetsByUserParams | ListMentionsByUserParams
+    TParams extends PagingParams
 >(
     options: TestOptions<TParams>
 ) => {
