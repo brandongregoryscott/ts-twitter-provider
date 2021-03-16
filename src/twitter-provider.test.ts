@@ -23,6 +23,8 @@ import { testPollFieldsWithoutExpansionReturnsPollIds } from "./tests/shared/tes
 import { testMaxResultsReturnsUpToCount } from "./tests/shared/test-max-results-returns-up-to-count";
 import { testUserFieldsWithExpansionReturnsUser } from "./tests/shared/test-user-fields-with-expansion-returns-user";
 import { testUserFieldsWithoutExpansionReturnsUser } from "./tests/shared/test-user-fields-without-expansion-returns-user";
+import { testUntilIdReturnsTweetsUpToId } from "./tests/shared/test-until-id-returns-tweets-up-to-id";
+import { testSinceIdReturnsTweetsAfterId } from "./tests/shared/test-since-id-returns-tweets-after-id";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -98,6 +100,16 @@ describe("TwitterProvider", () => {
         });
 
         testUserFieldsWithoutExpansionReturnsUser<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
+        testUntilIdReturnsTweetsUpToId<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: "63046977" },
+        });
+
+        testSinceIdReturnsTweetsAfterId<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
             params: { userId: "63046977" },
         });
@@ -269,38 +281,14 @@ describe("TwitterProvider", () => {
             }
         );
 
-        test("given until_id, returns list of recent tweets up to that id", async () => {
-            // Arrange
-            const userId = USERID_BSCOTTORIGINALS;
-            const until_id = "1366493658762084362";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweetsByUser({ userId, until_id });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            result.data.forEach((tweet) =>
-                expect(Number(tweet.id)).toBeLessThanOrEqual(Number(until_id))
-            );
+        testUntilIdReturnsTweetsUpToId<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
-        test("given since_id, returns list of recent tweets after that id", async () => {
-            // Arrange
-            const userId = USERID_BSCOTTORIGINALS;
-            const since_id = "1366493658762084362";
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweetsByUser({ userId, since_id });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            result.data.forEach((tweet) =>
-                expect(Number(tweet.id)).toBeGreaterThanOrEqual(
-                    Number(since_id)
-                )
-            );
+        testSinceIdReturnsTweetsAfterId<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         testMaxResultsReturnsUpToCount<ListTweetsByUserParams>({
