@@ -110,20 +110,25 @@ describe("TwitterProvider", () => {
             params: { userId: "63046977" },
         });
 
-        // Skipping these for now until there's an easier way to set up a test
-        // testPollFieldsWithExpansionReturnsPollIds<ListMentionsByUserParams>({
-        //     method: (sut) => sut.listMentionsByUser,
-        //     params: {
-        //         userId: "1205666185"
-        //     },
-        // });
+        testPollFieldsWithExpansionReturnsPollIds<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371788005279682560
+                since_id: "1371788005279682500",
+                until_id: "1371788005279682600",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
 
-        // testPollFieldsWithoutExpansionReturnsPollIds<ListMentionsByUserParams>({
-        //     method: (sut) => sut.listMentionsByUser,
-        //     params: {
-        //         userId: "1205666185"
-        //     },
-        // });
+        testPollFieldsWithoutExpansionReturnsPollIds<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371788005279682560
+                since_id: "1371788005279682500",
+                until_id: "1371788005279682600",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
     });
 
     // #endregion listMentionsByUser

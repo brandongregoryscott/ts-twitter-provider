@@ -35,7 +35,7 @@ const testPollFieldsWithExpansionReturnsPollIds = <TParams extends BaseParams>(
         const poll = result.includes?.polls?.[0]!;
         expect(poll.id).toBeDefined();
         expect(poll.options.length).toBeGreaterThanOrEqual(1);
-        expect(poll.voting_status).toBe("closed");
+        expect(poll.voting_status).toMatch(/closed|open/);
     });
 };
 

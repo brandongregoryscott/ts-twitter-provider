@@ -7,9 +7,7 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testUserFieldsWithoutExpansionReturnsUser = <
-    TParams extends BaseParams = BaseParams
->(
+const testUserFieldsWithoutExpansionReturnsUser = <TParams extends BaseParams>(
     options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;

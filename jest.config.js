@@ -10,6 +10,7 @@ module.exports = {
     },
     clearMocks: true,
     collectCoverage: true,
+    collectCoverageFrom: ["src/**.{ts,tsx}", "!**/tests/**"],
     coverageDirectory: "coverage",
     modulePathIgnorePatterns: ["<rootDir>/dist"],
     preset: "ts-jest",
