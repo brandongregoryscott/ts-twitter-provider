@@ -73,7 +73,7 @@
 				<a href="#ts-twitter-provider" id="ts-twitter-provider" style="color: inherit; text-decoration: none;">
 					<h1>ts-twitter-provider</h1>
 				</a>
-				<p><a href="https://travis-ci.org/brandongregoryscott/ts-twitter-provider"><img src="https://travis-ci.org/brandongregoryscott/ts-twitter-provider.svg?branch=main" alt="Build Status"></a>
+				<p><img src="https://github.com/brandongregoryscott/ts-twitter-provider/workflows/ts-twitter-provider/badge.svg" alt="build status">
 					<a href="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider"><img src="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider/branch/main/graph/badge.svg" alt="codecov"></a>
 					<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
 				<a href="http://www.typescriptlang.org/"><img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg" alt="TypeScript"></a></p>
@@ -107,12 +107,42 @@
 					<tbody><tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets"><code>/2/tweets</code></a></td>
 							<td><code>listTweets</code></td>
-							<td>✅ expansions <br/> ✅ ids <br/> ✅ media.fields <br/> ✅ place.fields <br/> ✅ poll.fields <br/> ✅ tweet.fields <br/> ✅ user.fields</td>
+							<td>✅ expansions<br/> ✅ ids<br/> ✅ media.fields<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ tweet.fields<br/> ✅ user.fields</td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id"><code>/2/tweets/:id</code></a></td>
+							<td><code>getTweet</code></td>
+							<td>❌ expansions<br/> ❌ media.fields<br/> ❌ place.fields<br/> ❌ poll.fields<br/> ❌ tweet.fields<br/> ❌ user.fields</td>
 						</tr>
 						<tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets"><code>/2/users/:id/tweets</code></a></td>
 							<td><code>listTweetsByUser</code></td>
-							<td>✅ end_time<br /> ✅ exclude<br /> ✅ expansions<br /> ✅ max_results<br /> ✅ media.fields<br /> ✅ pagination_token<br /> ✅ place.fields<br /> ✅ poll.fields<br /> ✅ since_id<br /> ✅ start_time<br /> ✅ tweet.fields<br /> ✅ until_id<br /> ✅ user.fields<br /></td>
+							<td>✅ end_time<br/> ✅ exclude<br/> ✅ expansions<br/> ✅ max_results<br/> ✅ media.fields<br/> ✅ pagination_token<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ since_id<br/> ✅ start_time<br/> ✅ tweet.fields<br/> ✅ until_id<br/> ✅ user.fields<br/></td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions"><code>/2/users/:id/mentions</code></a></td>
+							<td><code>listMentionsByUser</code></td>
+							<td>✅ end_time<br/> ✅ exclude<br/> ✅ expansions<br/> ✅ max_results<br/> ✅ media.fields<br/> ✅ pagination_token<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ since_id<br/> ✅ start_time<br/> ✅ tweet.fields<br/> ✅ until_id<br/> ✅ user.fields<br/></td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users"><code>/2/users</code></a></td>
+							<td><code>listUsers</code></td>
+							<td>❌ expansions<br/> ❌ ids<br/> ❌ tweet.fields<br/> ❌ user.fields<br/></td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id"><code>/2/users/:id</code></a></td>
+							<td><code>getUser</code></td>
+							<td>❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/></td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by"><code>/2/users/by</code></a></td>
+							<td><code>listUsersByUsername</code></td>
+							<td>❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/> ❌ usernames<br/></td>
+						</tr>
+						<tr>
+							<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username"><code>/2/users/by/username/:username</code></a></td>
+							<td><code>getUserByUsername</code></td>
+							<td>❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/></td>
 						</tr>
 				</tbody></table>
 			</div>
@@ -155,7 +185,13 @@
 						<a href="interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/includes.html" class="tsd-kind-icon">Includes</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/listmentionsbyuserparams.html" class="tsd-kind-icon">List<wbr>Mentions<wbr>ByUser<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/listtweetsbyuserparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>ByUser<wbr>Params</a>
@@ -171,6 +207,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/meta.html" class="tsd-kind-icon">Meta</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/pagingparams.html" class="tsd-kind-icon">Paging<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/place.html" class="tsd-kind-icon">Place</a>
@@ -194,6 +233,12 @@
 						<a href="interfaces/rawexcludeparams.html" class="tsd-kind-icon">Raw<wbr>Exclude<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/rawidfilterparams.html" class="tsd-kind-icon">Raw<wbr>IdFilter<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/rawlistmentionsbyuserparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/rawlisttweetsbyuserparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Tweets<wbr>ByUser<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
@@ -203,10 +248,16 @@
 						<a href="interfaces/rawmediafieldsparams.html" class="tsd-kind-icon">Raw<wbr>Media<wbr>Fields<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/rawpagingparams.html" class="tsd-kind-icon">Raw<wbr>Paging<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/rawplacefieldsparams.html" class="tsd-kind-icon">Raw<wbr>Place<wbr>Fields<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/rawpollfieldsparams.html" class="tsd-kind-icon">Raw<wbr>Poll<wbr>Fields<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/rawtimefilterparams.html" class="tsd-kind-icon">Raw<wbr>Time<wbr>Filter<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/rawtweetexpansionsparams.html" class="tsd-kind-icon">Raw<wbr>Tweet<wbr>Expansions<wbr>Params</a>
@@ -216,6 +267,12 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/rawuserfieldsparams.html" class="tsd-kind-icon">Raw<wbr>User<wbr>Fields<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter root">
+						<a href="interfaces/testoptions.html" class="tsd-kind-icon">Test<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/timefilterparams.html" class="tsd-kind-icon">Time<wbr>Filter<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/tweet.html" class="tsd-kind-icon">Tweet</a>
@@ -235,11 +292,68 @@
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/userfieldsparams.html" class="tsd-kind-icon">User<wbr>Fields<wbr>Params</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter root">
+						<a href="modules.html#arrayorcsv" class="tsd-kind-icon">Array<wbr>OrCsv</a>
+					</li>
 					<li class=" tsd-kind-variable root">
 						<a href="modules.html#endpoint" class="tsd-kind-icon">Endpoint</a>
 					</li>
 					<li class=" tsd-kind-variable root">
 						<a href="modules.html#parammapper" class="tsd-kind-icon">Param<wbr>Mapper</a>
+					</li>
+					<li class=" tsd-kind-variable root">
+						<a href="modules.html#testtwitterprovider" class="tsd-kind-icon">Test<wbr>Twitter<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testendtimereturnstweetsonorbeforedate" class="tsd-kind-icon">test<wbr>End<wbr>Time<wbr>Returns<wbr>Tweets<wbr>OnOr<wbr>Before<wbr>Date</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testexpansionsreturnsexpandedfields" class="tsd-kind-icon">test<wbr>Expansions<wbr>Returns<wbr>Expanded<wbr>Fields</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testfieldsreturnsrequestedfields" class="tsd-kind-icon">test<wbr>Fields<wbr>Returns<wbr>Requested<wbr>Fields</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testmaxresultsreturnsuptocount" class="tsd-kind-icon">test<wbr>Max<wbr>Results<wbr>Returns<wbr>UpTo<wbr>Count</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testmediafieldswithexpansionreturnsmedia" class="tsd-kind-icon">test<wbr>Media<wbr>Fields<wbr>With<wbr>Expansion<wbr>Returns<wbr>Media</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testmediafieldswithoutexpansionreturnsmedia" class="tsd-kind-icon">test<wbr>Media<wbr>Fields<wbr>Without<wbr>Expansion<wbr>Returns<wbr>Media</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testpaginationtokenreturnsnextpageoftweets" class="tsd-kind-icon">test<wbr>Pagination<wbr>Token<wbr>Returns<wbr>Next<wbr>Page<wbr>OfTweets</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testplacefieldswithexpansionreturnsplace" class="tsd-kind-icon">test<wbr>Place<wbr>Fields<wbr>With<wbr>Expansion<wbr>Returns<wbr>Place</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testplacefieldswithoutexpansionreturnsplace" class="tsd-kind-icon">test<wbr>Place<wbr>Fields<wbr>Without<wbr>Expansion<wbr>Returns<wbr>Place</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testpollfieldswithexpansionreturnspollids" class="tsd-kind-icon">test<wbr>Poll<wbr>Fields<wbr>With<wbr>Expansion<wbr>Returns<wbr>Poll<wbr>Ids</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testpollfieldswithoutexpansionreturnspollids" class="tsd-kind-icon">test<wbr>Poll<wbr>Fields<wbr>Without<wbr>Expansion<wbr>Returns<wbr>Poll<wbr>Ids</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testreturnstweets" class="tsd-kind-icon">test<wbr>Returns<wbr>Tweets</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testsinceidreturnstweetsafterid" class="tsd-kind-icon">test<wbr>Since<wbr>IdReturns<wbr>Tweets<wbr>After<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#teststarttimereturnstweetsonorafterdate" class="tsd-kind-icon">test<wbr>Start<wbr>Time<wbr>Returns<wbr>Tweets<wbr>OnOr<wbr>After<wbr>Date</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testuntilidreturnstweetsuptoid" class="tsd-kind-icon">test<wbr>Until<wbr>IdReturns<wbr>Tweets<wbr>UpTo<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testuserfieldswithexpansionreturnsuser" class="tsd-kind-icon">test<wbr>User<wbr>Fields<wbr>With<wbr>Expansion<wbr>Returns<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter root">
+						<a href="modules.html#testuserfieldswithoutexpansionreturnsuser" class="tsd-kind-icon">test<wbr>User<wbr>Fields<wbr>Without<wbr>Expansion<wbr>Returns<wbr>User</a>
 					</li>
 				</ul>
 			</nav>

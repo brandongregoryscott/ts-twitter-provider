@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RawListTweetsParams | ts-twitter-provider</title>
+	<title>RawListMentionsByUserParams | ts-twitter-provider</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="rawlisttweetsparams.html">RawListTweetsParams</a>
+					<a href="rawlistmentionsbyuserparams.html">RawListMentionsByUserParams</a>
 				</li>
 			</ul>
 		</div>
@@ -71,10 +71,10 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface RawListTweetsParams</h1>
+			<h1>Interface RawListMentionsByUserParams</h1>
 			<section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography tsd-comment-shorttext">
 					<div class="lead">
-						<p>Interface representing what the /tweets endpoint expects directly</p>
+						<p>Interface representing what the /users/:id/mentions endpoint expects directly</p>
 					</div>
 			</div></section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -85,9 +85,21 @@
 					</li>
 					<li>
 						<a href="rawbaseparams.html" class="tsd-signature-type">RawBaseParams</a>
+					</li>
+					<li>
+						<a href="rawexcludeparams.html" class="tsd-signature-type">RawExcludeParams</a>
+					</li>
+					<li>
+						<a href="rawtimefilterparams.html" class="tsd-signature-type">RawTimeFilterParams</a>
+					</li>
+					<li>
+						<a href="rawidfilterparams.html" class="tsd-signature-type">RawIdFilterParams</a>
+					</li>
+					<li>
+						<a href="rawpagingparams.html" class="tsd-signature-type">RawPagingParams</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">RawListTweetsParams</span>
+								<span class="target">RawListMentionsByUserParams</span>
 							</li>
 						</ul>
 					</li>
@@ -99,13 +111,19 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#expansions" class="tsd-kind-icon">expansions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="rawlisttweetsparams.html#ids" class="tsd-kind-icon">ids</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#media_fields" class="tsd-kind-icon">media.fields</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#place_fields" class="tsd-kind-icon">place.fields</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#poll_fields" class="tsd-kind-icon">poll.fields</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#tweet_fields" class="tsd-kind-icon">tweet.fields</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlisttweetsparams.html#user_fields" class="tsd-kind-icon">user.fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#end_time" class="tsd-kind-icon">end_<wbr>time</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#exclude" class="tsd-kind-icon">exclude</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#expansions" class="tsd-kind-icon">expansions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#max_results" class="tsd-kind-icon">max_<wbr>results</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#media_fields" class="tsd-kind-icon">media.fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#pagination_token" class="tsd-kind-icon">pagination_<wbr>token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#place_fields" class="tsd-kind-icon">place.fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#poll_fields" class="tsd-kind-icon">poll.fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#since_id" class="tsd-kind-icon">since_<wbr>id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#start_time" class="tsd-kind-icon">start_<wbr>time</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#tweet_fields" class="tsd-kind-icon">tweet.fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#until_id" class="tsd-kind-icon">until_<wbr>id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="rawlistmentionsbyuserparams.html#user_fields" class="tsd-kind-icon">user.fields</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,6 +131,28 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="end_time" class="tsd-anchor"></a>
+					<h3>end_<wbr>time</h3>
+					<div class="tsd-signature tsd-kind-icon">end_<wbr>time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawtimefilterparams.html">RawTimeFilterParams</a>.<a href="rawtimefilterparams.html#end_time">end_time</a></p>
+						<ul>
+							<li>Defined in interfaces/params/time-filter-params.ts:13</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="exclude" class="tsd-anchor"></a>
+					<h3>exclude</h3>
+					<div class="tsd-signature tsd-kind-icon">exclude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawexcludeparams.html">RawExcludeParams</a>.<a href="rawexcludeparams.html#exclude">exclude</a></p>
+						<ul>
+							<li>Defined in interfaces/params/exclude-params.ts:14</li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="expansions" class="tsd-anchor"></a>
 					<h3>expansions</h3>
@@ -124,13 +164,14 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ids" class="tsd-anchor"></a>
-					<h3>ids</h3>
-					<div class="tsd-signature tsd-kind-icon">ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="max_results" class="tsd-anchor"></a>
+					<h3>max_<wbr>results</h3>
+					<div class="tsd-signature tsd-kind-icon">max_<wbr>results<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawpagingparams.html">RawPagingParams</a>.<a href="rawpagingparams.html#max_results">max_results</a></p>
 						<ul>
-							<li>Defined in interfaces/params/list-tweets-params.ts:17</li>
+							<li>Defined in interfaces/params/paging-params.ts:13</li>
 						</ul>
 					</aside>
 				</section>
@@ -142,6 +183,17 @@
 						<p>Inherited from <a href="rawbaseparams.html">RawBaseParams</a>.<a href="rawbaseparams.html#media_fields">media.fields</a></p>
 						<ul>
 							<li>Defined in interfaces/params/media-fields-params.ts:12</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="pagination_token" class="tsd-anchor"></a>
+					<h3>pagination_<wbr>token</h3>
+					<div class="tsd-signature tsd-kind-icon">pagination_<wbr>token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawpagingparams.html">RawPagingParams</a>.<a href="rawpagingparams.html#pagination_token">pagination_token</a></p>
+						<ul>
+							<li>Defined in interfaces/params/paging-params.ts:14</li>
 						</ul>
 					</aside>
 				</section>
@@ -168,6 +220,28 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="since_id" class="tsd-anchor"></a>
+					<h3>since_<wbr>id</h3>
+					<div class="tsd-signature tsd-kind-icon">since_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawidfilterparams.html">RawIdFilterParams</a>.<a href="rawidfilterparams.html#since_id">since_id</a></p>
+						<ul>
+							<li>Defined in interfaces/params/id-filter-params.ts:13</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="start_time" class="tsd-anchor"></a>
+					<h3>start_<wbr>time</h3>
+					<div class="tsd-signature tsd-kind-icon">start_<wbr>time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawtimefilterparams.html">RawTimeFilterParams</a>.<a href="rawtimefilterparams.html#start_time">start_time</a></p>
+						<ul>
+							<li>Defined in interfaces/params/time-filter-params.ts:14</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="tweet_fields" class="tsd-anchor"></a>
 					<h3>tweet.fields</h3>
 					<div class="tsd-signature tsd-kind-icon">tweet.fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
@@ -175,6 +249,17 @@
 						<p>Inherited from <a href="rawbaseparams.html">RawBaseParams</a>.<a href="rawbaseparams.html#tweet_fields">tweet.fields</a></p>
 						<ul>
 							<li>Defined in interfaces/params/tweet-fields-params.ts:12</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="until_id" class="tsd-anchor"></a>
+					<h3>until_<wbr>id</h3>
+					<div class="tsd-signature tsd-kind-icon">until_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="rawidfilterparams.html">RawIdFilterParams</a>.<a href="rawidfilterparams.html#until_id">until_id</a></p>
+						<ul>
+							<li>Defined in interfaces/params/id-filter-params.ts:14</li>
 						</ul>
 					</aside>
 				</section>
@@ -198,28 +283,46 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface root">
-						<a href="rawlisttweetsparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Tweets<wbr>Params</a>
+						<a href="rawlistmentionsbyuserparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#expansions" class="tsd-kind-icon">expansions</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="rawlisttweetsparams.html#ids" class="tsd-kind-icon">ids</a>
+								<a href="rawlistmentionsbyuserparams.html#end_time" class="tsd-kind-icon">end_<wbr>time</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#media_fields" class="tsd-kind-icon">media.fields</a>
+								<a href="rawlistmentionsbyuserparams.html#exclude" class="tsd-kind-icon">exclude</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#place_fields" class="tsd-kind-icon">place.fields</a>
+								<a href="rawlistmentionsbyuserparams.html#expansions" class="tsd-kind-icon">expansions</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#poll_fields" class="tsd-kind-icon">poll.fields</a>
+								<a href="rawlistmentionsbyuserparams.html#max_results" class="tsd-kind-icon">max_<wbr>results</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#tweet_fields" class="tsd-kind-icon">tweet.fields</a>
+								<a href="rawlistmentionsbyuserparams.html#media_fields" class="tsd-kind-icon">media.fields</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="rawlisttweetsparams.html#user_fields" class="tsd-kind-icon">user.fields</a>
+								<a href="rawlistmentionsbyuserparams.html#pagination_token" class="tsd-kind-icon">pagination_<wbr>token</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#place_fields" class="tsd-kind-icon">place.fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#poll_fields" class="tsd-kind-icon">poll.fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#since_id" class="tsd-kind-icon">since_<wbr>id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#start_time" class="tsd-kind-icon">start_<wbr>time</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#tweet_fields" class="tsd-kind-icon">tweet.fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#until_id" class="tsd-kind-icon">until_<wbr>id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="rawlistmentionsbyuserparams.html#user_fields" class="tsd-kind-icon">user.fields</a>
 							</li>
 						</ul>
 					</li>

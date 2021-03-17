@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Place | ts-twitter-provider</title>
+	<title>TestOptions | ts-twitter-provider</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="place.html">Place</a>
+					<a href="testoptions.html">TestOptions</a>
 				</li>
 			</ul>
 		</div>
@@ -71,12 +71,20 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface Place</h1>
+			<h1>Interface TestOptions&lt;TParams&gt;</h1>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>TParams</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Place</span>
+						<span class="target">TestOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -86,14 +94,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#contained_within" class="tsd-kind-icon">contained_<wbr>within</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#country" class="tsd-kind-icon">country</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#country_code" class="tsd-kind-icon">country_<wbr>code</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#full_name" class="tsd-kind-icon">full_<wbr>name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#geo" class="tsd-kind-icon">geo</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="place.html#place_type" class="tsd-kind-icon">place_<wbr>type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="testoptions.html#method" class="tsd-kind-icon">method</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="testoptions.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="testoptions.html#params" class="tsd-kind-icon">params</a></li>
 							</ul>
 						</section>
 					</div>
@@ -102,64 +105,53 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="contained_within" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> contained_<wbr>within</h3>
-					<div class="tsd-signature tsd-kind-icon">contained_<wbr>within<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="method" class="tsd-anchor"></a>
+					<h3>method</h3>
+					<div class="tsd-signature tsd-kind-icon">method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interfaces/tweets/place.ts:10</li>
+							<li>Defined in tests/interfaces/test-options.ts:11</li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="country" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> country</h3>
-					<div class="tsd-signature tsd-kind-icon">country<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/place.ts:11</li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>sut<span class="tsd-signature-symbol">: </span><a href="../classes/twitterprovider.html" class="tsd-signature-type">TwitterProvider</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>sut: <a href="../classes/twitterprovider.html" class="tsd-signature-type">TwitterProvider</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
+										<ul class="tsd-parameters">
+											<li class="tsd-parameter-siganture">
+												<ul class="tsd-signatures tsd-kind-type-literal">
+													<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParams</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="tweet.html" class="tsd-signature-type">Tweet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+												</ul>
+												<ul class="tsd-descriptions">
+													<li class="tsd-description">
+														<h4 class="tsd-parameters-title">Parameters</h4>
+														<ul class="tsd-parameters">
+															<li>
+																<h5>params: <span class="tsd-signature-type">TParams</span></h5>
+															</li>
+														</ul>
+														<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="tweet.html" class="tsd-signature-type">Tweet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
 						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="country_code" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> country_<wbr>code</h3>
-					<div class="tsd-signature tsd-kind-icon">country_<wbr>code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/place.ts:12</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="full_name" class="tsd-anchor"></a>
-					<h3>full_<wbr>name</h3>
-					<div class="tsd-signature tsd-kind-icon">full_<wbr>name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/place.ts:7</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="geo" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> geo</h3>
-					<div class="tsd-signature tsd-kind-icon">geo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/place.ts:13</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/place.ts:6</li>
-						</ul>
-					</aside>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="name" class="tsd-anchor"></a>
@@ -167,17 +159,17 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interfaces/tweets/place.ts:14</li>
+							<li>Defined in tests/interfaces/test-options.ts:10</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="place_type" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> place_<wbr>type</h3>
-					<div class="tsd-signature tsd-kind-icon">place_<wbr>type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="params" class="tsd-anchor"></a>
+					<h3>params</h3>
+					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TParams</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interfaces/tweets/place.ts:15</li>
+							<li>Defined in tests/interfaces/test-options.ts:14</li>
 						</ul>
 					</aside>
 				</section>
@@ -189,32 +181,17 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface root">
-						<a href="place.html" class="tsd-kind-icon">Place</a>
+					<li class="current tsd-kind-interface tsd-has-type-parameter root">
+						<a href="testoptions.html" class="tsd-kind-icon">Test<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#contained_within" class="tsd-kind-icon">contained_<wbr>within</a>
+								<a href="testoptions.html#method" class="tsd-kind-icon">method</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#country" class="tsd-kind-icon">country</a>
+								<a href="testoptions.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#country_code" class="tsd-kind-icon">country_<wbr>code</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#full_name" class="tsd-kind-icon">full_<wbr>name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#geo" class="tsd-kind-icon">geo</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#id" class="tsd-kind-icon">id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="place.html#place_type" class="tsd-kind-icon">place_<wbr>type</a>
+								<a href="testoptions.html#params" class="tsd-kind-icon">params</a>
 							</li>
 						</ul>
 					</li>

@@ -98,6 +98,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listmentionsbyuser" class="tsd-kind-icon">list<wbr>Mentions<wbr>ByUser</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listtweets" class="tsd-kind-icon">list<wbr>Tweets</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listtweetsbyuser" class="tsd-kind-icon">list<wbr>Tweets<wbr>ByUser</a></li>
 							</ul>
@@ -117,7 +118,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in twitter-provider.ts:18</li>
+									<li>Defined in twitter-provider.ts:19</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in twitter-provider.ts:18</li>
+							<li>Defined in twitter-provider.ts:19</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -152,6 +153,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="listmentionsbyuser" class="tsd-anchor"></a>
+					<h3>list<wbr>Mentions<wbr>ByUser</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Mentions<wbr>ByUser<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/tweet.html" class="tsd-signature-type">Tweet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in twitter-provider.ts:40</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
+								<div class="lead">
+									<p>List mentions by given userId</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <a href="../interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/tweet.html" class="tsd-signature-type">Tweet</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="listtweets" class="tsd-anchor"></a>
 					<h3>list<wbr>Tweets</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -161,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in twitter-provider.ts:39</li>
+									<li>Defined in twitter-provider.ts:51</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -189,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in twitter-provider.ts:51</li>
+									<li>Defined in twitter-provider.ts:62</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -213,27 +242,6 @@
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/mediafields.html" class="tsd-kind-icon">Media<wbr>Fields</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/placefields.html" class="tsd-kind-icon">Place<wbr>Fields</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/pollfields.html" class="tsd-kind-icon">Poll<wbr>Fields</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/tweetexpansions.html" class="tsd-kind-icon">Tweet<wbr>Expansions</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/tweetfields.html" class="tsd-kind-icon">Tweet<wbr>Fields</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/tweettypes.html" class="tsd-kind-icon">Tweet<wbr>Types</a>
-					</li>
-					<li class=" tsd-kind-enum root">
-						<a href="../enums/userfields.html" class="tsd-kind-icon">User<wbr>Fields</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class root">
@@ -246,6 +254,9 @@
 								<a href="twitterprovider.html#client" class="tsd-kind-icon">client</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="twitterprovider.html#listmentionsbyuser" class="tsd-kind-icon">list<wbr>Mentions<wbr>ByUser</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="twitterprovider.html#listtweets" class="tsd-kind-icon">list<wbr>Tweets</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -255,102 +266,6 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/attachments.html" class="tsd-kind-icon">Attachments</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/baseparams.html" class="tsd-kind-icon">Base<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/includes.html" class="tsd-kind-icon">Includes</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/listtweetsbyuserparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>ByUser<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/listtweetsparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/media.html" class="tsd-kind-icon">Media</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/mediafieldsparams.html" class="tsd-kind-icon">Media<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/meta.html" class="tsd-kind-icon">Meta</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/place.html" class="tsd-kind-icon">Place</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/placefieldsparams.html" class="tsd-kind-icon">Place<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/poll.html" class="tsd-kind-icon">Poll</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/pollfieldsparams.html" class="tsd-kind-icon">Poll<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/polloption.html" class="tsd-kind-icon">Poll<wbr>Option</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawbaseparams.html" class="tsd-kind-icon">Raw<wbr>Base<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawexcludeparams.html" class="tsd-kind-icon">Raw<wbr>Exclude<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawlisttweetsbyuserparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Tweets<wbr>ByUser<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawlisttweetsparams.html" class="tsd-kind-icon">Raw<wbr>List<wbr>Tweets<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawmediafieldsparams.html" class="tsd-kind-icon">Raw<wbr>Media<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawplacefieldsparams.html" class="tsd-kind-icon">Raw<wbr>Place<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawpollfieldsparams.html" class="tsd-kind-icon">Raw<wbr>Poll<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawtweetexpansionsparams.html" class="tsd-kind-icon">Raw<wbr>Tweet<wbr>Expansions<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawtweetfieldsparams.html" class="tsd-kind-icon">Raw<wbr>Tweet<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/rawuserfieldsparams.html" class="tsd-kind-icon">Raw<wbr>User<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/tweet.html" class="tsd-kind-icon">Tweet</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/tweetexpansionsparams.html" class="tsd-kind-icon">Tweet<wbr>Expansions<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/tweetfieldsparams.html" class="tsd-kind-icon">Tweet<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter root">
-						<a href="../interfaces/twitterresponse.html" class="tsd-kind-icon">Twitter<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/user.html" class="tsd-kind-icon">User</a>
-					</li>
-					<li class=" tsd-kind-interface root">
-						<a href="../interfaces/userfieldsparams.html" class="tsd-kind-icon">User<wbr>Fields<wbr>Params</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="../modules.html#endpoint" class="tsd-kind-icon">Endpoint</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="../modules.html#parammapper" class="tsd-kind-icon">Param<wbr>Mapper</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

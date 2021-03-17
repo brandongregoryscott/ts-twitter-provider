@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Poll | ts-twitter-provider</title>
+	<title>IdFilterParams | ts-twitter-provider</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="poll.html">Poll</a>
+					<a href="idfilterparams.html">IdFilterParams</a>
 				</li>
 			</ul>
 		</div>
@@ -71,12 +71,20 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface Poll</h1>
+			<h1>Interface IdFilterParams</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Poll</span>
+						<span class="target">IdFilterParams</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a>
+							</li>
+							<li>
+								<a href="listtweetsbyuserparams.html" class="tsd-signature-type">ListTweetsByUserParams</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -86,11 +94,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="poll.html#duration_minutes" class="tsd-kind-icon">duration_<wbr>minutes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="poll.html#end_datetime" class="tsd-kind-icon">end_<wbr>datetime</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="poll.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="poll.html#options" class="tsd-kind-icon">options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="poll.html#voting_status" class="tsd-kind-icon">voting_<wbr>status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idfilterparams.html#since_id" class="tsd-kind-icon">since_<wbr>id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idfilterparams.html#until_id" class="tsd-kind-icon">until_<wbr>id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,52 +104,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="duration_minutes" class="tsd-anchor"></a>
-					<h3>duration_<wbr>minutes</h3>
-					<div class="tsd-signature tsd-kind-icon">duration_<wbr>minutes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="since_id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> since_<wbr>id</h3>
+					<div class="tsd-signature tsd-kind-icon">since_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interfaces/tweets/poll.ts:10</li>
+							<li>Defined in interfaces/params/id-filter-params.ts:8</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="end_datetime" class="tsd-anchor"></a>
-					<h3>end_<wbr>datetime</h3>
-					<div class="tsd-signature tsd-kind-icon">end_<wbr>datetime<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="until_id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> until_<wbr>id</h3>
+					<div class="tsd-signature tsd-kind-icon">until_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interfaces/tweets/poll.ts:11</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/poll.ts:8</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="options" class="tsd-anchor"></a>
-					<h3>options</h3>
-					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="polloption.html" class="tsd-signature-type">PollOption</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/poll.ts:9</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="voting_status" class="tsd-anchor"></a>
-					<h3>voting_<wbr>status</h3>
-					<div class="tsd-signature tsd-kind-icon">voting_<wbr>status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in interfaces/tweets/poll.ts:12</li>
+							<li>Defined in interfaces/params/id-filter-params.ts:9</li>
 						</ul>
 					</aside>
 				</section>
@@ -157,22 +132,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface root">
-						<a href="poll.html" class="tsd-kind-icon">Poll</a>
+						<a href="idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="poll.html#duration_minutes" class="tsd-kind-icon">duration_<wbr>minutes</a>
+								<a href="idfilterparams.html#since_id" class="tsd-kind-icon">since_<wbr>id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="poll.html#end_datetime" class="tsd-kind-icon">end_<wbr>datetime</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="poll.html#id" class="tsd-kind-icon">id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="poll.html#options" class="tsd-kind-icon">options</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="poll.html#voting_status" class="tsd-kind-icon">voting_<wbr>status</a>
+								<a href="idfilterparams.html#until_id" class="tsd-kind-icon">until_<wbr>id</a>
 							</li>
 						</ul>
 					</li>
