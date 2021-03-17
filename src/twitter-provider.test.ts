@@ -21,12 +21,15 @@ import { testUserFieldsWithExpansionReturnsUser } from "./tests/shared/test-user
 import { testUserFieldsWithoutExpansionReturnsUser } from "./tests/shared/test-user-fields-without-expansion-returns-user";
 import { testUntilIdReturnsTweetsUpToId } from "./tests/shared/test-until-id-returns-tweets-up-to-id";
 import { testSinceIdReturnsTweetsAfterId } from "./tests/shared/test-since-id-returns-tweets-after-id";
+import { testPlaceFieldsWithExpansionReturnsPlace } from "./tests/shared/test-place-fields-with-expansion-returns-place";
+import { testPlaceFieldsWithoutExpansionReturnsPlace } from "./tests/shared/test-place-fields-without-expansion-returns-place";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
 // -----------------------------------------------------------------------------------------
 
 const USERID_BSCOTTORIGINALS = "953649053631434752";
+const USERID_BRANDONSCOTT = "730217167195648000";
 
 // #endregion Constants
 
@@ -129,6 +132,26 @@ describe("TwitterProvider", () => {
                 userId: USERID_BSCOTTORIGINALS,
             },
         });
+
+        testPlaceFieldsWithExpansionReturnsPlace<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                since_id: "1371977096273215400",
+                until_id: "1371977096273215500",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
+
+        testPlaceFieldsWithoutExpansionReturnsPlace<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                since_id: "1371977096273215400",
+                until_id: "1371977096273215500",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
     });
 
     // #endregion listMentionsByUser
@@ -186,60 +209,14 @@ describe("TwitterProvider", () => {
             params: { ids: "1342161609909800963" },
         });
 
-        test.each([
-            [PlaceFields.Country, PlaceFields.Name],
-            `${PlaceFields.Country},${PlaceFields.Name}`,
-        ])(
-            `given placeFields %p and '${TweetExpansions.GeoPlaceId}', it returns tweets with those included fields`,
-            async (placeFields) => {
-                // Arrange
-                const ids = ["1136048014974423040"];
-                const sut = setupSut();
+        testPlaceFieldsWithExpansionReturnsPlace<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1136048014974423040" },
+        });
 
-                // Act
-                const result = await sut.listTweets({
-                    ids,
-                    expansions: [TweetExpansions.GeoPlaceId],
-                    placeFields,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                expect(result.data[0].geo).toBeDefined();
-
-                expect(result.includes?.places).toBeDefined();
-                expect(result.includes?.places?.length).toBeGreaterThanOrEqual(
-                    1
-                );
-
-                const place = result.includes?.places?.[0]!;
-                expect(place.country).toBeDefined();
-                expect(place.name).toBeDefined();
-            }
-        );
-
-        test("given list of placeFields without specifying expansions, it returns tweets with those included fields", async () => {
-            // Arrange
-            const ids = ["1136048014974423040"];
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweets({
-                ids,
-                expansions: [], // <-- Intentionally not sending through TweetExpansions.GeoPlaceId
-                placeFields: [PlaceFields.Country, PlaceFields.Name],
-            });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            expect(result.data[0].geo).toBeDefined();
-
-            expect(result.includes?.places).toBeDefined();
-            expect(result.includes?.places?.length).toBeGreaterThanOrEqual(1);
-
-            const place = result.includes?.places?.[0]!;
-            expect(place.country).toBeDefined();
-            expect(place.name).toBeDefined();
+        testPlaceFieldsWithoutExpansionReturnsPlace<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1136048014974423040" },
         });
     });
 
@@ -415,6 +392,26 @@ describe("TwitterProvider", () => {
         testUserFieldsWithoutExpansionReturnsUser<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
+        });
+
+        testPlaceFieldsWithExpansionReturnsPlace<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                since_id: "1371977096273215400",
+                until_id: "1371977096273215500",
+                userId: USERID_BRANDONSCOTT,
+            },
+        });
+
+        testPlaceFieldsWithoutExpansionReturnsPlace<ListTweetsByUserParams>({
+            method: (sut) => sut.listTweetsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                since_id: "1371977096273215400",
+                until_id: "1371977096273215500",
+                userId: USERID_BRANDONSCOTT,
+            },
         });
     });
 

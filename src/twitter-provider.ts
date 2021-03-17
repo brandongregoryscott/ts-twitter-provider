@@ -34,6 +34,9 @@ class TwitterProvider {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
+    /**
+     * List mentions by given userId
+     */
     public listMentionsByUser = (
         params: ListMentionsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
