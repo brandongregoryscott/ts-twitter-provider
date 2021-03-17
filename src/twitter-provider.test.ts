@@ -23,6 +23,8 @@ import { testUntilIdReturnsTweetsUpToId } from "./tests/shared/test-until-id-ret
 import { testSinceIdReturnsTweetsAfterId } from "./tests/shared/test-since-id-returns-tweets-after-id";
 import { testPlaceFieldsWithExpansionReturnsPlace } from "./tests/shared/test-place-fields-with-expansion-returns-place";
 import { testPlaceFieldsWithoutExpansionReturnsPlace } from "./tests/shared/test-place-fields-without-expansion-returns-place";
+import { testMediaFieldsWithExpansionReturnsMedia } from "./tests/shared/test-media-fields-with-expansion-returns-media";
+import { testMediaFieldsWithoutExpansionReturnsMedia } from "./tests/shared/test-media-fields-without-expansion-returns-media";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -152,6 +154,26 @@ describe("TwitterProvider", () => {
                 userId: USERID_BSCOTTORIGINALS,
             },
         });
+
+        testMediaFieldsWithExpansionReturnsMedia<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371978365557690371
+                since_id: "1371978365557690300",
+                until_id: "1371978365557690400",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
+
+        testMediaFieldsWithoutExpansionReturnsMedia<ListMentionsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371978365557690371
+                since_id: "1371978365557690300",
+                until_id: "1371978365557690400",
+                userId: USERID_BSCOTTORIGINALS,
+            },
+        });
     });
 
     // #endregion listMentionsByUser
@@ -217,6 +239,16 @@ describe("TwitterProvider", () => {
         testPlaceFieldsWithoutExpansionReturnsPlace<ListTweetsParams>({
             method: (sut) => sut.listTweets,
             params: { ids: "1136048014974423040" },
+        });
+
+        testMediaFieldsWithExpansionReturnsMedia<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1050508671938125830" },
+        });
+
+        testMediaFieldsWithoutExpansionReturnsMedia<ListTweetsParams>({
+            method: (sut) => sut.listTweets,
+            params: { ids: "1050508671938125830" },
         });
     });
 
@@ -299,89 +331,14 @@ describe("TwitterProvider", () => {
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
-        test.each([
-            [
-                MediaFields.Height,
-                MediaFields.MediaKey,
-                MediaFields.Type,
-                MediaFields.Width,
-            ],
-            [
-                MediaFields.Height,
-                MediaFields.MediaKey,
-                MediaFields.Type,
-                MediaFields.Width,
-            ].join(),
-        ])(
-            `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', it returns tweets with those media fields`,
-            async (mediaFields) => {
-                // Arrange
-                const userId = USERID_BSCOTTORIGINALS;
-                const sut = setupSut();
+        testMediaFieldsWithExpansionReturnsMedia<ListTweetsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
+        });
 
-                // Act
-                const result = await sut.listTweetsByUser({
-                    userId,
-                    expansions: [TweetExpansions.AttachmentsMediaKeys],
-                    mediaFields,
-                });
-
-                // Assert
-                expect(result.data.length).toBeGreaterThanOrEqual(1);
-                const tweet = result.data[0];
-
-                expect(tweet.attachments).toBeDefined();
-                expect(
-                    tweet.attachments?.media_keys?.length
-                ).toBeGreaterThanOrEqual(1);
-
-                expect(result.includes).toBeDefined();
-                expect(result.includes?.media?.length).toBeGreaterThanOrEqual(
-                    1
-                );
-
-                const attachment = result.includes?.media?.[0]!;
-                expect(attachment.media_key).toBeDefined();
-                expect(attachment.type).toBeDefined();
-                expect(attachment.width).toBeDefined();
-                expect(attachment.height).toBeDefined();
-            }
-        );
-
-        test("given list of mediaFields without specifying expansions, it returns tweets with those media fields", async () => {
-            // Arrange
-            const userId = USERID_BSCOTTORIGINALS;
-            const sut = setupSut();
-
-            // Act
-            const result = await sut.listTweetsByUser({
-                userId,
-                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
-                mediaFields: [
-                    MediaFields.Height,
-                    MediaFields.MediaKey,
-                    MediaFields.Type,
-                    MediaFields.Width,
-                ],
-            });
-
-            // Assert
-            expect(result.data.length).toBeGreaterThanOrEqual(1);
-            const tweet = result.data[0];
-
-            expect(tweet.attachments).toBeDefined();
-            expect(
-                tweet.attachments?.media_keys?.length
-            ).toBeGreaterThanOrEqual(1);
-
-            expect(result.includes).toBeDefined();
-            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
-
-            const attachment = result.includes?.media?.[0]!;
-            expect(attachment.media_key).toBeDefined();
-            expect(attachment.type).toBeDefined();
-            expect(attachment.width).toBeDefined();
-            expect(attachment.height).toBeDefined();
+        testMediaFieldsWithoutExpansionReturnsMedia<ListTweetsByUserParams>({
+            method: (sut) => sut.listMentionsByUser,
+            params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         testUserFieldsWithExpansionReturnsUser<ListTweetsByUserParams>({
