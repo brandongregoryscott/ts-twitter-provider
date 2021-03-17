@@ -9,6 +9,7 @@ interface PagingParams {
     pagination_token?: string;
 }
 
+/** @hidden */
 interface RawPagingParams extends RequestParameters {
     max_results: string;
     pagination_token: string;

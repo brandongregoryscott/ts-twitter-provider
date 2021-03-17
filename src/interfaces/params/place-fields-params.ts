@@ -9,6 +9,7 @@ interface PlaceFieldsParams {
     placeFields?: ArrayOrCsv<PlaceFields>;
 }
 
+/** @hidden */
 interface RawPlaceFieldsParams {
     "place.fields": string;
 }

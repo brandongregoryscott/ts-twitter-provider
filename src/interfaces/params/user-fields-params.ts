@@ -9,6 +9,7 @@ interface UserFieldsParams {
     userFields?: ArrayOrCsv<UserFields>;
 }
 
+/** @hidden */
 interface RawUserFieldsParams {
     "user.fields": string;
 }

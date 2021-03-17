@@ -9,6 +9,7 @@ interface TweetFieldsParams {
     fields?: ArrayOrCsv<TweetFields>;
 }
 
+/** @hidden */
 interface RawTweetFieldsParams {
     "tweet.fields": string[];
 }

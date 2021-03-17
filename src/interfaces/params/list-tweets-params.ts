@@ -11,6 +11,7 @@ interface ListTweetsParams extends BaseParams {
 }
 
 /**
+ * @hidden
  * Interface representing what the /tweets endpoint expects directly
  */
 interface RawListTweetsParams extends RequestParameters, RawBaseParams {

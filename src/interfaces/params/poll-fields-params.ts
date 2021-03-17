@@ -8,6 +8,7 @@ interface PollFieldsParams {
     pollFields?: PollFields[];
 }
 
+/** @hidden */
 interface RawPollFieldsParams {
     "poll.fields": string;
 }

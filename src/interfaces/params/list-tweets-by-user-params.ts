@@ -19,6 +19,7 @@ interface ListTweetsByUserParams
 }
 
 /**
+ * @hidden
  * Interface representing what the /users/:id/tweets endpoint expects directly
  */
 interface RawListTweetsByUserParams

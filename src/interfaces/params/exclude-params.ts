@@ -10,6 +10,7 @@ interface ExcludeParams {
     exclude?: ArrayOrCsv<TweetTypes>;
 }
 
+/** @hidden */
 interface RawExcludeParams {
     exclude: string;
 }

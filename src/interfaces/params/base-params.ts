@@ -20,6 +20,7 @@ interface BaseParams
         TweetFieldsParams,
         UserFieldsParams {}
 
+/** @hidden */
 interface RawBaseParams
     extends RawMediaFieldsParams,
         RawPlaceFieldsParams,

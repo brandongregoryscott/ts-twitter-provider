@@ -9,6 +9,7 @@ interface MediaFieldsParams {
     mediaFields?: ArrayOrCsv<MediaFields>;
 }
 
+/** @hidden */
 interface RawMediaFieldsParams {
     "media.fields": string;
 }

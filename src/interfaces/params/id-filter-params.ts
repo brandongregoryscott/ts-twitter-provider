@@ -9,6 +9,7 @@ interface IdFilterParams {
     until_id?: string;
 }
 
+/** @hidden */
 interface RawIdFilterParams extends RequestParameters {
     since_id: string;
     until_id: string;

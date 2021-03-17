@@ -9,6 +9,7 @@ interface TimeFilterParams {
     start_time?: string | Date;
 }
 
+/** @hidden */
 interface RawTimeFilterParams extends RequestParameters {
     end_time: string;
     start_time: string;

@@ -19,6 +19,7 @@ interface ListMentionsByUserParams
 }
 
 /**
+ * @hidden
  * Interface representing what the /users/:id/mentions endpoint expects directly
  */
 interface RawListMentionsByUserParams

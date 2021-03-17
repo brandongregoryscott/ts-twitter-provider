@@ -9,6 +9,7 @@ interface TweetExpansionsParams {
     expansions?: ArrayOrCsv<TweetExpansions>;
 }
 
+/** @hidden */
 interface RawTweetExpansionsParams {
     expansions: string;
 }
