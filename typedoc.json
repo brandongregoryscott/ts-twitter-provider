@@ -1,0 +1,10 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": ["src"],
+    "excludeExternals": true,
+    "exclude": ["**/tests/*", "**/*.test.*"],
+    "out": "docs",
+    "plugin": ["typedoc-neo-theme", "typedoc-plugin-merge-modules"],
+    "theme": "./node_modules/typedoc-neo-theme/bin/default",
+    "tsconfig": "tsconfig.dist.json"
+}

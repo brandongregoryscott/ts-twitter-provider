@@ -42,7 +42,7 @@
     "scripts": {
         "build": "tsc --pretty --project tsconfig.dist.json",
         "clean": "rimraf dist docs",
-        "docs": "typedoc --excludeExternals --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme --plugin typedoc-plugin-merge-modules src",
+        "docs": "typedoc",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",
         "postbuild": "npm run docs",
         "postpublish": "cross-env-shell \"git add -A && git commit -m \"$npm_package_version\" && git push origin main\"",
