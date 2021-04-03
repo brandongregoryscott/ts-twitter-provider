@@ -26,6 +26,8 @@ import { testPlaceFieldsWithoutExpansionReturnsPlace } from "./tests/shared/test
 import { testMediaFieldsWithExpansionReturnsMedia } from "./tests/shared/test-media-fields-with-expansion-returns-media";
 import { testMediaFieldsWithoutExpansionReturnsMedia } from "./tests/shared/test-media-fields-without-expansion-returns-media";
 import { TestTwitterProvider } from "./tests/test-twitter-provider";
+import { PollFields } from "./enums/poll-fields";
+import { UserFields } from "./enums/user-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -60,28 +62,153 @@ describe("TwitterProvider", () => {
     // #region getTweet
     // -----------------------------------------------------------------------------------------
 
-    test.only("when tweet exists, returns tweet", async () => {
-        // Arrange & Act
-        const id = "1371978365557690371";
-        const result = await TestTwitterProvider.getTweet({
-            id,
+    describe.only("getTweet", () => {
+        test("when tweet exists, returns tweet", async () => {
+            // Arrange & Act
+            const id = "1371978365557690371";
+            const result = await TestTwitterProvider.getTweet({
+                id,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+            expect(result.data!.id).toBe(id);
         });
 
-        // Assert
-        expect(result.data).toBeDefined();
-        expect(result.data!.id).toBe(id);
-    });
+        test("when tweet does not exist, returns undefined with errors", async () => {
+            // Arrange & Act
+            const id = "12345";
+            const result = await TestTwitterProvider.getTweet({
+                id,
+            });
 
-    test.only("when tweet does not exist, returns undefined with errors", async () => {
-        // Arrange & Act
-        const id = "12345";
-        const result = await TestTwitterProvider.getTweet({
-            id,
+            // Assert
+            expect(result.data).toBeUndefined();
+            expect(result.errors?.length).toBeGreaterThanOrEqual(1);
         });
 
-        // Assert
-        expect(result.data).toBeUndefined();
-        expect(result.errors?.length).toBeGreaterThanOrEqual(1);
+        test(`given list of pollFields and '${TweetExpansions.AttachmentsPollIds}', returns tweet with poll_ids`, async () => {
+            // Arrange
+            const id = "1371788005279682560";
+
+            // Act
+            const result = await TestTwitterProvider.getTweet({
+                id,
+                expansions: [TweetExpansions.AttachmentsPollIds],
+                pollFields: [PollFields.VotingStatus],
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+
+            const tweet = result.data!;
+            expect(tweet.attachments).toBeDefined();
+            expect(tweet.attachments?.poll_ids).toHaveLength(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
+
+            const poll = result.includes?.polls?.[0]!;
+            expect(poll.id).toBeDefined();
+            expect(poll.options.length).toBeGreaterThanOrEqual(1);
+            expect(poll.voting_status).toMatch(/closed|open/);
+        });
+
+        test("given pollFields without specifying expansions, returns tweets with poll_ids", async () => {
+            // Arrange
+            const id = "1371788005279682560";
+
+            // Act
+            const result = await TestTwitterProvider.getTweet({
+                id,
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentsPollIds
+                pollFields: [PollFields.VotingStatus],
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+
+            const tweet = result.data!;
+            expect(tweet.attachments).toBeDefined();
+            expect(tweet.attachments?.poll_ids).toHaveLength(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.polls?.length).toBeGreaterThanOrEqual(1);
+
+            const poll = result.includes?.polls?.[0]!;
+            expect(poll.id).toBeDefined();
+            expect(poll.options.length).toBeGreaterThanOrEqual(1);
+            expect(poll.voting_status).toMatch(/closed|open/);
+        });
+
+        test.each([
+            [UserFields.CreatedAt, UserFields.Verified],
+            `${UserFields.CreatedAt},${UserFields.Verified}`,
+        ])(
+            `given userFields %p and '${TweetExpansions.AuthorId}', it returns user`,
+            async (userFields) => {
+                // Arrange
+                const id = "1371788005279682560";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    expansions: [TweetExpansions.AuthorId],
+                    userFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const tweet = result.data!;
+
+                expect(tweet.author_id).toBeDefined();
+
+                expect(result.includes?.users).toBeDefined();
+                expect(result.includes?.users?.length).toBeGreaterThanOrEqual(
+                    1
+                );
+
+                const user = result.includes?.users?.[0]!;
+                expect(user.username).toBeDefined();
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
+
+        test.each([
+            [UserFields.CreatedAt, UserFields.Verified],
+            `${UserFields.CreatedAt},${UserFields.Verified}`,
+        ])(
+            `given userFields %p without specifying expansions, it returns user`,
+            async (userFields) => {
+                const id = "1371788005279682560";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    expansions: [], // <-- Intentionally not sending through TweetExpansions.AuthorId
+                    userFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const tweet = result.data!;
+
+                expect(tweet.author_id).toBeDefined();
+
+                expect(result.includes?.users).toBeDefined();
+                expect(result.includes?.users?.length).toBeGreaterThanOrEqual(
+                    1
+                );
+
+                const user = result.includes?.users?.[0]!;
+                expect(user.username).toBeDefined();
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
     });
 
     // #endregion getTweet
