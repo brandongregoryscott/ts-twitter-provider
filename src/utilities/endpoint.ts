@@ -3,6 +3,9 @@
 // -----------------------------------------------------------------------------------------
 
 const Endpoint = {
+    tweet(id: string) {
+        return `tweets/${id}`;
+    },
     tweets() {
         return "tweets";
     },

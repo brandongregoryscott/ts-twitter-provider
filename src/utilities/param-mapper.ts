@@ -17,6 +17,10 @@ import {
     RawListMentionsByUserParams,
 } from "../interfaces/params/list-mentions-by-user-params";
 import { UserFields } from "../enums/user-fields";
+import {
+    GetTweetParams,
+    RawGetTweetParams,
+} from "../interfaces/params/get-tweet-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -45,7 +49,7 @@ const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
     },
 ];
 
-const _unmappedKeys: Array<UnmappedKey> = ["userId"];
+const _unmappedKeys: Array<UnmappedKey> = ["id", "userId"];
 
 // #endregion Constants
 
@@ -59,13 +63,24 @@ type FieldToExpansionMap = {
     requestedFields: MediaFields[] | PlaceFields[] | PollFields[] | any[];
     expansion: TweetExpansions;
 };
-type UnmappedKey = keyof Pick<ListTweetsByUserParams, "userId">;
+type UnmappedKey =
+    | keyof Pick<GetTweetParams, "id">
+    | keyof Pick<ListTweetsByUserParams, "userId">;
 
 // #endregion Types
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
+
+const toGetTweetParams = (params: GetTweetParams): RawGetTweetParams => {
+    params = _preprocessInputParams(params);
+
+    const transformedParams: Partial<RawGetTweetParams> = {
+        ..._transformAndMapKeys(params),
+    };
+    return transformedParams as RawGetTweetParams;
+};
 
 const toListMentionsByUserParams = (
     params: ListMentionsByUserParams
@@ -224,6 +239,7 @@ const _sanitizeCsv = (input: string): string =>
 // -----------------------------------------------------------------------------------------
 
 const ParamMapper = {
+    toGetTweetParams,
     toListMentionsByUserParams,
     toListTweetsParams,
     toListTweetsByUserParams,

@@ -25,6 +25,7 @@ import { testPlaceFieldsWithExpansionReturnsPlace } from "./tests/shared/test-pl
 import { testPlaceFieldsWithoutExpansionReturnsPlace } from "./tests/shared/test-place-fields-without-expansion-returns-place";
 import { testMediaFieldsWithExpansionReturnsMedia } from "./tests/shared/test-media-fields-with-expansion-returns-media";
 import { testMediaFieldsWithoutExpansionReturnsMedia } from "./tests/shared/test-media-fields-without-expansion-returns-media";
+import { TestTwitterProvider } from "./tests/test-twitter-provider";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -54,6 +55,36 @@ describe("TwitterProvider", () => {
         });
 
     // #endregion Setup
+
+    // -----------------------------------------------------------------------------------------
+    // #region getTweet
+    // -----------------------------------------------------------------------------------------
+
+    test.only("when tweet exists, returns tweet", async () => {
+        // Arrange & Act
+        const id = "1371978365557690371";
+        const result = await TestTwitterProvider.getTweet({
+            id,
+        });
+
+        // Assert
+        expect(result.data).toBeDefined();
+        expect(result.data!.id).toBe(id);
+    });
+
+    test.only("when tweet does not exist, returns undefined with errors", async () => {
+        // Arrange & Act
+        const id = "12345";
+        const result = await TestTwitterProvider.getTweet({
+            id,
+        });
+
+        // Assert
+        expect(result.data).toBeUndefined();
+        expect(result.errors?.length).toBeGreaterThanOrEqual(1);
+    });
+
+    // #endregion getTweet
 
     // -----------------------------------------------------------------------------------------
     // #region listMentionsByUser
