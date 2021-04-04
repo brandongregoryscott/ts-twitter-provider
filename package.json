@@ -25,7 +25,6 @@
     "files": [
         "dist"
     ],
-    "license": "ISC",
     "keywords": [
         "api",
         "typescript",
@@ -33,6 +32,7 @@
         "twitter-api",
         "twitter-client"
     ],
+    "license": "Apache-2.0",
     "main": "dist/index.js",
     "name": "ts-twitter-provider",
     "repository": {
