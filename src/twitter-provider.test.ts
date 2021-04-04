@@ -28,6 +28,7 @@ import { testMediaFieldsWithoutExpansionReturnsMedia } from "./tests/shared/test
 import { TestTwitterProvider } from "./tests/test-twitter-provider";
 import { PollFields } from "./enums/poll-fields";
 import { UserFields } from "./enums/user-fields";
+import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -62,7 +63,7 @@ describe("TwitterProvider", () => {
     // #region getTweet
     // -----------------------------------------------------------------------------------------
 
-    describe.only("getTweet", () => {
+    describe("getTweet", () => {
         test("when tweet exists, returns tweet", async () => {
             // Arrange & Act
             const id = "1371978365557690371";
@@ -114,7 +115,7 @@ describe("TwitterProvider", () => {
             expect(poll.voting_status).toMatch(/closed|open/);
         });
 
-        test("given pollFields without specifying expansions, returns tweets with poll_ids", async () => {
+        test("given pollFields without specifying expansions, returns tweet with poll_ids", async () => {
             // Arrange
             const id = "1371788005279682560";
 
@@ -145,7 +146,7 @@ describe("TwitterProvider", () => {
             [UserFields.CreatedAt, UserFields.Verified],
             `${UserFields.CreatedAt},${UserFields.Verified}`,
         ])(
-            `given userFields %p and '${TweetExpansions.AuthorId}', it returns user`,
+            `given userFields %p and '${TweetExpansions.AuthorId}', returns user`,
             async (userFields) => {
                 // Arrange
                 const id = "1371788005279682560";
@@ -180,7 +181,7 @@ describe("TwitterProvider", () => {
             [UserFields.CreatedAt, UserFields.Verified],
             `${UserFields.CreatedAt},${UserFields.Verified}`,
         ])(
-            `given userFields %p without specifying expansions, it returns user`,
+            `given userFields %p without specifying expansions, returns user`,
             async (userFields) => {
                 const id = "1371788005279682560";
 
@@ -207,6 +208,168 @@ describe("TwitterProvider", () => {
                 expect(user.username).toBeDefined();
                 expect(user.created_at).toBeDefined();
                 expect(user.verified).toBeDefined();
+            }
+        );
+
+        test.each([
+            [PlaceFields.Country, PlaceFields.Name],
+            `${PlaceFields.Country},${PlaceFields.Name}`,
+        ])(
+            `given placeFields %p and '${TweetExpansions.GeoPlaceId}', returns place`,
+            async (placeFields) => {
+                // Arrange
+                const id = "1136048014974423040";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    expansions: [TweetExpansions.GeoPlaceId],
+                    placeFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+                expect(result.data!.geo).toBeDefined();
+
+                expect(result.includes?.places).toBeDefined();
+                expect(result.includes?.places?.length).toBeGreaterThanOrEqual(
+                    1
+                );
+
+                const place = result.includes?.places?.[0]!;
+                expect(place.country).toBeDefined();
+                expect(place.name).toBeDefined();
+            }
+        );
+
+        test(`given placeFields without specifying expansion, returns place`, async () => {
+            // Arrange
+            const id = "1136048014974423040";
+
+            // Act
+            const result = await TestTwitterProvider.getTweet({
+                id,
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.GeoPlaceId
+                placeFields: [PlaceFields.Country, PlaceFields.Name],
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+            expect(result.data!.geo).toBeDefined();
+
+            expect(result.includes?.places).toBeDefined();
+            expect(result.includes?.places?.length).toBeGreaterThanOrEqual(1);
+
+            const place = result.includes?.places?.[0]!;
+            expect(place.country).toBeDefined();
+            expect(place.name).toBeDefined();
+        });
+
+        test.each([
+            [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
+            `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
+        ])(
+            "given expansions %p, returns tweet with those expanded fields",
+            async (expansions) => {
+                // Arrange
+                const id = "1136048014974423040";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    expansions,
+                });
+
+                // Assert
+                const tweet = result.data;
+                expect(tweet).toBeDefined();
+                expect(tweet!.author_id).toBeDefined();
+            }
+        );
+
+        test.each([ALL_MEDIA_FIELDS, ALL_MEDIA_FIELDS.join()])(
+            `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', returns media`,
+            async (mediaFields) => {
+                // Arrange
+                const id = "1371978365557690371";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    expansions: [TweetExpansions.AttachmentsMediaKeys],
+                    mediaFields,
+                });
+
+                // Assert
+                const tweet = result.data;
+                expect(tweet).toBeDefined();
+
+                expect(tweet!.attachments).toBeDefined();
+                expect(
+                    tweet!.attachments?.media_keys?.length
+                ).toBeGreaterThanOrEqual(1);
+
+                expect(result.includes).toBeDefined();
+                expect(result.includes?.media?.length).toBeGreaterThanOrEqual(
+                    1
+                );
+
+                const attachment = result.includes?.media?.[0]!;
+                expect(attachment.media_key).toBeDefined();
+                expect(attachment.type).toBeDefined();
+                expect(attachment.width).toBeDefined();
+                expect(attachment.height).toBeDefined();
+            }
+        );
+
+        test("given mediaFields without specifying expansions, returns media", async () => {
+            // Arrange
+            const id = "1371978365557690371";
+
+            // Act
+            const result = await TestTwitterProvider.getTweet({
+                id,
+                expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
+                mediaFields: ALL_MEDIA_FIELDS,
+            });
+
+            // Assert
+            const tweet = result.data;
+            expect(tweet).toBeDefined();
+
+            expect(tweet!.attachments).toBeDefined();
+            expect(
+                tweet!.attachments?.media_keys?.length
+            ).toBeGreaterThanOrEqual(1);
+
+            expect(result.includes).toBeDefined();
+            expect(result.includes?.media?.length).toBeGreaterThanOrEqual(1);
+
+            const attachment = result.includes?.media?.[0]!;
+            expect(attachment.media_key).toBeDefined();
+            expect(attachment.type).toBeDefined();
+            expect(attachment.width).toBeDefined();
+            expect(attachment.height).toBeDefined();
+        });
+
+        test.each([
+            [TweetFields.Lang, TweetFields.Id],
+            `${TweetFields.Lang},${TweetFields.Id}`,
+        ])(
+            "given fields %p, returns tweet with those included fields",
+            async (fields) => {
+                // Arrange
+                const id = "1371978365557690371";
+
+                // Act
+                const result = await TestTwitterProvider.getTweet({
+                    id,
+                    fields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+                expect(result.data?.lang).toBeDefined();
             }
         );
     });
