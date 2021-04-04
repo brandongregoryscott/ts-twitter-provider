@@ -25,6 +25,7 @@ export { Meta } from "./interfaces/meta";
 export { Poll } from "./interfaces/tweets/poll";
 export { PollOption } from "./interfaces/tweets/poll-option";
 export { Tweet } from "./interfaces/tweets/tweet";
+export { TwitterError } from "./interfaces/twitter-error";
 export { TwitterResponse } from "./interfaces/twitter-response";
 export { User } from "./interfaces/tweets/user";
 
