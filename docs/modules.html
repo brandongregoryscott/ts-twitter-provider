@@ -96,6 +96,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/attachments.html" class="tsd-kind-icon">Attachments</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/baseparams.html" class="tsd-kind-icon">Base<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/includes.html" class="tsd-kind-icon">Includes</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/listmentionsbyuserparams.html" class="tsd-kind-icon">List<wbr>Mentions<wbr>ByUser<wbr>Params</a></li>
@@ -114,6 +115,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/tweet.html" class="tsd-kind-icon">Tweet</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/tweetexpansionsparams.html" class="tsd-kind-icon">Tweet<wbr>Expansions<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/tweetfieldsparams.html" class="tsd-kind-icon">Tweet<wbr>Fields<wbr>Params</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/twittererror.html" class="tsd-kind-icon">Twitter<wbr>Error</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/twitterresponse.html" class="tsd-kind-icon">Twitter<wbr>Response</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/user.html" class="tsd-kind-icon">User</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/userfieldsparams.html" class="tsd-kind-icon">User<wbr>Fields<wbr>Params</a></li>
@@ -174,6 +176,27 @@
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
+								<h5>tweet<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">tweet<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/endpoint.ts:6</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>id: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
 								<h5>tweets<span class="tsd-signature-symbol">: </span>function</h5>
 								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
 									<li class="tsd-signature tsd-kind-icon">tweets<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
@@ -182,7 +205,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in utilities/endpoint.ts:6</li>
+												<li>Defined in utilities/endpoint.ts:9</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -197,7 +220,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in utilities/endpoint.ts:9</li>
+												<li>Defined in utilities/endpoint.ts:12</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -218,7 +241,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in utilities/endpoint.ts:12</li>
+												<li>Defined in utilities/endpoint.ts:15</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -239,12 +262,33 @@
 					<div class="tsd-signature tsd-kind-icon">Param<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utilities/param-mapper.ts:226</li>
+							<li>Defined in utilities/param-mapper.ts:241</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>to<wbr>Get<wbr>Tweet<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawGetTweetParams</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>params: <a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawGetTweetParams</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
 							<li class="tsd-parameter">
 								<h5>to<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
 								<ul class="tsd-parameters">
@@ -351,6 +395,9 @@
 						<a href="interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
@@ -403,6 +450,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/tweetfieldsparams.html" class="tsd-kind-icon">Tweet<wbr>Fields<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/twittererror.html" class="tsd-kind-icon">Twitter<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter root">
 						<a href="interfaces/twitterresponse.html" class="tsd-kind-icon">Twitter<wbr>Response</a>

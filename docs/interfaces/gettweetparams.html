@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PollFieldsParams | ts-twitter-provider</title>
+	<title>GetTweetParams | ts-twitter-provider</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="pollfieldsparams.html">PollFieldsParams</a>
+					<a href="gettweetparams.html">GetTweetParams</a>
 				</li>
 			</ul>
 		</div>
@@ -71,15 +71,15 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface PollFieldsParams</h1>
+			<h1>Interface GetTweetParams</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PollFieldsParams</span>
+						<a href="baseparams.html" class="tsd-signature-type">BaseParams</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<a href="baseparams.html" class="tsd-signature-type">BaseParams</a>
+								<span class="target">GetTweetParams</span>
 							</li>
 						</ul>
 					</li>
@@ -91,7 +91,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pollfieldsparams.html#pollfields" class="tsd-kind-icon">poll<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#expansions" class="tsd-kind-icon">expansions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#fields" class="tsd-kind-icon">fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="gettweetparams.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#mediafields" class="tsd-kind-icon">media<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#placefields" class="tsd-kind-icon">place<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#pollfields" class="tsd-kind-icon">poll<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="gettweetparams.html#userfields" class="tsd-kind-icon">user<wbr>Fields</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,13 +105,79 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="expansions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> expansions</h3>
+					<div class="tsd-signature tsd-kind-icon">expansions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/tweetexpansions.html" class="tsd-signature-type">TweetExpansions</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#expansions">expansions</a></p>
+						<ul>
+							<li>Defined in interfaces/params/tweet-expansions-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="fields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fields</h3>
+					<div class="tsd-signature tsd-kind-icon">fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/tweetfields.html" class="tsd-signature-type">TweetFields</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#fields">fields</a></p>
+						<ul>
+							<li>Defined in interfaces/params/tweet-fields-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interfaces/params/get-tweet-params.ts:13</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="mediafields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> media<wbr>Fields</h3>
+					<div class="tsd-signature tsd-kind-icon">media<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/mediafields.html" class="tsd-signature-type">MediaFields</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#mediafields">mediaFields</a></p>
+						<ul>
+							<li>Defined in interfaces/params/media-fields-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="placefields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> place<wbr>Fields</h3>
+					<div class="tsd-signature tsd-kind-icon">place<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/placefields.html" class="tsd-signature-type">PlaceFields</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#placefields">placeFields</a></p>
+						<ul>
+							<li>Defined in interfaces/params/place-fields-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="pollfields" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> poll<wbr>Fields</h3>
 					<div class="tsd-signature tsd-kind-icon">poll<wbr>Fields<span class="tsd-signature-symbol">:</span> <a href="../enums/pollfields.html" class="tsd-signature-type">PollFields</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#pollfields">pollFields</a></p>
 						<ul>
 							<li>Defined in interfaces/params/poll-fields-params.ts:8</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="userfields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>Fields</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/userfields.html" class="tsd-signature-type">UserFields</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseparams.html">BaseParams</a>.<a href="baseparams.html#userfields">userFields</a></p>
+						<ul>
+							<li>Defined in interfaces/params/user-fields-params.ts:9</li>
 						</ul>
 					</aside>
 				</section>
@@ -148,9 +220,36 @@
 					<li class=" tsd-kind-interface root">
 						<a href="excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a>
 					</li>
-					<li class=" tsd-kind-interface root">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface root">
 						<a href="gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#expansions" class="tsd-kind-icon">expansions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#fields" class="tsd-kind-icon">fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="gettweetparams.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#mediafields" class="tsd-kind-icon">media<wbr>Fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#placefields" class="tsd-kind-icon">place<wbr>Fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#pollfields" class="tsd-kind-icon">poll<wbr>Fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="gettweetparams.html#userfields" class="tsd-kind-icon">user<wbr>Fields</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface root">
 						<a href="idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
 					</li>
@@ -187,18 +286,9 @@
 					<li class=" tsd-kind-interface root">
 						<a href="poll.html" class="tsd-kind-icon">Poll</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface root">
+					<li class=" tsd-kind-interface root">
 						<a href="pollfieldsparams.html" class="tsd-kind-icon">Poll<wbr>Fields<wbr>Params</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="pollfieldsparams.html#pollfields" class="tsd-kind-icon">poll<wbr>Fields</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface root">
 						<a href="polloption.html" class="tsd-kind-icon">Poll<wbr>Option</a>
 					</li>

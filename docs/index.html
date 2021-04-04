@@ -92,6 +92,19 @@
 </code></pre>
 				<p>From there you can import the variety of modules.</p>
 				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">TwitterProvider</span><span style="color: #000000">, </span><span style="color: #001080">Tweet</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ts-twtter-provider&quot;</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">// Instantiate a TwitterProvider using API key values from the environment or other configuration location</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">provider</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">TwitterProvider</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">consumer_key:</span><span style="color: #000000"> </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">env</span><span style="color: #000000">.</span><span style="color: #0070C1">CONSUMER_KEY</span><span style="color: #000000">!,</span>
+<span style="color: #000000">    </span><span style="color: #001080">consumer_secret:</span><span style="color: #000000"> </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">env</span><span style="color: #000000">.</span><span style="color: #0070C1">CONSUMER_SECRET</span><span style="color: #000000">!,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">// Somewhere in an async function...</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">listTweetsByUser</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">userId:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;953649053631434752&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">tweets</span><span style="color: #000000">: </span><span style="color: #267F99">Tweet</span><span style="color: #000000">[] = </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
 </code></pre>
 				<a href="#supported-api" id="supported-api" style="color: inherit; text-decoration: none;">
 					<h2>Supported API</h2>
@@ -106,22 +119,22 @@
 					</thead>
 					<tbody><tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets"><code>/2/tweets</code></a></td>
-							<td><code>listTweets</code></td>
+							<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#listtweets"><code>listTweets</code></a></td>
 							<td>✅ expansions<br/> ✅ ids<br/> ✅ media.fields<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ tweet.fields<br/> ✅ user.fields</td>
 						</tr>
 						<tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id"><code>/2/tweets/:id</code></a></td>
-							<td><code>getTweet</code></td>
-							<td>❌ expansions<br/> ❌ media.fields<br/> ❌ place.fields<br/> ❌ poll.fields<br/> ❌ tweet.fields<br/> ❌ user.fields</td>
+							<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#gettweet"><code>getTweet</code></a></td>
+							<td>✅ expansions<br/> ✅ media.fields<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ tweet.fields<br/> ✅ user.fields</td>
 						</tr>
 						<tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets"><code>/2/users/:id/tweets</code></a></td>
-							<td><code>listTweetsByUser</code></td>
+							<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#listtweetsbyuser"><code>listTweetsByUser</code></a></td>
 							<td>✅ end_time<br/> ✅ exclude<br/> ✅ expansions<br/> ✅ max_results<br/> ✅ media.fields<br/> ✅ pagination_token<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ since_id<br/> ✅ start_time<br/> ✅ tweet.fields<br/> ✅ until_id<br/> ✅ user.fields<br/></td>
 						</tr>
 						<tr>
 							<td><a href="https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions"><code>/2/users/:id/mentions</code></a></td>
-							<td><code>listMentionsByUser</code></td>
+							<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#listmentionsbyuser"><code>listMentionsByUser</code></a></td>
 							<td>✅ end_time<br/> ✅ exclude<br/> ✅ expansions<br/> ✅ max_results<br/> ✅ media.fields<br/> ✅ pagination_token<br/> ✅ place.fields<br/> ✅ poll.fields<br/> ✅ since_id<br/> ✅ start_time<br/> ✅ tweet.fields<br/> ✅ until_id<br/> ✅ user.fields<br/></td>
 						</tr>
 						<tr>
@@ -185,6 +198,9 @@
 						<a href="interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
@@ -237,6 +253,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/tweetfieldsparams.html" class="tsd-kind-icon">Tweet<wbr>Fields<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/twittererror.html" class="tsd-kind-icon">Twitter<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter root">
 						<a href="interfaces/twitterresponse.html" class="tsd-kind-icon">Twitter<wbr>Response</a>
