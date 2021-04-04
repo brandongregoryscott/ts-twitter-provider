@@ -1,5 +1,6 @@
 import { Includes } from "./includes";
 import { Meta } from "./meta";
+import { TwitterError } from "./twitter-error";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
@@ -7,6 +8,7 @@ import { Meta } from "./meta";
 
 interface TwitterResponse<T> extends Includes, Meta {
     data: T;
+    errors?: TwitterError[];
 }
 
 // #endregion Interfaces

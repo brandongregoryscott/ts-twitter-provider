@@ -1,21 +1,8 @@
-import { MediaFields } from "../../enums/media-fields";
 import { TweetExpansions } from "../../enums/tweet-expansions";
 import { BaseParams } from "../../interfaces/params/base-params";
+import { ALL_MEDIA_FIELDS } from "../constants/media-fields";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
-
-// -----------------------------------------------------------------------------------------
-// #region Constants
-// -----------------------------------------------------------------------------------------
-
-const ALL_MEDIA_FIELDS = [
-    MediaFields.Height,
-    MediaFields.MediaKey,
-    MediaFields.Type,
-    MediaFields.Width,
-];
-
-// #endregion Constants
 
 // -----------------------------------------------------------------------------------------
 // #region Shared Spec

@@ -1,5 +1,5 @@
-import { MediaFields } from "../../enums/media-fields";
 import { BaseParams } from "../../interfaces/params/base-params";
+import { ALL_MEDIA_FIELDS } from "../constants/media-fields";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
@@ -17,12 +17,7 @@ const testMediaFieldsWithoutExpansionReturnsMedia = <
         // Arrange
         const params = Object.assign(options.params, {
             expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
-            mediaFields: [
-                MediaFields.Height,
-                MediaFields.MediaKey,
-                MediaFields.Type,
-                MediaFields.Width,
-            ],
+            mediaFields: ALL_MEDIA_FIELDS,
         });
 
         // Act

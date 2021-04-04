@@ -7,6 +7,7 @@ import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
+import { GetTweetParams } from "./interfaces/params/get-tweet-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -33,6 +34,14 @@ class TwitterProvider {
     // -----------------------------------------------------------------------------------------
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
+
+    public getTweet = (
+        params: GetTweetParams
+    ): Promise<TwitterResponse<Tweet | undefined>> =>
+        this.client.get(
+            Endpoint.tweet(params.id),
+            ParamMapper.toGetTweetParams(params)
+        );
 
     /**
      * List mentions by given userId

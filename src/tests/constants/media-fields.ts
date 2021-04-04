@@ -1,28 +1,22 @@
+import { MediaFields } from "../../enums/media-fields";
+
 // -----------------------------------------------------------------------------------------
-// #region Public Functions
+// #region Constants
 // -----------------------------------------------------------------------------------------
 
-const Endpoint = {
-    tweet(id: string) {
-        return `tweets/${id}`;
-    },
-    tweets() {
-        return "tweets";
-    },
-    userMentions(userId: string) {
-        return `users/${userId}/mentions`;
-    },
-    userTweets(userId: string) {
-        return `users/${userId}/tweets`;
-    },
-};
+const ALL_MEDIA_FIELDS = [
+    MediaFields.Height,
+    MediaFields.MediaKey,
+    MediaFields.Type,
+    MediaFields.Width,
+];
 
-// #endregion Public Functions
+// #endregion Constants
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Endpoint };
+export { ALL_MEDIA_FIELDS };
 
 // #endregion Exports
