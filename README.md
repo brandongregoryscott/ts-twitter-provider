@@ -28,15 +28,18 @@ From there you can import the variety of modules.
 ```typescript
 import { TwitterProvider, Tweet } from "ts-twtter-provider";
 
+// Instantiate a TwitterProvider using API key values from the environment or other configuration location
 const provider = new TwitterProvider({
     consumer_key: process.env.CONSUMER_KEY!,
     consumer_secret: process.env.CONSUMER_SECRET!,
 });
 
 // Somewhere in an async function...
-const { data: tweets } = await provider.listTweetsByUser({
+const response = await provider.listTweetsByUser({
     userId: "953649053631434752",
 });
+
+const tweets: Tweet[] = response.data;
 ```
 
 ## Supported API
