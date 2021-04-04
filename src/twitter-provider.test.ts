@@ -1,8 +1,5 @@
-import { TwitterProvider } from "./twitter-provider";
-import dotenv from "dotenv";
 import { TweetFields } from "./enums/tweet-fields";
 import { TweetExpansions } from "./enums/tweet-expansions";
-import { MediaFields } from "./enums/media-fields";
 import { PlaceFields } from "./enums/place-fields";
 import { TweetTypes } from "./enums/tweet-types";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
@@ -44,21 +41,6 @@ const USERID_BRANDONSCOTT = "730217167195648000";
  * The suite expects API keys from a .env file
  */
 describe("TwitterProvider", () => {
-    // -----------------------------------------------------------------------------------------
-    // #region Setup
-    // -----------------------------------------------------------------------------------------
-
-    // Load API keys from .env
-    dotenv.config();
-
-    const setupSut = () =>
-        new TwitterProvider({
-            consumer_key: process.env.CONSUMER_KEY!,
-            consumer_secret: process.env.CONSUMER_SECRET!,
-        });
-
-    // #endregion Setup
-
     // -----------------------------------------------------------------------------------------
     // #region getTweet
     // -----------------------------------------------------------------------------------------
@@ -377,6 +359,38 @@ describe("TwitterProvider", () => {
     // #endregion getTweet
 
     // -----------------------------------------------------------------------------------------
+    // #region getUser
+    // -----------------------------------------------------------------------------------------
+
+    describe.only("getUser", () => {
+        test("when user exists, returns user", async () => {
+            // Arrange & Act
+            const id = USERID_BSCOTTORIGINALS;
+            const result = await TestTwitterProvider.getUser({
+                id,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+            expect(result.data!.id).toBe(id);
+        });
+
+        test("when user does not exist, returns undefined with errors", async () => {
+            // Arrange & Act
+            const id = "00000";
+            const result = await TestTwitterProvider.getUser({
+                id,
+            });
+
+            // Assert
+            expect(result.data).toBeUndefined();
+            expect(result.errors?.length).toBeGreaterThanOrEqual(1);
+        });
+    });
+
+    // #endregion getUser
+
+    // -----------------------------------------------------------------------------------------
     // #region listMentionsByUser
     // -----------------------------------------------------------------------------------------
 
@@ -593,10 +607,9 @@ describe("TwitterProvider", () => {
             async (exclude) => {
                 // Arrange
                 const userId = "326756275";
-                const sut = setupSut();
 
                 // Act
-                const result = await sut.listTweetsByUser({
+                const result = await TestTwitterProvider.listTweetsByUser({
                     userId,
                     // Despite requesting this field, it should always be undefined
                     fields: [TweetFields.ReferencedTweets],

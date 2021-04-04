@@ -1,7 +1,7 @@
 import { Media } from "./tweets/media";
 import { Place } from "./tweets/place";
 import { Poll } from "./tweets/poll";
-import { User } from "./tweets/user";
+import { User } from "./users/user";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces

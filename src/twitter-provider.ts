@@ -8,6 +8,8 @@ import { Endpoint } from "./utilities/endpoint";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
 import { GetTweetParams } from "./interfaces/params/get-tweet-params";
+import { User } from "./interfaces/users/user";
+import { GetUserParams } from "./interfaces/params/get-user-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -35,12 +37,26 @@ class TwitterProvider {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
+    /**
+     * Get a single tweet by id
+     */
     public getTweet = (
         params: GetTweetParams
     ): Promise<TwitterResponse<Tweet | undefined>> =>
         this.client.get(
             Endpoint.tweet(params.id),
             ParamMapper.toGetTweetParams(params)
+        );
+
+    /**
+     * Get a single user by id
+     */
+    public getUser = (
+        params: GetUserParams
+    ): Promise<TwitterResponse<User | undefined>> =>
+        this.client.get(
+            Endpoint.user(params.id),
+            ParamMapper.toGetUserParams(params)
         );
 
     /**

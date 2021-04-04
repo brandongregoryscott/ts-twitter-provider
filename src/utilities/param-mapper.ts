@@ -21,6 +21,10 @@ import {
     GetTweetParams,
     RawGetTweetParams,
 } from "../interfaces/params/get-tweet-params";
+import {
+    GetUserParams,
+    RawGetUserParams,
+} from "../interfaces/params/get-user-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -32,20 +36,20 @@ const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
 
 const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
     {
-        requestedFields: Object.values(MediaFields),
         expansion: TweetExpansions.AttachmentsMediaKeys,
+        requestedFields: Object.values(MediaFields),
     },
     {
-        requestedFields: Object.values(UserFields),
         expansion: TweetExpansions.AuthorId,
+        requestedFields: Object.values(UserFields),
     },
     {
-        requestedFields: Object.values(PlaceFields),
         expansion: TweetExpansions.GeoPlaceId,
+        requestedFields: Object.values(PlaceFields),
     },
     {
-        requestedFields: Object.values(PollFields),
         expansion: TweetExpansions.AttachmentsPollIds,
+        requestedFields: Object.values(PollFields),
     },
 ];
 
@@ -73,46 +77,24 @@ type UnmappedKey =
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
-const toGetTweetParams = (params: GetTweetParams): RawGetTweetParams => {
-    params = _preprocessInputParams(params);
+const toGetTweetParams = (params: GetTweetParams): RawGetTweetParams =>
+    _toRawParams<GetTweetParams, RawGetTweetParams>(params);
 
-    const transformedParams: Partial<RawGetTweetParams> = {
-        ..._transformAndMapKeys(params),
-    };
-    return transformedParams as RawGetTweetParams;
-};
+const toGetUserParams = (params: GetUserParams): RawGetUserParams =>
+    _toRawParams<GetUserParams, RawGetUserParams>(params);
 
 const toListMentionsByUserParams = (
     params: ListMentionsByUserParams
-): RawListMentionsByUserParams => {
-    params = _preprocessInputParams(params);
+): RawListMentionsByUserParams =>
+    _toRawParams<ListMentionsByUserParams, RawListMentionsByUserParams>(params);
 
-    const transformedParams: Partial<RawListMentionsByUserParams> = {
-        ..._transformAndMapKeys(params),
-    };
-    return transformedParams as RawListMentionsByUserParams;
-};
-
-const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams => {
-    params = _preprocessInputParams(params);
-
-    const transformedParams: Partial<RawListTweetsParams> = {
-        ..._transformAndMapKeys(params),
-    };
-
-    return transformedParams as RawListTweetsParams;
-};
+const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams =>
+    _toRawParams<ListTweetsParams, RawListTweetsParams>(params);
 
 const toListTweetsByUserParams = (
     params: ListTweetsByUserParams
-): RawListTweetsByUserParams => {
-    params = _preprocessInputParams(params);
-
-    const transformedParams: Partial<RawListTweetsByUserParams> = {
-        ..._transformAndMapKeys(params),
-    };
-    return transformedParams as RawListTweetsByUserParams;
-};
+): RawListTweetsByUserParams =>
+    _toRawParams<ListTweetsByUserParams, RawListTweetsByUserParams>(params);
 
 // #endregion Public Functions
 
@@ -226,6 +208,9 @@ const _transformKeysToMap = (keys: string[]): Record<string, string> => {
     return keyMap;
 };
 
+const _toRawParams = <TParams, TRawParams>(params: TParams): TRawParams =>
+    _transformAndMapKeys(_preprocessInputParams(params)) as TRawParams;
+
 const _sanitizeCsv = (input: string): string =>
     input
         .split(",")
@@ -240,6 +225,7 @@ const _sanitizeCsv = (input: string): string =>
 
 const ParamMapper = {
     toGetTweetParams,
+    toGetUserParams,
     toListMentionsByUserParams,
     toListTweetsParams,
     toListTweetsByUserParams,

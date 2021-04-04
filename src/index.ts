@@ -27,7 +27,7 @@ export { PollOption } from "./interfaces/tweets/poll-option";
 export { Tweet } from "./interfaces/tweets/tweet";
 export { TwitterError } from "./interfaces/twitter-error";
 export { TwitterResponse } from "./interfaces/twitter-response";
-export { User } from "./interfaces/tweets/user";
+export { User } from "./interfaces/users/user";
 
 // #endregion Interfaces
 

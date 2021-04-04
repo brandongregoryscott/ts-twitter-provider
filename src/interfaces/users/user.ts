@@ -10,15 +10,15 @@ interface User {
     // Additional fields
     created_at?: string;
     description?: string;
-    entities?: object;
+    entities?: object; // TODO
     location?: string;
     pinned_tweet_id?: string;
     profile_image_url?: string;
     protected?: boolean;
-    public_metrics?: object;
+    public_metrics?: object; // TODO
     url?: string;
     verified?: boolean;
-    withheld?: object;
+    withheld?: object; // TODO
 }
 
 // #endregion Interfaces
