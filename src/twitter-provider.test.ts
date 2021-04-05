@@ -419,7 +419,7 @@ describe("TwitterProvider", () => {
             [UserExpansions.PinnedTweetId],
             `${UserExpansions.PinnedTweetId}`,
         ])(
-            `when expansions %p, returns additional field`,
+            "when expansions %p, returns additional field",
             async (expansions) => {
                 // Arrange
                 const id = USERID_TWITTERDEV;
@@ -438,6 +438,60 @@ describe("TwitterProvider", () => {
                 expect(user.pinned_tweet_id).toBeDefined();
             }
         );
+
+        test.each([
+            [TweetFields.CreatedAt, TweetFields.Lang],
+            `${TweetFields.CreatedAt},${TweetFields.Lang}`,
+        ])(
+            `when fields %p and expansions ${UserExpansions.PinnedTweetId}, returns additional fields`,
+            async (fields) => {
+                // Arrange
+                const id = USERID_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    expansions: UserExpansions.PinnedTweetId,
+                    fields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
+                expect(result.includes?.tweets).toBeDefined();
+
+                const tweet = result.includes?.tweets![0]!;
+                expect(tweet.lang).toBeDefined();
+                expect(tweet.created_at).toBeDefined();
+            }
+        );
+
+        test(`when fields requested without expansions '${UserExpansions.PinnedTweetId}', returns additional fields`, async () => {
+            // Arrange
+            const id = USERID_TWITTERDEV;
+            const fields = [TweetFields.CreatedAt, TweetFields.Lang];
+
+            // Act
+            const result = await TestTwitterProvider.getUser({
+                id,
+                fields,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+
+            const user = result.data!;
+
+            expect(user.pinned_tweet_id).toBeDefined();
+            expect(result.includes?.tweets).toBeDefined();
+
+            const tweet = result.includes?.tweets![0]!;
+            expect(tweet.lang).toBeDefined();
+            expect(tweet.created_at).toBeDefined();
+        });
     });
 
     // #endregion getUser

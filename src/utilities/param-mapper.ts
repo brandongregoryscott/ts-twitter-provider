@@ -25,6 +25,8 @@ import {
     GetUserParams,
     RawGetUserParams,
 } from "../interfaces/params/get-user-params";
+import { TweetFields } from "../enums/tweet-fields";
+import { UserExpansions } from "../enums/user-expansions";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -34,7 +36,7 @@ const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
     fields: "tweet.fields",
 };
 
-const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
+const _fieldToTweetExpansionMappings: Array<FieldToTweetExpansionMap> = [
     {
         expansion: TweetExpansions.AttachmentsMediaKeys,
         requestedFields: Object.values(MediaFields),
@@ -53,6 +55,13 @@ const _fieldToExpansionMappings: Array<FieldToExpansionMap> = [
     },
 ];
 
+const _fieldToUserExpansionMappings: Array<FieldToUserExpansionMap> = [
+    {
+        expansion: UserExpansions.PinnedTweetId,
+        requestedFields: Object.values(TweetFields),
+    },
+];
+
 const _unmappedKeys: Array<UnmappedKey> = ["id", "userId"];
 
 // #endregion Constants
@@ -63,10 +72,20 @@ const _unmappedKeys: Array<UnmappedKey> = ["id", "userId"];
 
 type CustomMapKey = keyof Pick<BaseParams, "fields">;
 type CustomMapValue = keyof Pick<RawBaseParams, "tweet.fields">;
-type FieldToExpansionMap = {
-    requestedFields: MediaFields[] | PlaceFields[] | PollFields[] | any[];
+type FieldToTweetExpansionMap = {
+    requestedFields:
+        | MediaFields[]
+        | PlaceFields[]
+        | PollFields[]
+        | UserFields[];
     expansion: TweetExpansions;
 };
+
+type FieldToUserExpansionMap = {
+    requestedFields: TweetFields[];
+    expansion: UserExpansions;
+};
+
 type UnmappedKey =
     | keyof Pick<GetTweetParams, "id">
     | keyof Pick<ListTweetsByUserParams, "userId">;
@@ -78,23 +97,27 @@ type UnmappedKey =
 // -----------------------------------------------------------------------------------------
 
 const toGetTweetParams = (params: GetTweetParams): RawGetTweetParams =>
-    _toRawParams<GetTweetParams, RawGetTweetParams>(params);
+    _toRawTweetParams<GetTweetParams, RawGetTweetParams>(params);
 
 const toGetUserParams = (params: GetUserParams): RawGetUserParams =>
-    _toRawParams<GetUserParams, RawGetUserParams>(params, false);
+    _toRawUserParams<GetUserParams, RawGetUserParams>(params);
 
 const toListMentionsByUserParams = (
     params: ListMentionsByUserParams
 ): RawListMentionsByUserParams =>
-    _toRawParams<ListMentionsByUserParams, RawListMentionsByUserParams>(params);
+    _toRawTweetParams<ListMentionsByUserParams, RawListMentionsByUserParams>(
+        params
+    );
 
 const toListTweetsParams = (params: ListTweetsParams): RawListTweetsParams =>
-    _toRawParams<ListTweetsParams, RawListTweetsParams>(params);
+    _toRawTweetParams<ListTweetsParams, RawListTweetsParams>(params);
 
 const toListTweetsByUserParams = (
     params: ListTweetsByUserParams
 ): RawListTweetsByUserParams =>
-    _toRawParams<ListTweetsByUserParams, RawListTweetsByUserParams>(params);
+    _toRawTweetParams<ListTweetsByUserParams, RawListTweetsByUserParams>(
+        params
+    );
 
 // #endregion Public Functions
 
@@ -115,9 +138,9 @@ const _arrayOrCsvToArray = <T extends string>(value?: ArrayOrCsv<T>): T[] => {
 };
 
 /**
- * Preprocessing to prevent common mistakes such as requesting media fields without expanding attachments
+ * Preprocessing to prevent common mistakes such as requesting Tweet media fields without expanding attachments
  */
-const _preprocessInputParams = <TParams extends BaseParams>(
+const _preprocessTweetParams = <TParams extends BaseParams>(
     params: TParams
 ): TParams => {
     let processed: TParams = { ...params };
@@ -128,9 +151,13 @@ const _preprocessInputParams = <TParams extends BaseParams>(
         .map((key) => _arrayOrCsvToArray((params as any)[key]))
         .flat();
 
-    _fieldToExpansionMappings.forEach((map) => {
+    _fieldToTweetExpansionMappings.forEach((map) => {
         const { requestedFields, expansion } = map;
-        if (!values.some((field) => requestedFields.includes(field))) {
+        if (
+            !values.some((field) =>
+                (requestedFields as string[]).includes(field)
+            )
+        ) {
             return;
         }
 
@@ -147,7 +174,48 @@ const _preprocessInputParams = <TParams extends BaseParams>(
     return processed;
 };
 
-const _transformAndMapKeys = <TParams extends Record<string, any>, TRawParams>(
+/**
+ * Preprocessing to prevent common mistakes such as requesting Tweet media fields without expanding attachments
+ */
+const _preprocessUserParams = <
+    TParams extends Pick<GetUserParams, "expansions">
+>(
+    params: TParams
+): TParams => {
+    let processed: TParams = { ...params };
+    let expansions = _arrayOrCsvToArray(params.expansions);
+
+    const keys = Object.keys(params).filter(
+        (key) => key.endsWith("Fields") || key.endsWith("fields")
+    );
+    const values = keys
+        .map((key) => _arrayOrCsvToArray((params as any)[key]))
+        .flat();
+
+    _fieldToUserExpansionMappings.forEach((map) => {
+        const { requestedFields, expansion } = map;
+        if (
+            !values.some((field) =>
+                (requestedFields as string[]).includes(field)
+            )
+        ) {
+            return;
+        }
+
+        if (expansions.includes(expansion)) {
+            return;
+        }
+
+        processed = {
+            ...processed,
+            expansions: [...expansions, expansion],
+        };
+    });
+
+    return processed;
+};
+
+const _toRawParams = <TParams extends Record<string, any>, TRawParams>(
     params: TParams
 ): TRawParams => {
     const rawParams: Record<string, any> = {};
@@ -208,13 +276,27 @@ const _transformKeysToMap = (keys: string[]): Record<string, string> => {
     return keyMap;
 };
 
-const _toRawParams = <TParams, TRawParams>(
-    params: TParams,
-    preprocessInputParams: boolean = true
-): TRawParams =>
-    _transformAndMapKeys(
-        preprocessInputParams ? _preprocessInputParams(params) : params
-    ) as TRawParams;
+const _toRawTweetParams = <
+    TParams =
+        | GetTweetParams
+        | ListMentionsByUserParams
+        | ListTweetsByUserParams
+        | ListTweetsParams,
+    TRawParams =
+        | RawGetTweetParams
+        | RawListMentionsByUserParams
+        | RawListTweetsByUserParams
+        | RawListTweetsParams
+>(
+    params: TParams
+): TRawParams => _toRawParams(_preprocessTweetParams(params)) as TRawParams;
+
+const _toRawUserParams = <
+    TParams = GetUserParams,
+    TRawParams = RawGetUserParams
+>(
+    params: TParams
+): TRawParams => _toRawParams(_preprocessUserParams(params)) as TRawParams;
 
 const _sanitizeCsv = (input: string): string =>
     input

@@ -1,6 +1,7 @@
 import { Media } from "./tweets/media";
 import { Place } from "./tweets/place";
 import { Poll } from "./tweets/poll";
+import { Tweet } from "./tweets/tweet";
 import { User } from "./users/user";
 
 // -----------------------------------------------------------------------------------------
@@ -12,6 +13,7 @@ interface Includes {
         media?: Media[];
         places?: Place[];
         polls?: Poll[];
+        tweets?: Tweet[];
         users?: User[];
     };
 }
