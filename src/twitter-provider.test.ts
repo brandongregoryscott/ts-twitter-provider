@@ -364,7 +364,7 @@ describe("TwitterProvider", () => {
     // #region getUser
     // -----------------------------------------------------------------------------------------
 
-    describe.only("getUser", () => {
+    describe("getUser", () => {
         test("given user exists, returns user", async () => {
             // Arrange & Act
             const id = USERID_BSCOTTORIGINALS;

@@ -27,6 +27,8 @@ import {
 } from "../interfaces/params/get-user-params";
 import { TweetFields } from "../enums/tweet-fields";
 import { UserExpansions } from "../enums/user-expansions";
+import { CoreUtils } from "./core-utils";
+import { FieldToExpansionsMap, ParamUtils } from "./param-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -36,29 +38,35 @@ const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
     fields: "tweet.fields",
 };
 
-const _fieldToTweetExpansionMappings: Array<FieldToTweetExpansionMap> = [
+const _fieldToTweetExpansionMappings: Array<FieldToExpansionsMap<
+    PlaceFields | MediaFields | PollFields | UserFields,
+    TweetExpansions
+>> = [
     {
         expansion: TweetExpansions.AttachmentsMediaKeys,
-        requestedFields: Object.values(MediaFields),
+        fields: Object.values(MediaFields),
     },
     {
         expansion: TweetExpansions.AuthorId,
-        requestedFields: Object.values(UserFields),
+        fields: Object.values(UserFields),
     },
     {
         expansion: TweetExpansions.GeoPlaceId,
-        requestedFields: Object.values(PlaceFields),
+        fields: Object.values(PlaceFields),
     },
     {
         expansion: TweetExpansions.AttachmentsPollIds,
-        requestedFields: Object.values(PollFields),
+        fields: Object.values(PollFields),
     },
 ];
 
-const _fieldToUserExpansionMappings: Array<FieldToUserExpansionMap> = [
+const _fieldToUserExpansionMappings: Array<FieldToExpansionsMap<
+    TweetFields,
+    UserExpansions
+>> = [
     {
         expansion: UserExpansions.PinnedTweetId,
-        requestedFields: Object.values(TweetFields),
+        fields: Object.values(TweetFields),
     },
 ];
 
@@ -72,19 +80,6 @@ const _unmappedKeys: Array<UnmappedKey> = ["id", "userId"];
 
 type CustomMapKey = keyof Pick<BaseParams, "fields">;
 type CustomMapValue = keyof Pick<RawBaseParams, "tweet.fields">;
-type FieldToTweetExpansionMap = {
-    requestedFields:
-        | MediaFields[]
-        | PlaceFields[]
-        | PollFields[]
-        | UserFields[];
-    expansion: TweetExpansions;
-};
-
-type FieldToUserExpansionMap = {
-    requestedFields: TweetFields[];
-    expansion: UserExpansions;
-};
 
 type UnmappedKey =
     | keyof Pick<GetTweetParams, "id">
@@ -125,96 +120,6 @@ const toListTweetsByUserParams = (
 // #region Private Functions
 // -----------------------------------------------------------------------------------------
 
-const _arrayOrCsvToArray = <T extends string>(value?: ArrayOrCsv<T>): T[] => {
-    if (Array.isArray(value)) {
-        return value;
-    }
-
-    if (value != null && value.length > 0) {
-        return _sanitizeCsv(value).split(",") as T[];
-    }
-
-    return [];
-};
-
-/**
- * Preprocessing to prevent common mistakes such as requesting Tweet media fields without expanding attachments
- */
-const _preprocessTweetParams = <TParams extends BaseParams>(
-    params: TParams
-): TParams => {
-    let processed: TParams = { ...params };
-    let expansions = _arrayOrCsvToArray(params.expansions);
-
-    const keys = Object.keys(params).filter((key) => key.endsWith("Fields"));
-    const values = keys
-        .map((key) => _arrayOrCsvToArray((params as any)[key]))
-        .flat();
-
-    _fieldToTweetExpansionMappings.forEach((map) => {
-        const { requestedFields, expansion } = map;
-        if (
-            !values.some((field) =>
-                (requestedFields as string[]).includes(field)
-            )
-        ) {
-            return;
-        }
-
-        if (expansions.includes(expansion)) {
-            return;
-        }
-
-        processed = {
-            ...processed,
-            expansions: [...expansions, expansion],
-        };
-    });
-
-    return processed;
-};
-
-/**
- * Preprocessing to prevent common mistakes such as requesting Tweet media fields without expanding attachments
- */
-const _preprocessUserParams = <
-    TParams extends Pick<GetUserParams, "expansions">
->(
-    params: TParams
-): TParams => {
-    let processed: TParams = { ...params };
-    let expansions = _arrayOrCsvToArray(params.expansions);
-
-    const keys = Object.keys(params).filter(
-        (key) => key.endsWith("Fields") || key.endsWith("fields")
-    );
-    const values = keys
-        .map((key) => _arrayOrCsvToArray((params as any)[key]))
-        .flat();
-
-    _fieldToUserExpansionMappings.forEach((map) => {
-        const { requestedFields, expansion } = map;
-        if (
-            !values.some((field) =>
-                (requestedFields as string[]).includes(field)
-            )
-        ) {
-            return;
-        }
-
-        if (expansions.includes(expansion)) {
-            return;
-        }
-
-        processed = {
-            ...processed,
-            expansions: [...expansions, expansion],
-        };
-    });
-
-    return processed;
-};
-
 const _toRawParams = <TParams extends Record<string, any>, TRawParams>(
     params: TParams
 ): TRawParams => {
@@ -229,7 +134,7 @@ const _toRawParams = <TParams extends Record<string, any>, TRawParams>(
         }
 
         if (typeof value === "string" && value.includes(",")) {
-            transformedValue = _sanitizeCsv(value);
+            transformedValue = CoreUtils.trimCsv(value);
         }
 
         if (value instanceof Date) {
@@ -289,20 +194,26 @@ const _toRawTweetParams = <
         | RawListTweetsParams
 >(
     params: TParams
-): TRawParams => _toRawParams(_preprocessTweetParams(params)) as TRawParams;
+): TRawParams =>
+    _toRawParams(
+        ParamUtils.preprocessParamsForExpansions(
+            params,
+            _fieldToTweetExpansionMappings
+        )
+    ) as TRawParams;
 
 const _toRawUserParams = <
     TParams = GetUserParams,
     TRawParams = RawGetUserParams
 >(
     params: TParams
-): TRawParams => _toRawParams(_preprocessUserParams(params)) as TRawParams;
-
-const _sanitizeCsv = (input: string): string =>
-    input
-        .split(",")
-        .map((value: string) => value.trim())
-        .join();
+): TRawParams =>
+    _toRawParams(
+        ParamUtils.preprocessParamsForExpansions(
+            params,
+            _fieldToUserExpansionMappings
+        )
+    ) as TRawParams;
 
 // #endregion Private Functions
 
