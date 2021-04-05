@@ -386,6 +386,32 @@ describe("TwitterProvider", () => {
             expect(result.data).toBeUndefined();
             expect(result.errors?.length).toBeGreaterThanOrEqual(1);
         });
+
+        test.each([
+            [UserFields.Verified, UserFields.CreatedAt],
+            `${UserFields.Verified},${UserFields.CreatedAt}`,
+        ])(
+            `given userFields %p and '${TweetExpansions.AuthorId}', returns additional fields`,
+            async (userFields) => {
+                // Arrange
+                const id = USERID_BSCOTTORIGINALS;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    userFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.username).toBeDefined();
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
     });
 
     // #endregion getUser

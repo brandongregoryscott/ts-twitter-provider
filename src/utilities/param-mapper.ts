@@ -81,7 +81,7 @@ const toGetTweetParams = (params: GetTweetParams): RawGetTweetParams =>
     _toRawParams<GetTweetParams, RawGetTweetParams>(params);
 
 const toGetUserParams = (params: GetUserParams): RawGetUserParams =>
-    _toRawParams<GetUserParams, RawGetUserParams>(params);
+    _toRawParams<GetUserParams, RawGetUserParams>(params, false);
 
 const toListMentionsByUserParams = (
     params: ListMentionsByUserParams
@@ -208,8 +208,13 @@ const _transformKeysToMap = (keys: string[]): Record<string, string> => {
     return keyMap;
 };
 
-const _toRawParams = <TParams, TRawParams>(params: TParams): TRawParams =>
-    _transformAndMapKeys(_preprocessInputParams(params)) as TRawParams;
+const _toRawParams = <TParams, TRawParams>(
+    params: TParams,
+    preprocessInputParams: boolean = true
+): TRawParams =>
+    _transformAndMapKeys(
+        preprocessInputParams ? _preprocessInputParams(params) : params
+    ) as TRawParams;
 
 const _sanitizeCsv = (input: string): string =>
     input
