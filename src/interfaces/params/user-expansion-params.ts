@@ -1,21 +1,17 @@
-import { Media } from "./tweets/media";
-import { Place } from "./tweets/place";
-import { Poll } from "./tweets/poll";
-import { Tweet } from "./tweets/tweet";
-import { User } from "./users/user";
+import { UserExpansions } from "../../enums/user-expansions";
+import { ArrayOrCsv } from "../../types/array-or-csv";
 
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Includes {
-    includes?: {
-        media?: Media[];
-        places?: Place[];
-        polls?: Poll[];
-        tweets?: Tweet[];
-        users?: User[];
-    };
+interface UserExpansionsParams {
+    expansions?: ArrayOrCsv<UserExpansions>;
+}
+
+/** @hidden */
+interface RawUserExpansionsParams {
+    expansions: string;
 }
 
 // #endregion Interfaces
@@ -24,6 +20,6 @@ interface Includes {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Includes };
+export { UserExpansionsParams, RawUserExpansionsParams };
 
 // #endregion Exports

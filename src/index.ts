@@ -8,6 +8,7 @@ export { PollFields } from "./enums/poll-fields";
 export { TweetExpansions } from "./enums/tweet-expansions";
 export { TweetFields } from "./enums/tweet-fields";
 export { TweetTypes } from "./enums/tweet-types";
+export { UserExpansions } from "./enums/user-expansions";
 export { UserFields } from "./enums/user-fields";
 
 // #endregion Enums
@@ -27,7 +28,7 @@ export { PollOption } from "./interfaces/tweets/poll-option";
 export { Tweet } from "./interfaces/tweets/tweet";
 export { TwitterError } from "./interfaces/twitter-error";
 export { TwitterResponse } from "./interfaces/twitter-response";
-export { User } from "./interfaces/tweets/user";
+export { User } from "./interfaces/users/user";
 
 // #endregion Interfaces
 

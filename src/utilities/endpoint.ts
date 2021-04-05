@@ -9,6 +9,9 @@ const Endpoint = {
     tweets() {
         return "tweets";
     },
+    user(id: string) {
+        return `users/${id}`;
+    },
     userMentions(userId: string) {
         return `users/${userId}/mentions`;
     },

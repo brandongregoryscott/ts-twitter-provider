@@ -41,11 +41,13 @@ jobs:
 
             - name: npm install
               run: |
+                  npm install -g codecov
                   npm install
 
             - name: npm run test
               run: |
                   npm run test
+                  codecov
 
     notify_success:
         runs-on: ubuntu-latest

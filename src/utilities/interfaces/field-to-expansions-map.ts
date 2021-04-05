@@ -1,24 +1,17 @@
+import { AnyExpansions } from "../types/any-expansions";
+import { AnyFields } from "../types/any-fields";
+
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface User {
-    id: string;
-    name: string;
-    username: string;
-
-    // Additional fields
-    created_at?: string;
-    description?: string;
-    entities?: object;
-    location?: string;
-    pinned_tweet_id?: string;
-    profile_image_url?: string;
-    protected?: boolean;
-    public_metrics?: object;
-    url?: string;
-    verified?: boolean;
-    withheld?: object;
+/** @hidden */
+interface FieldToExpansionsMap<
+    TFields = AnyFields,
+    TExpansion = AnyExpansions
+> {
+    fields: TFields[];
+    expansion: TExpansion;
 }
 
 // #endregion Interfaces
@@ -27,6 +20,6 @@ interface User {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { User };
+export { FieldToExpansionsMap };
 
 // #endregion Exports

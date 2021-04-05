@@ -1,8 +1,5 @@
-import { TwitterProvider } from "./twitter-provider";
-import dotenv from "dotenv";
 import { TweetFields } from "./enums/tweet-fields";
 import { TweetExpansions } from "./enums/tweet-expansions";
-import { MediaFields } from "./enums/media-fields";
 import { PlaceFields } from "./enums/place-fields";
 import { TweetTypes } from "./enums/tweet-types";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
@@ -29,6 +26,7 @@ import { TestTwitterProvider } from "./tests/test-twitter-provider";
 import { PollFields } from "./enums/poll-fields";
 import { UserFields } from "./enums/user-fields";
 import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
+import { UserExpansions } from "./enums/user-expansions";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -36,6 +34,7 @@ import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 
 const USERID_BSCOTTORIGINALS = "953649053631434752";
 const USERID_BRANDONSCOTT = "730217167195648000";
+const USERID_TWITTERDEV = "2244994945";
 
 // #endregion Constants
 
@@ -44,21 +43,6 @@ const USERID_BRANDONSCOTT = "730217167195648000";
  * The suite expects API keys from a .env file
  */
 describe("TwitterProvider", () => {
-    // -----------------------------------------------------------------------------------------
-    // #region Setup
-    // -----------------------------------------------------------------------------------------
-
-    // Load API keys from .env
-    dotenv.config();
-
-    const setupSut = () =>
-        new TwitterProvider({
-            consumer_key: process.env.CONSUMER_KEY!,
-            consumer_secret: process.env.CONSUMER_SECRET!,
-        });
-
-    // #endregion Setup
-
     // -----------------------------------------------------------------------------------------
     // #region getTweet
     // -----------------------------------------------------------------------------------------
@@ -377,6 +361,142 @@ describe("TwitterProvider", () => {
     // #endregion getTweet
 
     // -----------------------------------------------------------------------------------------
+    // #region getUser
+    // -----------------------------------------------------------------------------------------
+
+    describe("getUser", () => {
+        test("given user exists, returns user", async () => {
+            // Arrange & Act
+            const id = USERID_BSCOTTORIGINALS;
+            const result = await TestTwitterProvider.getUser({
+                id,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+            expect(result.data!.id).toBe(id);
+        });
+
+        test("given user does not exist, returns undefined with errors", async () => {
+            // Arrange & Act
+            const id = "00000";
+            const result = await TestTwitterProvider.getUser({
+                id,
+            });
+
+            // Assert
+            expect(result.data).toBeUndefined();
+            expect(result.errors?.length).toBeGreaterThanOrEqual(1);
+        });
+
+        test.each([
+            [UserFields.Verified, UserFields.CreatedAt],
+            `${UserFields.Verified},${UserFields.CreatedAt}`,
+        ])(
+            `when userFields %p and '${TweetExpansions.AuthorId}', returns additional fields`,
+            async (userFields) => {
+                // Arrange
+                const id = USERID_BSCOTTORIGINALS;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    userFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.username).toBeDefined();
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
+
+        test.each([
+            [UserExpansions.PinnedTweetId],
+            `${UserExpansions.PinnedTweetId}`,
+        ])(
+            "when expansions %p, returns additional field",
+            async (expansions) => {
+                // Arrange
+                const id = USERID_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    expansions,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
+            }
+        );
+
+        test.each([
+            [TweetFields.CreatedAt, TweetFields.Lang],
+            `${TweetFields.CreatedAt},${TweetFields.Lang}`,
+        ])(
+            `when fields %p and expansions ${UserExpansions.PinnedTweetId}, returns additional fields`,
+            async (fields) => {
+                // Arrange
+                const id = USERID_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    expansions: UserExpansions.PinnedTweetId,
+                    fields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
+                expect(result.includes?.tweets).toBeDefined();
+
+                const tweet = result.includes?.tweets![0]!;
+                expect(tweet.lang).toBeDefined();
+                expect(tweet.created_at).toBeDefined();
+            }
+        );
+
+        test(`when fields requested without expansions '${UserExpansions.PinnedTweetId}', returns additional fields`, async () => {
+            // Arrange
+            const id = USERID_TWITTERDEV;
+            const fields = [TweetFields.CreatedAt, TweetFields.Lang];
+
+            // Act
+            const result = await TestTwitterProvider.getUser({
+                id,
+                fields,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+
+            const user = result.data!;
+
+            expect(user.pinned_tweet_id).toBeDefined();
+            expect(result.includes?.tweets).toBeDefined();
+
+            const tweet = result.includes?.tweets![0]!;
+            expect(tweet.lang).toBeDefined();
+            expect(tweet.created_at).toBeDefined();
+        });
+    });
+
+    // #endregion getUser
+
+    // -----------------------------------------------------------------------------------------
     // #region listMentionsByUser
     // -----------------------------------------------------------------------------------------
 
@@ -593,10 +713,9 @@ describe("TwitterProvider", () => {
             async (exclude) => {
                 // Arrange
                 const userId = "326756275";
-                const sut = setupSut();
 
                 // Act
-                const result = await sut.listTweetsByUser({
+                const result = await TestTwitterProvider.listTweetsByUser({
                     userId,
                     // Despite requesting this field, it should always be undefined
                     fields: [TweetFields.ReferencedTweets],

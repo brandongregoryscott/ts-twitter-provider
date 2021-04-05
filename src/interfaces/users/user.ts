@@ -1,21 +1,24 @@
-import { Media } from "./tweets/media";
-import { Place } from "./tweets/place";
-import { Poll } from "./tweets/poll";
-import { Tweet } from "./tweets/tweet";
-import { User } from "./users/user";
-
 // -----------------------------------------------------------------------------------------
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface Includes {
-    includes?: {
-        media?: Media[];
-        places?: Place[];
-        polls?: Poll[];
-        tweets?: Tweet[];
-        users?: User[];
-    };
+interface User {
+    id: string;
+    name: string;
+    username: string;
+
+    // Additional fields
+    created_at?: string;
+    description?: string;
+    entities?: object; // TODO
+    location?: string;
+    pinned_tweet_id?: string;
+    profile_image_url?: string;
+    protected?: boolean;
+    public_metrics?: object; // TODO
+    url?: string;
+    verified?: boolean;
+    withheld?: object; // TODO
 }
 
 // #endregion Interfaces
@@ -24,6 +27,6 @@ interface Includes {
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { Includes };
+export { User };
 
 // #endregion Exports
