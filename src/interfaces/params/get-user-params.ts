@@ -1,9 +1,9 @@
 import { RequestParameters } from "twitter-v2";
-import {
-    RawTweetExpansionsParams,
-    TweetExpansionsParams,
-} from "./tweet-expansions-params";
 import { RawTweetFieldsParams, TweetFieldsParams } from "./tweet-fields-params";
+import {
+    RawUserExpansionsParams,
+    UserExpansionsParams,
+} from "./user-expansion-params";
 import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 
 // -----------------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 
 interface GetUserParams
     extends TweetFieldsParams,
-        TweetExpansionsParams,
+        UserExpansionsParams,
         UserFieldsParams {
     id: string;
 }
@@ -24,7 +24,7 @@ interface GetUserParams
 interface RawGetUserParams
     extends RequestParameters,
         RawTweetFieldsParams,
-        RawTweetExpansionsParams,
+        RawUserExpansionsParams,
         RawUserFieldsParams {
     id: string;
 }

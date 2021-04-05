@@ -26,6 +26,7 @@ import { TestTwitterProvider } from "./tests/test-twitter-provider";
 import { PollFields } from "./enums/poll-fields";
 import { UserFields } from "./enums/user-fields";
 import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
+import { UserExpansions } from "./enums/user-expansions";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -33,6 +34,7 @@ import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 
 const USERID_BSCOTTORIGINALS = "953649053631434752";
 const USERID_BRANDONSCOTT = "730217167195648000";
+const USERID_TWITTERDEV = "2244994945";
 
 // #endregion Constants
 
@@ -363,7 +365,7 @@ describe("TwitterProvider", () => {
     // -----------------------------------------------------------------------------------------
 
     describe.only("getUser", () => {
-        test("when user exists, returns user", async () => {
+        test("given user exists, returns user", async () => {
             // Arrange & Act
             const id = USERID_BSCOTTORIGINALS;
             const result = await TestTwitterProvider.getUser({
@@ -375,7 +377,7 @@ describe("TwitterProvider", () => {
             expect(result.data!.id).toBe(id);
         });
 
-        test("when user does not exist, returns undefined with errors", async () => {
+        test("given user does not exist, returns undefined with errors", async () => {
             // Arrange & Act
             const id = "00000";
             const result = await TestTwitterProvider.getUser({
@@ -391,7 +393,7 @@ describe("TwitterProvider", () => {
             [UserFields.Verified, UserFields.CreatedAt],
             `${UserFields.Verified},${UserFields.CreatedAt}`,
         ])(
-            `given userFields %p and '${TweetExpansions.AuthorId}', returns additional fields`,
+            `when userFields %p and '${TweetExpansions.AuthorId}', returns additional fields`,
             async (userFields) => {
                 // Arrange
                 const id = USERID_BSCOTTORIGINALS;
@@ -410,6 +412,30 @@ describe("TwitterProvider", () => {
                 expect(user.username).toBeDefined();
                 expect(user.created_at).toBeDefined();
                 expect(user.verified).toBeDefined();
+            }
+        );
+
+        test.each([
+            [UserExpansions.PinnedTweetId],
+            `${UserExpansions.PinnedTweetId}`,
+        ])(
+            `when expansions %p, returns additional field`,
+            async (expansions) => {
+                // Arrange
+                const id = USERID_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUser({
+                    id,
+                    expansions,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
             }
         );
     });
