@@ -8,7 +8,7 @@ const CoreUtils = {
     /**
      * Converts a nullable csv string or array to an array of type T.
      */
-    arrayOrCsvToArray<T extends string>(value?: ArrayOrCsv<T>): T[] {
+    arrayOrCsvToArray<T>(value?: ArrayOrCsv<T>): T[] {
         if (Array.isArray(value)) {
             return value;
         }

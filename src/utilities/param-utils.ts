@@ -5,19 +5,9 @@ import { GetUserParams } from "../interfaces/params/get-user-params";
 import { TweetExpansionsParams } from "../interfaces/params/tweet-expansions-params";
 import { UserExpansionsParams } from "../interfaces/params/user-expansion-params";
 import { CoreUtils } from "./core-utils";
-// -----------------------------------------------------------------------------------------
-// #region Interfaces
-// -----------------------------------------------------------------------------------------
-
-export interface FieldToExpansionsMap<
-    TFields,
-    TExpansion = UserExpansions | TweetExpansions
-> {
-    fields: TFields[];
-    expansion: TExpansion;
-}
-
-// #endregion Interfaces
+import { AnyExpansions } from "./types/any-expansions";
+import { AnyFields } from "./types/any-fields";
+import { FieldToExpansionsMappings } from "./types/field-to-expansions-mappings";
 
 // -----------------------------------------------------------------------------------------
 // #region Public Functions
@@ -26,23 +16,23 @@ export interface FieldToExpansionsMap<
 const ParamUtils = {
     preprocessParamsForExpansions<
         TParams extends TweetExpansionsParams | UserExpansionsParams,
-        TFields extends string,
-        TExpansions extends UserExpansions | TweetExpansions
+        TFields extends AnyFields = AnyFields,
+        TExpansions extends AnyExpansions = AnyExpansions
     >(
         params: TParams,
-        mappings: FieldToExpansionsMap<TFields, TExpansions>[]
+        mappings: FieldToExpansionsMappings<TFields, TExpansions>
     ): TParams {
         let processed: TParams = { ...params };
-        let expansions = CoreUtils.arrayOrCsvToArray<
-            UserExpansions | TweetExpansions
-        >(params.expansions);
+        let expansions = CoreUtils.arrayOrCsvToArray<AnyExpansions>(
+            params.expansions
+        );
 
         const keys = Object.keys(params).filter(
             (key) => key.endsWith("Fields") || key.endsWith("fields")
         );
         const values = keys
             .map((key) =>
-                CoreUtils.arrayOrCsvToArray<TFields>((params as any)[key])
+                CoreUtils.arrayOrCsvToArray<AnyFields>((params as any)[key])
             )
             .flat();
 

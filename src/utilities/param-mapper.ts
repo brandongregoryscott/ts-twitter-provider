@@ -28,7 +28,8 @@ import {
 import { TweetFields } from "../enums/tweet-fields";
 import { UserExpansions } from "../enums/user-expansions";
 import { CoreUtils } from "./core-utils";
-import { FieldToExpansionsMap, ParamUtils } from "./param-utils";
+import { FieldToExpansionsMappings } from "./types/field-to-expansions-mappings";
+import { ParamUtils } from "./param-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -38,10 +39,7 @@ const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
     fields: "tweet.fields",
 };
 
-const _fieldToTweetExpansionMappings: Array<FieldToExpansionsMap<
-    PlaceFields | MediaFields | PollFields | UserFields,
-    TweetExpansions
->> = [
+const _fieldToTweetExpansionMappings: FieldToExpansionsMappings = [
     {
         expansion: TweetExpansions.AttachmentsMediaKeys,
         fields: Object.values(MediaFields),
@@ -60,10 +58,7 @@ const _fieldToTweetExpansionMappings: Array<FieldToExpansionsMap<
     },
 ];
 
-const _fieldToUserExpansionMappings: Array<FieldToExpansionsMap<
-    TweetFields,
-    UserExpansions
->> = [
+const _fieldToUserExpansionMappings: FieldToExpansionsMappings = [
     {
         expansion: UserExpansions.PinnedTweetId,
         fields: Object.values(TweetFields),
