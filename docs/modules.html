@@ -81,6 +81,7 @@
 								<li class="tsd-kind-enum"><a href="enums/tweetexpansions.html" class="tsd-kind-icon">Tweet<wbr>Expansions</a></li>
 								<li class="tsd-kind-enum"><a href="enums/tweetfields.html" class="tsd-kind-icon">Tweet<wbr>Fields</a></li>
 								<li class="tsd-kind-enum"><a href="enums/tweettypes.html" class="tsd-kind-icon">Tweet<wbr>Types</a></li>
+								<li class="tsd-kind-enum"><a href="enums/userexpansions.html" class="tsd-kind-icon">User<wbr>Expansions</a></li>
 								<li class="tsd-kind-enum"><a href="enums/userfields.html" class="tsd-kind-icon">User<wbr>Fields</a></li>
 							</ul>
 						</section>
@@ -97,6 +98,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/baseparams.html" class="tsd-kind-icon">Base<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/excludeparams.html" class="tsd-kind-icon">Exclude<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/getuserparams.html" class="tsd-kind-icon">Get<wbr>User<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/includes.html" class="tsd-kind-icon">Includes</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/listmentionsbyuserparams.html" class="tsd-kind-icon">List<wbr>Mentions<wbr>ByUser<wbr>Params</a></li>
@@ -118,6 +120,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/twittererror.html" class="tsd-kind-icon">Twitter<wbr>Error</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/twitterresponse.html" class="tsd-kind-icon">Twitter<wbr>Response</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/user.html" class="tsd-kind-icon">User</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/userexpansionsparams.html" class="tsd-kind-icon">User<wbr>Expansions<wbr>Params</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/userfieldsparams.html" class="tsd-kind-icon">User<wbr>Fields<wbr>Params</a></li>
 							</ul>
 						</section>
@@ -130,8 +133,11 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="modules.html#coreutils" class="tsd-kind-icon">Core<wbr>Utils</a></li>
 								<li class="tsd-kind-variable"><a href="modules.html#endpoint" class="tsd-kind-icon">Endpoint</a></li>
-								<li class="tsd-kind-variable"><a href="modules.html#parammapper" class="tsd-kind-icon">Param<wbr>Mapper</a></li>
+								<li class="tsd-kind-variable"><a href="modules.html#paramutils" class="tsd-kind-icon">Param<wbr>Utils</a></li>
+								<li class="tsd-kind-variable"><a href="modules.html#tweetparammapper" class="tsd-kind-icon">Tweet<wbr>Param<wbr>Mapper</a></li>
+								<li class="tsd-kind-variable"><a href="modules.html#userparammapper" class="tsd-kind-icon">User<wbr>Param<wbr>Mapper</a></li>
 							</ul>
 						</section>
 					</div>
@@ -163,6 +169,79 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="coreutils" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Core<wbr>Utils</h3>
+					<div class="tsd-signature tsd-kind-icon">Core<wbr>Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in utilities/core-utils.ts:7</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>array<wbr>OrCsv<wbr>ToArray<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal tsd-has-type-parameter">
+									<li class="tsd-signature tsd-kind-icon">array<wbr>OrCsv<wbr>ToArray&lt;T&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/core-utils.ts:11</li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography tsd-comment-shorttext">
+											<div class="lead">
+												<p>Converts a nullable csv string or array to an array of type T.</p>
+											</div>
+										</div>
+										<h4 class="tsd-type-parameters-title">Type parameters</h4>
+										<ul class="tsd-type-parameters">
+											<li>
+												<h4>T</h4>
+											</li>
+										</ul>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> value: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>trim<wbr>Csv<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">trim<wbr>Csv<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/core-utils.ts:26</li>
+											</ul>
+										</aside>
+										<div class="tsd-comment tsd-typography tsd-comment-shorttext">
+											<div class="lead">
+												<p>Splits a csv and trims each value, returning a sanitized string</p>
+											</div>
+										</div>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>input: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+									</li>
+							</ul>        </li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable">
 					<a name="endpoint" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Endpoint</h3>
@@ -212,6 +291,27 @@
 									</li>
 							</ul>        </li>
 							<li class="tsd-parameter">
+								<h5>user<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/endpoint.ts:12</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>id: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
 								<h5>user<wbr>Mentions<span class="tsd-signature-symbol">: </span>function</h5>
 								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
 									<li class="tsd-signature tsd-kind-icon">user<wbr>Mentions<span class="tsd-signature-symbol">(</span>userId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
@@ -220,7 +320,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in utilities/endpoint.ts:12</li>
+												<li>Defined in utilities/endpoint.ts:15</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -241,7 +341,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in utilities/endpoint.ts:15</li>
+												<li>Defined in utilities/endpoint.ts:18</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -257,101 +357,212 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable">
-					<a name="parammapper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Param<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">Param<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<a name="paramutils" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Param<wbr>Utils</h3>
+					<div class="tsd-signature tsd-kind-icon">Param<wbr>Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utilities/param-mapper.ts:241</li>
+							<li>Defined in utilities/param-utils.ts:33</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
-								<h5>to<wbr>Get<wbr>Tweet<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawGetTweetParams</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>params: <a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawGetTweetParams</span></h4>
+								<h5>preprocess<wbr>For<wbr>Expansions<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal tsd-has-type-parameter">
+									<li class="tsd-signature tsd-kind-icon">preprocess<wbr>For<wbr>Expansions&lt;TParams&gt;<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParams</span>, mappings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FieldToExpansionsMappings</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AnyFields</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">AnyExpansions</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/param-utils.ts:34</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-type-parameters-title">Type parameters</h4>
+										<ul class="tsd-type-parameters">
+											<li>
+												<h4>TParams<span class="tsd-signature-symbol">: </span><a href="interfaces/tweetexpansionsparams.html" class="tsd-signature-type">TweetExpansionsParams</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/userexpansionsparams.html" class="tsd-signature-type">UserExpansionsParams</a></h4>
 											</li>
 										</ul>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <span class="tsd-signature-type">TParams</span></h5>
+											</li>
+											<li>
+												<h5>mappings: <span class="tsd-signature-type">FieldToExpansionsMappings</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AnyFields</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">AnyExpansions</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TParams</span></h4>
 									</li>
-								</ul>
-							</li>
+							</ul>        </li>
 							<li class="tsd-parameter">
-								<h5>to<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListMentionsByUserParams</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>params: <a href="interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListMentionsByUserParams</span></h4>
+								<h5>to<wbr>Raw<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal tsd-has-type-parameter">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>Raw<wbr>Params&lt;TParams, TRawParams&gt;<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParams</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TRawParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/param-utils.ts:71</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-type-parameters-title">Type parameters</h4>
+										<ul class="tsd-type-parameters">
+											<li>
+												<h4>TParams<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+											</li>
+											<li>
+												<h4>TRawParams</h4>
 											</li>
 										</ul>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <span class="tsd-signature-type">TParams</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TRawParams</span></h4>
 									</li>
-								</ul>
-							</li>
+							</ul>        </li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="tweetparammapper" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Tweet<wbr>Param<wbr>Mapper</h3>
+					<div class="tsd-signature tsd-kind-icon">Tweet<wbr>Param<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in utilities/tweet-param-mapper.ts:54</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
-								<h5>to<wbr>List<wbr>Tweets<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listtweetsbyuserparams.html" class="tsd-signature-type">ListTweetsByUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListTweetsByUserParams</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>params: <a href="interfaces/listtweetsbyuserparams.html" class="tsd-signature-type">ListTweetsByUserParams</a></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListTweetsByUserParams</span></h4>
+								<h5>to<wbr>Get<wbr>Tweet<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>Get<wbr>Tweet<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawGetTweetParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/tweet-param-mapper.ts:55</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <a href="interfaces/gettweetparams.html" class="tsd-signature-type">GetTweetParams</a></h5>
 											</li>
 										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawGetTweetParams</span></h4>
 									</li>
-								</ul>
-							</li>
+							</ul>        </li>
 							<li class="tsd-parameter">
-								<h5>to<wbr>List<wbr>Tweets<wbr>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listtweetsparams.html" class="tsd-signature-type">ListTweetsParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListTweetsParams</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>params: <a href="interfaces/listtweetsparams.html" class="tsd-signature-type">ListTweetsParams</a></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListTweetsParams</span></h4>
+								<h5>to<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>List<wbr>Mentions<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListMentionsByUserParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/tweet-param-mapper.ts:58</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <a href="interfaces/listmentionsbyuserparams.html" class="tsd-signature-type">ListMentionsByUserParams</a></h5>
 											</li>
 										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListMentionsByUserParams</span></h4>
 									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>to<wbr>List<wbr>Tweets<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>List<wbr>Tweets<wbr>ByUser<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listtweetsbyuserparams.html" class="tsd-signature-type">ListTweetsByUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListTweetsByUserParams</span></li>
 								</ul>
-							</li>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/tweet-param-mapper.ts:66</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <a href="interfaces/listtweetsbyuserparams.html" class="tsd-signature-type">ListTweetsByUserParams</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListTweetsByUserParams</span></h4>
+									</li>
+							</ul>        </li>
+							<li class="tsd-parameter">
+								<h5>to<wbr>List<wbr>Tweets<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>List<wbr>Tweets<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/listtweetsparams.html" class="tsd-signature-type">ListTweetsParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawListTweetsParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/tweet-param-mapper.ts:63</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <a href="interfaces/listtweetsparams.html" class="tsd-signature-type">ListTweetsParams</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawListTweetsParams</span></h4>
+									</li>
+							</ul>        </li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="userparammapper" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> User<wbr>Param<wbr>Mapper</h3>
+					<div class="tsd-signature tsd-kind-icon">User<wbr>Param<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in utilities/user-param-mapper.ts:27</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>to<wbr>Get<wbr>User<wbr>Params<span class="tsd-signature-symbol">: </span>function</h5>
+								<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
+									<li class="tsd-signature tsd-kind-icon">to<wbr>Get<wbr>User<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="interfaces/getuserparams.html" class="tsd-signature-type">GetUserParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RawGetUserParams</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<aside class="tsd-sources">
+											<ul>
+												<li>Defined in utilities/user-param-mapper.ts:28</li>
+											</ul>
+										</aside>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>params: <a href="interfaces/getuserparams.html" class="tsd-signature-type">GetUserParams</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RawGetUserParams</span></h4>
+									</li>
+							</ul>        </li>
 						</ul>
 					</div>
 				</section>
@@ -380,6 +591,9 @@
 						<a href="enums/tweettypes.html" class="tsd-kind-icon">Tweet<wbr>Types</a>
 					</li>
 					<li class=" tsd-kind-enum root">
+						<a href="enums/userexpansions.html" class="tsd-kind-icon">User<wbr>Expansions</a>
+					</li>
+					<li class=" tsd-kind-enum root">
 						<a href="enums/userfields.html" class="tsd-kind-icon">User<wbr>Fields</a>
 					</li>
 					<li class=" tsd-kind-class root">
@@ -396,6 +610,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/getuserparams.html" class="tsd-kind-icon">Get<wbr>User<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/idfilterparams.html" class="tsd-kind-icon">Id<wbr>Filter<wbr>Params</a>
@@ -461,16 +678,28 @@
 						<a href="interfaces/user.html" class="tsd-kind-icon">User</a>
 					</li>
 					<li class=" tsd-kind-interface root">
+						<a href="interfaces/userexpansionsparams.html" class="tsd-kind-icon">User<wbr>Expansions<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
 						<a href="interfaces/userfieldsparams.html" class="tsd-kind-icon">User<wbr>Fields<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter root">
 						<a href="modules.html#arrayorcsv" class="tsd-kind-icon">Array<wbr>OrCsv</a>
 					</li>
 					<li class=" tsd-kind-variable root">
+						<a href="modules.html#coreutils" class="tsd-kind-icon">Core<wbr>Utils</a>
+					</li>
+					<li class=" tsd-kind-variable root">
 						<a href="modules.html#endpoint" class="tsd-kind-icon">Endpoint</a>
 					</li>
 					<li class=" tsd-kind-variable root">
-						<a href="modules.html#parammapper" class="tsd-kind-icon">Param<wbr>Mapper</a>
+						<a href="modules.html#paramutils" class="tsd-kind-icon">Param<wbr>Utils</a>
+					</li>
+					<li class=" tsd-kind-variable root">
+						<a href="modules.html#tweetparammapper" class="tsd-kind-icon">Tweet<wbr>Param<wbr>Mapper</a>
+					</li>
+					<li class=" tsd-kind-variable root">
+						<a href="modules.html#userparammapper" class="tsd-kind-icon">User<wbr>Param<wbr>Mapper</a>
 					</li>
 				</ul>
 			</nav>
