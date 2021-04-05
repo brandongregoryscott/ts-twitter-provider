@@ -1,7 +1,7 @@
 import { ListTweetsParams } from "./interfaces/params/list-tweets-params";
 import { Tweet } from "./interfaces/tweets/tweet";
 import Twitter from "twitter-v2";
-import { ParamMapper } from "./utilities/param-mapper";
+import { TweetParamMapper } from "./utilities/tweet-param-mapper";
 import { TwitterResponse } from "./interfaces/twitter-response";
 import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
@@ -10,6 +10,7 @@ import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-u
 import { GetTweetParams } from "./interfaces/params/get-tweet-params";
 import { User } from "./interfaces/users/user";
 import { GetUserParams } from "./interfaces/params/get-user-params";
+import { UserParamMapper } from "./utilities/user-param-mapper";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -45,7 +46,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet | undefined>> =>
         this.client.get(
             Endpoint.tweet(params.id),
-            ParamMapper.toGetTweetParams(params)
+            TweetParamMapper.toGetTweetParams(params)
         );
 
     /**
@@ -56,7 +57,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<User | undefined>> =>
         this.client.get(
             Endpoint.user(params.id),
-            ParamMapper.toGetUserParams(params)
+            UserParamMapper.toGetUserParams(params)
         );
 
     /**
@@ -67,7 +68,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.client.get(
             Endpoint.userMentions(params.userId),
-            ParamMapper.toListMentionsByUserParams(params)
+            TweetParamMapper.toListMentionsByUserParams(params)
         );
 
     /**
@@ -78,7 +79,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.client.get(
             Endpoint.tweets(),
-            ParamMapper.toListTweetsParams(params)
+            TweetParamMapper.toListTweetsParams(params)
         );
 
     /**
@@ -89,7 +90,7 @@ class TwitterProvider {
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.client.get(
             Endpoint.userTweets(params.userId),
-            ParamMapper.toListTweetsByUserParams(params)
+            TweetParamMapper.toListTweetsByUserParams(params)
         );
 
     // #endregion Public Methods
