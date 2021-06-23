@@ -22,7 +22,7 @@ type CustomMapValue = keyof Pick<RawBaseParams, "tweet.fields">;
 const _customMappedKeys: Record<CustomMapKey, CustomMapValue> = {
     fields: "tweet.fields",
 };
-const _unmappedKeys: string[] = ["id", "userId"];
+const _unmappedKeys: string[] = ["id", "userId", "username"];
 
 // #endregion Constants
 
