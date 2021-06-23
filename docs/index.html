@@ -73,7 +73,8 @@
 				<a href="#ts-twitter-provider" id="ts-twitter-provider" style="color: inherit; text-decoration: none;">
 					<h1>ts-twitter-provider</h1>
 				</a>
-				<p><img src="https://github.com/brandongregoryscott/ts-twitter-provider/workflows/ts-twitter-provider/badge.svg" alt="build status">
+				<p><a href="https://developer.twitter.com/en/docs/twitter-api"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fv2" alt="v2"></a>
+					<img src="https://github.com/brandongregoryscott/ts-twitter-provider/workflows/ts-twitter-provider/badge.svg" alt="build status">
 					<a href="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider"><img src="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider/branch/main/graph/badge.svg" alt="codecov"></a>
 					<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
 				<a href="http://www.typescriptlang.org/"><img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg" alt="TypeScript"></a></p>
@@ -90,7 +91,7 @@
 <span style="color: #008000"># yarn</span>
 <span style="color: #000000">yarn add ts-twitter-provider</span>
 </code></pre>
-				<p>From there you can import the variety of modules.</p>
+				<p>From there you can import the main class, <code>TwitterProvider</code>, and related types.</p>
 				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">TwitterProvider</span><span style="color: #000000">, </span><span style="color: #001080">Tweet</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ts-twtter-provider&quot;</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// Instantiate a TwitterProvider using API key values from the environment or other configuration location</span>
@@ -106,6 +107,7 @@
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">tweets</span><span style="color: #000000">: </span><span style="color: #267F99">Tweet</span><span style="color: #000000">[] = </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
 </code></pre>
+				<p>Full documentation can be found on the <a href="https://brandongregoryscott.github.io/ts-twitter-provider">GitHub Pages site</a> for this repo.</p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h3>Features</h3>
 				</a>
@@ -170,8 +172,8 @@
 							</tr>
 							<tr>
 								<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username"><code>/2/users/by/username/:username</code></a></td>
-								<td><a href="https://github.com/brandongregoryscott/ts-twitter-provider/issues/5"><del><code>getUserByUsername</code></del></a></td>
-								<td>❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/></td>
+								<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#getuserbyusername"><code>getUserByUsername</code></a></td>
+								<td>✅ expansions<br/> ✅ tweet.fields<br/> ✅ user.fields<br/></td>
 							</tr>
 					</tbody></table>
 				</details>
@@ -219,6 +221,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/gettweetparams.html" class="tsd-kind-icon">Get<wbr>Tweet<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/getuserbyusernameparams.html" class="tsd-kind-icon">Get<wbr>User<wbr>ByUsername<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/getuserparams.html" class="tsd-kind-icon">Get<wbr>User<wbr>Params</a>
