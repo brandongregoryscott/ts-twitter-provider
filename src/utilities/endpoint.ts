@@ -12,6 +12,9 @@ const Endpoint = {
     user(id: string) {
         return `users/${id}`;
     },
+    userByUsername(username: string) {
+        return `users/by/username/${username}`;
+    },
     userMentions(userId: string) {
         return `users/${userId}/mentions`;
     },

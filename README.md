@@ -24,7 +24,7 @@ npm install --save ts-twitter-provider
 yarn add ts-twitter-provider
 ```
 
-From there you can import the variety of modules.
+From there you can import the main class, `TwitterProvider`, and related types.
 
 ```typescript
 import { TwitterProvider, Tweet } from "ts-twtter-provider";
@@ -42,6 +42,8 @@ const response = await provider.listTweetsByUser({
 
 const tweets: Tweet[] = response.data;
 ```
+
+Full documentation can be found on the [GitHub Pages site](https://brandongregoryscott.github.io/ts-twitter-provider) for this repo.
 
 ### Features
 
@@ -73,6 +75,6 @@ Below is a table of the currently supported API endpoints and methods available 
 | [`/2/users`](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users)                                            | [~~`listUsers`~~](https://github.com/brandongregoryscott/ts-twitter-provider/issues/3)                                            | ❌ expansions<br/> ❌ ids<br/> ❌ tweet.fields<br/> ❌ user.fields<br/>                                                                                                                                                                                      |
 | [`/2/users/:id`](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id)                                     | [`getUser`](https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#getuser)                       | ✅ expansions<br/> ✅ tweet.fields<br/> ✅ user.fields<br/>                                                                                                                                                                                                  |
 | [`/2/users/by`](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by)                                      | [~~`listUsersByUsername`~~](https://github.com/brandongregoryscott/ts-twitter-provider/issues/4)                                  | ❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/> ❌ usernames<br/>                                                                                                                                                                                |
-| [`/2/users/by/username/:username`](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username) | [~~`getUserByUsername`~~](https://github.com/brandongregoryscott/ts-twitter-provider/issues/5)                                    | ❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/>                                                                                                                                                                                                  |
+| [`/2/users/by/username/:username`](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username) | [`getUserByUsername`](https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#getuserbyusername)   | ✅ expansions<br/> ✅ tweet.fields<br/> ✅ user.fields<br/>                                                                                                                                                                                                  |
 
 </details>

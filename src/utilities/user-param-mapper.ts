@@ -1,6 +1,10 @@
 import { TweetFields } from "../enums/tweet-fields";
 import { UserExpansions } from "../enums/user-expansions";
 import {
+    GetUserByUsernameParams,
+    RawGetUserByUsernameParams,
+} from "../interfaces/params/get-user-by-username-params";
+import {
     GetUserParams,
     RawGetUserParams,
 } from "../interfaces/params/get-user-params";
@@ -25,6 +29,16 @@ const _fieldToExpansionMappings: FieldToExpansionsMappings = [
 // -----------------------------------------------------------------------------------------
 
 const UserParamMapper = {
+    toGetUserByUsernameParams(
+        params: GetUserByUsernameParams
+    ): RawGetUserByUsernameParams {
+        const preprocessedParams = ParamUtils.preprocessForExpansions(
+            params,
+            _fieldToExpansionMappings
+        );
+
+        return ParamUtils.toRawParams(preprocessedParams);
+    },
     toGetUserParams(params: GetUserParams): RawGetUserParams {
         const preprocessedParams = ParamUtils.preprocessForExpansions(
             params,

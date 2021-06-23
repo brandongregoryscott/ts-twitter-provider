@@ -27,14 +27,17 @@ import { PollFields } from "./enums/poll-fields";
 import { UserFields } from "./enums/user-fields";
 import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 import { UserExpansions } from "./enums/user-expansions";
+import faker from "faker";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
 // -----------------------------------------------------------------------------------------
 
-const USERID_BSCOTTORIGINALS = "953649053631434752";
 const USERID_BRANDONSCOTT = "730217167195648000";
+const USERID_BSCOTTORIGINALS = "953649053631434752";
 const USERID_TWITTERDEV = "2244994945";
+const USERNAME_BSCOTTORIGINALS = "bscottoriginals";
+const USERNAME_TWITTERDEV = "twitterdev";
 
 // #endregion Constants
 
@@ -43,6 +46,16 @@ const USERID_TWITTERDEV = "2244994945";
  * The suite expects API keys from a .env file
  */
 describe("TwitterProvider", () => {
+    // -----------------------------------------------------------------------------------------
+    // #region Setup
+    // -----------------------------------------------------------------------------------------
+
+    /** Twitter API expects usernames to match ^[A-Za-z0-9_]{1,15}$ */
+    const fakeUsername = (): string =>
+        `${faker.random.uuid()}`.slice(0, 14).replace(/-/g, "_");
+
+    // #endregion Setup
+
     // -----------------------------------------------------------------------------------------
     // #region getTweet
     // -----------------------------------------------------------------------------------------
@@ -359,6 +372,142 @@ describe("TwitterProvider", () => {
     });
 
     // #endregion getTweet
+
+    // -----------------------------------------------------------------------------------------
+    // #region getUserByUsername
+    // -----------------------------------------------------------------------------------------
+
+    describe("getUserByUsername", () => {
+        test("given user exists, returns user", async () => {
+            // Arrange & Act
+            const username = USERNAME_BSCOTTORIGINALS;
+            const result = await TestTwitterProvider.getUserByUsername({
+                username,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+            expect(result.data!.username).toBe(username);
+        });
+
+        test("given user does not exist, returns undefined with errors", async () => {
+            // Arrange & Act
+            const username = fakeUsername();
+            const result = await TestTwitterProvider.getUserByUsername({
+                username,
+            });
+
+            // Assert
+            expect(result.data).toBeUndefined();
+            expect(result.errors?.length).toBeGreaterThanOrEqual(1);
+        });
+
+        test.each([
+            [UserFields.Verified, UserFields.CreatedAt],
+            `${UserFields.Verified},${UserFields.CreatedAt}`,
+        ])(
+            `when userFields %p and '${TweetExpansions.AuthorId}', returns additional fields`,
+            async (userFields) => {
+                // Arrange
+                const username = USERNAME_BSCOTTORIGINALS;
+
+                // Act
+                const result = await TestTwitterProvider.getUserByUsername({
+                    username,
+                    userFields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.username).toBeDefined();
+                expect(user.created_at).toBeDefined();
+                expect(user.verified).toBeDefined();
+            }
+        );
+
+        test.each([
+            [UserExpansions.PinnedTweetId],
+            `${UserExpansions.PinnedTweetId}`,
+        ])(
+            "when expansions %p, returns additional field",
+            async (expansions) => {
+                // Arrange
+                const username = USERNAME_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUserByUsername({
+                    username,
+                    expansions,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
+            }
+        );
+
+        test.each([
+            [TweetFields.CreatedAt, TweetFields.Lang],
+            `${TweetFields.CreatedAt},${TweetFields.Lang}`,
+        ])(
+            `when fields %p and expansions ${UserExpansions.PinnedTweetId}, returns additional fields`,
+            async (fields) => {
+                // Arrange
+                const username = USERNAME_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.getUserByUsername({
+                    username,
+                    expansions: UserExpansions.PinnedTweetId,
+                    fields,
+                });
+
+                // Assert
+                expect(result.data).toBeDefined();
+
+                const user = result.data!;
+
+                expect(user.pinned_tweet_id).toBeDefined();
+                expect(result.includes?.tweets).toBeDefined();
+
+                const tweet = result.includes?.tweets![0]!;
+                expect(tweet.lang).toBeDefined();
+                expect(tweet.created_at).toBeDefined();
+            }
+        );
+
+        test(`when fields requested without expansions '${UserExpansions.PinnedTweetId}', returns additional fields`, async () => {
+            // Arrange
+            const username = USERNAME_TWITTERDEV;
+            const fields = [TweetFields.CreatedAt, TweetFields.Lang];
+
+            // Act
+            const result = await TestTwitterProvider.getUserByUsername({
+                username,
+                fields,
+            });
+
+            // Assert
+            expect(result.data).toBeDefined();
+
+            const user = result.data!;
+
+            expect(user.pinned_tweet_id).toBeDefined();
+            expect(result.includes?.tweets).toBeDefined();
+
+            const tweet = result.includes?.tweets![0]!;
+            expect(tweet.lang).toBeDefined();
+            expect(tweet.created_at).toBeDefined();
+        });
+    });
+
+    // #endregion getUserByUsername
 
     // -----------------------------------------------------------------------------------------
     // #region getUser

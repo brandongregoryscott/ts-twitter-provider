@@ -11,6 +11,7 @@ import { GetTweetParams } from "./interfaces/params/get-tweet-params";
 import { User } from "./interfaces/users/user";
 import { GetUserParams } from "./interfaces/params/get-user-params";
 import { UserParamMapper } from "./utilities/user-param-mapper";
+import { GetUserByUsernameParams } from "./interfaces/params/get-user-by-username-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -58,6 +59,17 @@ class TwitterProvider {
         this.client.get(
             Endpoint.user(params.id),
             UserParamMapper.toGetUserParams(params)
+        );
+
+    /**
+     * Get a single user by username
+     */
+    public getUserByUsername = (
+        params: GetUserByUsernameParams
+    ): Promise<TwitterResponse<User | undefined>> =>
+        this.client.get(
+            Endpoint.userByUsername(params.username),
+            UserParamMapper.toGetUserByUsernameParams(params)
         );
 
     /**
