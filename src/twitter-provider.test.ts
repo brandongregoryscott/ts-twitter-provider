@@ -28,6 +28,7 @@ import { UserFields } from "./enums/user-fields";
 import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 import { UserExpansions } from "./enums/user-expansions";
 import faker from "faker";
+import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -36,6 +37,7 @@ import faker from "faker";
 const USERID_BRANDONSCOTT = "730217167195648000";
 const USERID_BSCOTTORIGINALS = "953649053631434752";
 const USERID_TWITTERDEV = "2244994945";
+const USERNAME_BRANDONSCOTT = "soakthroughyou";
 const USERNAME_BSCOTTORIGINALS = "bscottoriginals";
 const USERNAME_TWITTERDEV = "twitterdev";
 
@@ -921,12 +923,12 @@ describe("TwitterProvider", () => {
         });
 
         testMediaFieldsWithExpansionReturnsMedia<ListTweetsByUserParams>({
-            method: (sut) => sut.listMentionsByUser,
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
         testMediaFieldsWithoutExpansionReturnsMedia<ListTweetsByUserParams>({
-            method: (sut) => sut.listMentionsByUser,
+            method: (sut) => sut.listTweetsByUser,
             params: { userId: USERID_BSCOTTORIGINALS },
         });
 
@@ -962,4 +964,143 @@ describe("TwitterProvider", () => {
     });
 
     // #endregion listTweetsByUser
+
+    // -----------------------------------------------------------------------------------------
+    // #region listTweetsByUsername
+    // -----------------------------------------------------------------------------------------
+
+    describe("listTweetsByUsername", () => {
+        test("when user does not exist, throws not found error", async () => {
+            // Arrange
+            const username = fakeUsername();
+
+            // Act
+            try {
+                await TestTwitterProvider.listTweetsByUsername({ username });
+            } catch (error) {
+                expect(error).toBeInstanceOf(Error);
+                expect(error.message).toContain("not found");
+            }
+
+            // Assert
+            expect.assertions(2);
+        });
+
+        testReturnsTweets<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_TWITTERDEV },
+        });
+
+        test.skip.each([
+            [TweetTypes.Replies, TweetTypes.Retweets],
+            `${TweetTypes.Replies},${TweetTypes.Retweets}`,
+        ])(
+            "given exclude %p, it returns tweets without those types",
+            async (exclude) => {
+                // Arrange
+                const username = USERNAME_TWITTERDEV;
+
+                // Act
+                const result = await TestTwitterProvider.listTweetsByUsername({
+                    username,
+                    // Despite requesting this field, it should always be undefined
+                    fields: [TweetFields.ReferencedTweets],
+                    exclude,
+                });
+
+                // Assert
+                console.log(result);
+                expect(result.data.length).toBeGreaterThanOrEqual(1);
+                result.data.forEach((tweet) =>
+                    expect(tweet.referenced_tweets).toBeUndefined()
+                );
+            }
+        );
+
+        testUntilIdReturnsTweetsUpToId<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testSinceIdReturnsTweetsAfterId<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testMaxResultsReturnsUpToCount<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testStartTimeReturnsTweetsOnOrAfterDate<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testEndTimeReturnsTweetsOnOrBeforeDate<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testPaginationTokenReturnsNextPageOfTweets<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testFieldsReturnsRequestedFields<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testExpansionsReturnsExpandedFields<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testMediaFieldsWithExpansionReturnsMedia<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testMediaFieldsWithoutExpansionReturnsMedia<ListTweetsByUsernameParams>(
+            {
+                method: (sut) => sut.listTweetsByUsername,
+                params: { username: USERNAME_BSCOTTORIGINALS },
+            }
+        );
+
+        testUserFieldsWithExpansionReturnsUser<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testUserFieldsWithoutExpansionReturnsUser<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: { username: USERNAME_BSCOTTORIGINALS },
+        });
+
+        testPlaceFieldsWithExpansionReturnsPlace<ListTweetsByUsernameParams>({
+            method: (sut) => sut.listTweetsByUsername,
+            params: {
+                // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                since_id: "1371977096273215400",
+                until_id: "1371977096273215500",
+                username: USERNAME_BRANDONSCOTT,
+            },
+        });
+
+        testPlaceFieldsWithoutExpansionReturnsPlace<ListTweetsByUsernameParams>(
+            {
+                method: (sut) => sut.listTweetsByUsername,
+                params: {
+                    // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
+                    since_id: "1371977096273215400",
+                    until_id: "1371977096273215500",
+                    username: USERNAME_BRANDONSCOTT,
+                },
+            }
+        );
+    });
+
+    // #endregion listTweetsByUsername
 });

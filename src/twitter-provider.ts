@@ -12,6 +12,7 @@ import { User } from "./interfaces/users/user";
 import { GetUserParams } from "./interfaces/params/get-user-params";
 import { UserParamMapper } from "./utilities/user-param-mapper";
 import { GetUserByUsernameParams } from "./interfaces/params/get-user-by-username-params";
+import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -104,6 +105,22 @@ class TwitterProvider {
             Endpoint.userTweets(params.userId),
             TweetParamMapper.toListTweetsByUserParams(params)
         );
+
+    /**
+     * List tweets by given username
+     */
+    public listTweetsByUsername = async (
+        params: ListTweetsByUsernameParams
+    ): Promise<TwitterResponse<Tweet[]>> => {
+        const { username } = params;
+        const { data: user } = await this.getUserByUsername({ username });
+
+        if (user == null) {
+            throw new Error(`User '${username}' not found.`);
+        }
+
+        return this.listTweetsByUser({ userId: user?.id!, ...params });
+    };
 
     // #endregion Public Methods
 }
