@@ -51,6 +51,7 @@ const _fieldToExpansionMappings: FieldToExpansionsMappings = [
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
+/** @hidden */
 const TweetParamMapper = {
     toGetTweetParams(params: GetTweetParams): RawGetTweetParams {
         return _toRawTweetParams(params);

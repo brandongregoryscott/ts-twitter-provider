@@ -2,6 +2,7 @@
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
+/** @hidden */
 const Endpoint = {
     tweet(id: string) {
         return `tweets/${id}`;

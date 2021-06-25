@@ -30,6 +30,7 @@ const _unmappedKeys: string[] = ["id", "userId", "username"];
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
+/** @hidden */
 const ParamUtils = {
     preprocessForExpansions<
         TParams extends TweetExpansionsParams | UserExpansionsParams

@@ -28,6 +28,7 @@ const _fieldToExpansionMappings: FieldToExpansionsMappings = [
 // #region Public Functions
 // -----------------------------------------------------------------------------------------
 
+/** @hidden */
 const UserParamMapper = {
     toGetUserByUsernameParams(
         params: GetUserByUsernameParams
