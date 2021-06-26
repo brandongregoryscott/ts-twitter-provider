@@ -1,9 +1,11 @@
 name: publish
 
 on:
-    release:
-        types: [published]
     workflow_dispatch:
+        inputs:
+            version:
+                description: "Version to publish"
+                required: true
 
 env:
     SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
@@ -36,9 +38,7 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: npm version
-              run: |
-                  VERSION=`echo ${{github.ref}} | sed 's|refs/main/||g' | sed 's|v||g'`
-                  npm version $VERSION
+              run: npm version ${{github.event.inputs.version}}
 
             - name: npm install
               run: npm install
