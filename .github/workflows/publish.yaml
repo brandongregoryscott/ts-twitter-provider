@@ -1,6 +1,7 @@
 on:
     release:
         types: [published]
+    workflow_dispatch:
 
 env:
     SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
@@ -26,12 +27,21 @@ jobs:
               uses: actions/setup-node@v2
               with:
                   node-version: 14.15.5
+                  registry-url: "https://registry.npmjs.org"
+
+            - name: npm version
+              run: npm version ${{github.ref}}
 
             - name: npm install
               run: npm install
 
             - name: npm publish
-              run: npm publish
+              run: npm publish --dry-run
+
+            - name: git push
+              run: |
+                  git status
+                  git push --dry-run
 
     notify_success:
         runs-on: ubuntu-latest
