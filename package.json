@@ -40,7 +40,7 @@
         "url": "git@github.com:brandongregoryscott/ts-twitter-provider.git"
     },
     "scripts": {
-        "build": "tsc --pretty --project tsconfig.dist.json",
+        "build": "tsc --project tsconfig.dist.json",
         "clean": "rimraf dist docs",
         "docs": "typedoc",
         "format": "prettier --write \"src/**/*.ts\" --trailing-comma es5",

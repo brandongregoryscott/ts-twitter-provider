@@ -3,7 +3,6 @@ import { Tweet } from "./interfaces/tweets/tweet";
 import Twitter from "twitter-v2";
 import { TweetParamMapper } from "./utilities/tweet-param-mapper";
 import { TwitterResponse } from "./interfaces/twitter-response";
-import { CredentialsArgs } from "twitter-v2/src/Credentials";
 import { Endpoint } from "./utilities/endpoint";
 import { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 import { ListMentionsByUserParams } from "./interfaces/params/list-mentions-by-user-params";
@@ -13,6 +12,7 @@ import { GetUserParams } from "./interfaces/params/get-user-params";
 import { UserParamMapper } from "./utilities/user-param-mapper";
 import { GetUserByUsernameParams } from "./interfaces/params/get-user-by-username-params";
 import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
+import { CredentialsArgs } from "twitter-v2/build/Credentials";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
