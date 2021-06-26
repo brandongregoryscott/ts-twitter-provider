@@ -36,20 +36,20 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: npm version
-              run: npm version 0.6.0
+              run: npm version ${{github.ref}}
 
             - name: npm install
               run: npm install
 
             - name: npm publish
-              run: npm publish --dry-run
+              run: npm publish
 
-            - name: git push
+            - name: git commit & push
               run: |
                   git status
-                  # git add docs
-                  # git commit --amend --no-edit
-                  git push --dry-run
+                  git add docs
+                  git commit --amend --no-edit
+                  git push
 
     notify_success:
         runs-on: ubuntu-latest
