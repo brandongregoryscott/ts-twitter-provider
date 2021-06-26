@@ -74,7 +74,7 @@
 					<h1>ts-twitter-provider</h1>
 				</a>
 				<p><a href="https://developer.twitter.com/en/docs/twitter-api"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fv2" alt="v2"></a>
-					<img src="https://github.com/brandongregoryscott/ts-twitter-provider/workflows/ts-twitter-provider/badge.svg" alt="build status">
+					<img src="https://github.com/brandongregoryscott/ts-twitter-provider/actions/workflows/build.yaml/badge.svg" alt="build status">
 					<a href="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider"><img src="https://codecov.io/gh/brandongregoryscott/ts-twitter-provider/branch/main/graph/badge.svg" alt="codecov"></a>
 					<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code style: prettier"></a>
 				<a href="http://www.typescriptlang.org/"><img src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg" alt="TypeScript"></a></p>
@@ -119,6 +119,18 @@
 <span style="color: #000000">    </span><span style="color: #001080">id</span><span style="color: #000000">,</span>
 <span style="color: #000000">    </span><span style="color: #001080">expansions:</span><span style="color: #000000"> </span><span style="color: #0000FF">undefined</span><span style="color: #000000">, </span><span style="color: #008000">// &lt;-- Despite not specifying TweetExpansions.AttachmentMediaKeys, it will be added to the request</span>
 <span style="color: #000000">    </span><span style="color: #001080">mediaFields:</span><span style="color: #000000"> [</span><span style="color: #001080">MediaFields</span><span style="color: #000000">.</span><span style="color: #001080">Height</span><span style="color: #000000">, </span><span style="color: #001080">MediaFields</span><span style="color: #000000">.</span><span style="color: #001080">Type</span><span style="color: #000000">, </span><span style="color: #001080">MediaFields</span><span style="color: #000000">.</span><span style="color: #001080">Width</span><span style="color: #000000">],</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#additional-utility-functions" id="additional-utility-functions" style="color: inherit; text-decoration: none;">
+					<h3>Additional utility functions</h3>
+				</a>
+				<p>There are certain endpoints that consumers might benefit from that do not exist in the Twitter V2 API.
+					For example, there is no single endpoint to retrieve tweets from a specific user by their username.
+					By wrapping up API calls to <code>users/by/username/:username</code> and <code>users/:id/tweets</code>, we can easily
+				expose a function that does this work for you - supply a username, get that user&#39;s tweets!</p>
+				<pre><code class="language-ts"><span style="color: #008000">// Somewhere in an async function...</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #001080">data</span><span style="color: #000000">: </span><span style="color: #0070C1">tweets</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">listTweetsByUsername</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">username:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;TwitterDev&quot;</span><span style="color: #000000">,</span>
 <span style="color: #000000">});</span>
 </code></pre>
 				<a href="#supported-api" id="supported-api" style="color: inherit; text-decoration: none;">
@@ -178,7 +190,7 @@
 					</tbody></table>
 				</details>
 			</div>
-			<!--{&quot;options&quot;:&quot;/Users/Brandon/ts-twitter-provider&quot;,&quot;tsconfig&quot;:&quot;tsconfig.dist.json&quot;,&quot;entryPoints&quot;:[&quot;src&quot;],&quot;exclude&quot;:[&quot;**/tests/*&quot;,&quot;**/*.test.*&quot;],&quot;externalPattern&quot;:[&quot;**/node_modules/**&quot;],&quot;excludeExternals&quot;:true,&quot;excludeNotDocumented&quot;:false,&quot;excludeInternal&quot;:false,&quot;excludePrivate&quot;:false,&quot;excludeProtected&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;watch&quot;:false,&quot;preserveWatchOutput&quot;:false,&quot;emit&quot;:false,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;highlightTheme&quot;:&quot;light-plus&quot;,&quot;name&quot;:&quot;&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:false,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;showConfig&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;,&quot;typedoc-plugin-merge-modules&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;logLevel&quot;:1,&quot;listInvalidSymbolLinks&quot;:false}-->
+			<!--{&quot;options&quot;:&quot;/home/runner/work/ts-twitter-provider/ts-twitter-provider&quot;,&quot;tsconfig&quot;:&quot;tsconfig.dist.json&quot;,&quot;entryPoints&quot;:[&quot;src&quot;],&quot;exclude&quot;:[&quot;**/tests/*&quot;,&quot;**/*.test.*&quot;],&quot;externalPattern&quot;:[&quot;**/node_modules/**&quot;],&quot;excludeExternals&quot;:true,&quot;excludeNotDocumented&quot;:false,&quot;excludeInternal&quot;:false,&quot;excludePrivate&quot;:false,&quot;excludeProtected&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;watch&quot;:false,&quot;preserveWatchOutput&quot;:false,&quot;emit&quot;:false,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;highlightTheme&quot;:&quot;light-plus&quot;,&quot;name&quot;:&quot;&quot;,&quot;includeVersion&quot;:false,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:false,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;showConfig&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;,&quot;typedoc-plugin-merge-modules&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;logLevel&quot;:1,&quot;listInvalidSymbolLinks&quot;:false}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -239,6 +251,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/listtweetsbyuserparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>ByUser<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/listtweetsbyusernameparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>ByUsername<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/listtweetsparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>Params</a>
@@ -302,18 +317,6 @@
 					</li>
 					<li class=" tsd-kind-variable root">
 						<a href="modules.html#coreutils" class="tsd-kind-icon">Core<wbr>Utils</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="modules.html#endpoint" class="tsd-kind-icon">Endpoint</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="modules.html#paramutils" class="tsd-kind-icon">Param<wbr>Utils</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="modules.html#tweetparammapper" class="tsd-kind-icon">Tweet<wbr>Param<wbr>Mapper</a>
-					</li>
-					<li class=" tsd-kind-variable root">
-						<a href="modules.html#userparammapper" class="tsd-kind-icon">User<wbr>Param<wbr>Mapper</a>
 					</li>
 				</ul>
 			</nav>
