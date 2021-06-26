@@ -1,7 +1,7 @@
 {
     "author": "Brandon Scott https://github.com/brandongregoryscott",
     "dependencies": {
-        "twitter-v2": "1.0.6"
+        "twitter-v2": "1.1.0"
     },
     "description": "A typed wrapper around the Twitter V2 API",
     "devDependencies": {

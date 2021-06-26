@@ -18,6 +18,9 @@ export { UserFields } from "./enums/user-fields";
 // -----------------------------------------------------------------------------------------
 
 export { Attachments } from "./interfaces/tweets/attachments";
+export { GetTweetParams } from "./interfaces/params/get-tweet-params";
+export { GetUserByUsernameParams } from "./interfaces/params/get-user-by-username-params";
+export { GetUserParams } from "./interfaces/params/get-user-params";
 export { Includes } from "./interfaces/includes";
 export { ListTweetsByUserParams } from "./interfaces/params/list-tweets-by-user-params";
 export { ListTweetsParams } from "./interfaces/params/list-tweets-params";
@@ -39,6 +42,14 @@ export { User } from "./interfaces/users/user";
 export { ArrayOrCsv } from "./types/array-or-csv";
 
 // #endregion Types
+
+// -----------------------------------------------------------------------------------------
+// #region Utilities
+// -----------------------------------------------------------------------------------------
+
+export { CoreUtils } from "./utilities/core-utils";
+
+// #endregion Utilities
 
 // -----------------------------------------------------------------------------------------
 // #region Providers

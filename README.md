@@ -59,6 +59,20 @@ const response = await provider.getTweet({
 });
 ```
 
+### Additional utility functions
+
+There are certain endpoints that consumers might benefit from that do not exist in the Twitter V2 API.
+For example, there is no single endpoint to retrieve tweets from a specific user by their username.
+By wrapping up API calls to `users/by/username/:username` and `users/:id/tweets`, we can easily
+expose a function that does this work for you - supply a username, get that user's tweets!
+
+```ts
+// Somewhere in an async function...
+const { data: tweets } = await provider.listTweetsByUsername({
+    username: "TwitterDev",
+});
+```
+
 ## Supported API
 
 Below is a table of the currently supported API endpoints and methods available from the `TwitterProvider`. If you don't see a method/endpoint implemented yet, please check the open [issues](https://github.com/brandongregoryscott/ts-twitter-provider/issues) or open a new one.
