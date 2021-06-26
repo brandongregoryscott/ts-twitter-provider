@@ -25,6 +25,10 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
+            - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+              with:
+                  token: ${{secrets.GITHUB_TOKEN}}
+
             - name: Setup node 14.15.5
               uses: actions/setup-node@v2
               with:
