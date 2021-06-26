@@ -36,7 +36,9 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: npm version
-              run: npm version ${{github.ref}}
+              run: |
+                  VERSION=`echo ${{github.ref}} | sed 's|refs/main/||g' | sed 's|v||g'`
+                  npm version $VERSION
 
             - name: npm install
               run: npm install
