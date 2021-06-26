@@ -47,8 +47,8 @@ jobs:
             - name: git push
               run: |
                   git status
-                  git add docs
-                  git commit --amend --no-edit
+                  # git add docs
+                  # git commit --amend --no-edit
                   git push --dry-run
 
     notify_success:
