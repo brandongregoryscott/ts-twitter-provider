@@ -32,6 +32,8 @@ import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-u
 import { testReturnsUsers } from "./tests/shared/test-returns-users";
 import { ListUsersByUsernameParams } from "./interfaces/params/list-users-by-username";
 import { testUserExpansionsReturnsExpandedFields } from "./tests/shared/test-user-expansions-returns-expanded-fields";
+import { testUserFieldsReturnsFields } from "./tests/shared/test-user-fields-returns-fields";
+import { testTweetFieldsReturnsFields } from "./tests/shared/test-tweet-fields-returns-tweets";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -1111,7 +1113,7 @@ describe("TwitterProvider", () => {
     // #region listUsersByUsername
     // -----------------------------------------------------------------------------------------
 
-    describe.only("listUsersByUsername", () => {
+    describe("listUsersByUsername", () => {
         testReturnsUsers<ListUsersByUsernameParams>({
             name: "given a valid username, it returns a user",
             method: (sut) => sut.listUsersByUsername,
@@ -1135,6 +1137,20 @@ describe("TwitterProvider", () => {
         });
 
         testUserExpansionsReturnsExpandedFields<ListUsersByUsernameParams>({
+            method: (sut) => sut.listUsersByUsername,
+            params: {
+                usernames: USERNAME_TWITTERDEV,
+            },
+        });
+
+        testUserFieldsReturnsFields<ListUsersByUsernameParams>({
+            method: (sut) => sut.listUsersByUsername,
+            params: {
+                usernames: USERNAME_TWITTERDEV,
+            },
+        });
+
+        testTweetFieldsReturnsFields<ListUsersByUsernameParams>({
             method: (sut) => sut.listUsersByUsername,
             params: {
                 usernames: USERNAME_TWITTERDEV,

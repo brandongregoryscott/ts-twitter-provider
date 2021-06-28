@@ -12,8 +12,9 @@ const testEndTimeReturnsTweetsOnOrBeforeDate = <
     TParams extends TimeFilterParams
 >(
     options: Omit<TestOptions<TParams>, "name">
-) =>
-    test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+) => {
+    const date = faker.date.past(1);
+    return test.each([date, date.toISOString()])(
         "given end_time %p, returns tweets before or on that date",
         async (end_time) => {
             // Arrange
@@ -36,6 +37,7 @@ const testEndTimeReturnsTweetsOnOrBeforeDate = <
             });
         }
     );
+};
 
 // #endregion Shared Spec
 
