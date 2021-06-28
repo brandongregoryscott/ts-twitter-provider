@@ -654,57 +654,57 @@ describe("TwitterProvider", () => {
     describe("listMentionsByUser", () => {
         testReturnsTweets<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testExpansionsReturnsExpandedFields<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testFieldsReturnsRequestedFields<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testStartTimeReturnsTweetsOnOrAfterDate<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testPaginationTokenReturnsNextPageOfTweets<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testMaxResultsReturnsUpToCount<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testUserFieldsWithExpansionReturnsUser<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testUserFieldsWithoutExpansionReturnsUser<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testUntilIdReturnsTweetsUpToId<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testSinceIdReturnsTweetsAfterId<ListMentionsByUserParams>({
             method: (sut) => sut.listMentionsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         testPollFieldsWithExpansionReturnsPollIds<ListMentionsByUserParams>({
@@ -713,7 +713,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371788005279682560
                 since_id: "1371788005279682500",
                 until_id: "1371788005279682600",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
 
@@ -723,7 +723,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371788005279682560
                 since_id: "1371788005279682500",
                 until_id: "1371788005279682600",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
 
@@ -733,7 +733,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
                 since_id: "1371977096273215400",
                 until_id: "1371977096273215500",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
 
@@ -743,7 +743,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
                 since_id: "1371977096273215400",
                 until_id: "1371977096273215500",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
 
@@ -753,7 +753,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371978365557690371
                 since_id: "1371978365557690300",
                 until_id: "1371978365557690400",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
 
@@ -763,7 +763,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371978365557690371
                 since_id: "1371978365557690300",
                 until_id: "1371978365557690400",
-                userId: USERID_BSCOTTORIGINALS,
+                id: USERID_BSCOTTORIGINALS,
             },
         });
     });
@@ -853,7 +853,7 @@ describe("TwitterProvider", () => {
     describe("listTweetsByUser", () => {
         testReturnsTweets<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: "63046977" },
+            params: { id: "63046977" },
         });
 
         test.skip.each([
@@ -863,11 +863,11 @@ describe("TwitterProvider", () => {
             "given exclude %p, it returns tweets without those types",
             async (exclude) => {
                 // Arrange
-                const userId = "326756275";
+                const id = "326756275";
 
                 // Act
                 const result = await TestTwitterProvider.listTweetsByUser({
-                    userId,
+                    id,
                     // Despite requesting this field, it should always be undefined
                     fields: [TweetFields.ReferencedTweets],
                     exclude,
@@ -884,62 +884,62 @@ describe("TwitterProvider", () => {
 
         testUntilIdReturnsTweetsUpToId<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testSinceIdReturnsTweetsAfterId<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testMaxResultsReturnsUpToCount<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testStartTimeReturnsTweetsOnOrAfterDate<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testEndTimeReturnsTweetsOnOrBeforeDate<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testPaginationTokenReturnsNextPageOfTweets<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testFieldsReturnsRequestedFields<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testExpansionsReturnsExpandedFields<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testMediaFieldsWithExpansionReturnsMedia<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testMediaFieldsWithoutExpansionReturnsMedia<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testUserFieldsWithExpansionReturnsUser<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testUserFieldsWithoutExpansionReturnsUser<ListTweetsByUserParams>({
             method: (sut) => sut.listTweetsByUser,
-            params: { userId: USERID_BSCOTTORIGINALS },
+            params: { id: USERID_BSCOTTORIGINALS },
         });
 
         testPlaceFieldsWithExpansionReturnsPlace<ListTweetsByUserParams>({
@@ -948,7 +948,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
                 since_id: "1371977096273215400",
                 until_id: "1371977096273215500",
-                userId: USERID_BRANDONSCOTT,
+                id: USERID_BRANDONSCOTT,
             },
         });
 
@@ -958,7 +958,7 @@ describe("TwitterProvider", () => {
                 // Narrowing the ids down to a range that includes test tweet -> 1371977096273215491
                 since_id: "1371977096273215400",
                 until_id: "1371977096273215500",
-                userId: USERID_BRANDONSCOTT,
+                id: USERID_BRANDONSCOTT,
             },
         });
     });
@@ -1103,4 +1103,12 @@ describe("TwitterProvider", () => {
     });
 
     // #endregion listTweetsByUsername
+
+    // -----------------------------------------------------------------------------------------
+    // #region listUsersByUsername
+    // -----------------------------------------------------------------------------------------
+
+    describe("listUsersByUsername", () => {});
+
+    // #endregion listUsersByUsername
 });

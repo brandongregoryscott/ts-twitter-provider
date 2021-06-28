@@ -37,7 +37,7 @@ const provider = new TwitterProvider({
 
 // Somewhere in an async function...
 const response = await provider.listTweetsByUser({
-    userId: "953649053631434752",
+    id: "953649053631434752",
 });
 
 const tweets: Tweet[] = response.data;

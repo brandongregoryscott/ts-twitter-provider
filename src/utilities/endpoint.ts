@@ -4,23 +4,26 @@
 
 /** @hidden */
 const Endpoint = {
-    tweet(id: string) {
+    tweet(id: string): string {
         return `tweets/${id}`;
     },
-    tweets() {
+    tweets(): string {
         return "tweets";
     },
-    user(id: string) {
+    user(id: string): string {
         return `users/${id}`;
     },
-    userByUsername(username: string) {
+    usersBy(): string {
+        return "users/by";
+    },
+    userByUsername(username: string): string {
         return `users/by/username/${username}`;
     },
-    userMentions(userId: string) {
-        return `users/${userId}/mentions`;
+    userMentions(id: string): string {
+        return `users/${id}/mentions`;
     },
-    userTweets(userId: string) {
-        return `users/${userId}/tweets`;
+    userTweets(id: string): string {
+        return `users/${id}/tweets`;
     },
 };
 
