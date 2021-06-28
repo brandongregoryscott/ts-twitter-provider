@@ -129,7 +129,7 @@ class TwitterProvider {
      */
     public listUsersByUsername = async (
         params: ListUsersByUsernameParams
-    ): Promise<TwitterResponse<User>> =>
+    ): Promise<TwitterResponse<User[]>> =>
         this.client.get(
             Endpoint.usersBy(),
             UserParamMapper.toListUsersByUsernameParams(params)

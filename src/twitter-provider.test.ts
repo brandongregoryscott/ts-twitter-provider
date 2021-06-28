@@ -29,6 +29,8 @@ import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 import { UserExpansions } from "./enums/user-expansions";
 import faker from "faker";
 import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
+import { testReturnsUsers } from "./tests/shared/test-returns-users";
+import { ListUsersByUsernameParams } from "./interfaces/params/list-users-by-username";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
@@ -1108,7 +1110,29 @@ describe("TwitterProvider", () => {
     // #region listUsersByUsername
     // -----------------------------------------------------------------------------------------
 
-    describe("listUsersByUsername", () => {});
+    describe.only("listUsersByUsername", () => {
+        testReturnsUsers<ListUsersByUsernameParams>({
+            name: "given a valid username, it returns a user",
+            method: (sut) => sut.listUsersByUsername,
+            params: { usernames: USERNAME_BRANDONSCOTT },
+        });
+
+        testReturnsUsers<ListUsersByUsernameParams>({
+            name: "given comma separated usernames, it returns users",
+            method: (sut) => sut.listUsersByUsername,
+            params: {
+                usernames: `${USERNAME_BRANDONSCOTT},${USERNAME_BSCOTTORIGINALS}`,
+            },
+        });
+
+        testReturnsUsers<ListUsersByUsernameParams>({
+            name: "given array of usernames, it returns users",
+            method: (sut) => sut.listUsersByUsername,
+            params: {
+                usernames: [USERNAME_BRANDONSCOTT, USERNAME_BSCOTTORIGINALS],
+            },
+        });
+    });
 
     // #endregion listUsersByUsername
 });
