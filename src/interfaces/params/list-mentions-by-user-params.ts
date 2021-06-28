@@ -15,7 +15,7 @@ interface ListMentionsByUserParams
         TimeFilterParams,
         IdFilterParams,
         PagingParams {
-    userId: string;
+    id: string;
 }
 
 /**

@@ -8,6 +8,10 @@ import {
     GetUserParams,
     RawGetUserParams,
 } from "../interfaces/params/get-user-params";
+import {
+    ListUsersByUsernameParams,
+    RawListUsersByUsernameParams,
+} from "../interfaces/params/list-users-by-username";
 import { ParamUtils } from "./param-utils";
 import { FieldToExpansionsMappings } from "./types/field-to-expansions-mappings";
 
@@ -45,6 +49,16 @@ const UserParamMapper = {
             params,
             _fieldToExpansionMappings
         );
+        return ParamUtils.toRawParams(preprocessedParams);
+    },
+    toListUsersByUsernameParams(
+        params: ListUsersByUsernameParams
+    ): RawListUsersByUsernameParams {
+        const preprocessedParams = ParamUtils.preprocessForExpansions(
+            params,
+            _fieldToExpansionMappings
+        );
+
         return ParamUtils.toRawParams(preprocessedParams);
     },
 };

@@ -6,11 +6,11 @@ import { TwitterProvider } from "../../twitter-provider";
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface TestOptions<TParams> {
+interface TestOptions<TParams, TResult = Tweet> {
     name?: string;
     method: (
         sut: TwitterProvider
-    ) => (params: TParams) => Promise<TwitterResponse<Tweet[]>>;
+    ) => (params: TParams) => Promise<TwitterResponse<TResult[]>>;
     params: TParams;
 }
 

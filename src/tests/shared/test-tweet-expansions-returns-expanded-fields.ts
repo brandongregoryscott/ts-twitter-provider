@@ -1,6 +1,5 @@
-import faker from "faker";
-import { TweetFields } from "../../enums/tweet-fields";
-import { TimeFilterParams } from "../../interfaces/params/time-filter-params";
+import { TweetExpansions } from "../../enums/tweet-expansions";
+import { BaseParams } from "../../interfaces/params/base-params";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
@@ -8,36 +7,29 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testEndTimeReturnsTweetsOnOrBeforeDate = <
-    TParams extends TimeFilterParams
->(
+const testTweetExpansionsReturnsExpandedFields = <TParams extends BaseParams>(
     options: Omit<TestOptions<TParams>, "name">
-) => {
-    const date = faker.date.past(1);
-    return test.each([date, date.toISOString()])(
-        "given end_time %p, returns tweets before or on that date",
-        async (end_time) => {
+) =>
+    test.each([
+        [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
+        `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
+    ])(
+        "given expansions %p, it returns tweets with those expanded fields",
+        async (expansions) => {
             // Arrange
             const { method } = options;
-            const params = Object.assign(options.params, {
-                end_time,
-                fields: [TweetFields.CreatedAt],
-            });
+            const params = Object.assign(options.params, { expansions });
 
             // Act
             const result = await method(TestTwitterProvider)(params);
 
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
-            result.data.forEach((tweet) => {
-                expect(tweet.created_at).toBeDefined();
-                expect(new Date(tweet.created_at!) <= new Date(end_time)).toBe(
-                    true
-                );
-            });
+
+            const tweet = result.data[0];
+            expect(tweet.author_id).toBeDefined();
         }
     );
-};
 
 // #endregion Shared Spec
 
@@ -45,6 +37,6 @@ const testEndTimeReturnsTweetsOnOrBeforeDate = <
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { testEndTimeReturnsTweetsOnOrBeforeDate };
+export { testTweetExpansionsReturnsExpandedFields };
 
 // #endregion Exports

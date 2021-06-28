@@ -12,8 +12,9 @@ const testStartTimeReturnsTweetsOnOrAfterDate = <
     TParams extends TimeFilterParams
 >(
     options: TestOptions<TParams>
-) =>
-    test.each([faker.date.past(1), faker.date.past(1).toISOString()])(
+) => {
+    const date = faker.date.past(1);
+    return test.each([date, date.toISOString()])(
         "given start_time %p, returns tweets on or after that date",
         async (start_time) => {
             // Arrange
@@ -36,6 +37,7 @@ const testStartTimeReturnsTweetsOnOrAfterDate = <
             });
         }
     );
+};
 
 // #endregion Shared Spec
 

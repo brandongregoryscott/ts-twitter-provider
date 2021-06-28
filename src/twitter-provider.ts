@@ -13,6 +13,7 @@ import { UserParamMapper } from "./utilities/user-param-mapper";
 import { GetUserByUsernameParams } from "./interfaces/params/get-user-by-username-params";
 import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
 import { CredentialsArgs } from "twitter-v2/build/Credentials";
+import { ListUsersByUsernameParams } from "./interfaces/params/list-users-by-username";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -74,13 +75,13 @@ class TwitterProvider {
         );
 
     /**
-     * List mentions by given userId
+     * List mentions by given id
      */
     public listMentionsByUser = (
         params: ListMentionsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.client.get(
-            Endpoint.userMentions(params.userId),
+            Endpoint.userMentions(params.id),
             TweetParamMapper.toListMentionsByUserParams(params)
         );
 
@@ -96,13 +97,13 @@ class TwitterProvider {
         );
 
     /**
-     * List tweets by given userId
+     * List tweets by given user id
      */
     public listTweetsByUser = (
         params: ListTweetsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.client.get(
-            Endpoint.userTweets(params.userId),
+            Endpoint.userTweets(params.id),
             TweetParamMapper.toListTweetsByUserParams(params)
         );
 
@@ -119,8 +120,20 @@ class TwitterProvider {
             throw new Error(`User '${username}' not found.`);
         }
 
-        return this.listTweetsByUser({ userId: user?.id!, ...params });
+        const { id } = user;
+        return this.listTweetsByUser({ ...params, id });
     };
+
+    /**
+     * List users by given id(s)
+     */
+    public listUsersByUsername = async (
+        params: ListUsersByUsernameParams
+    ): Promise<TwitterResponse<User[]>> =>
+        this.client.get(
+            Endpoint.usersBy(),
+            UserParamMapper.toListUsersByUsernameParams(params)
+        );
 
     // #endregion Public Methods
 }

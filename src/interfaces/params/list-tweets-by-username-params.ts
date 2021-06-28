@@ -8,7 +8,7 @@ import {
 // -----------------------------------------------------------------------------------------
 
 interface ListTweetsByUsernameParams
-    extends Omit<ListTweetsByUserParams, "userId"> {
+    extends Omit<ListTweetsByUserParams, "id"> {
     username: string;
 }
 
