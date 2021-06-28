@@ -102,7 +102,7 @@
 
 <span style="color: #008000">// Somewhere in an async function...</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">provider</span><span style="color: #000000">.</span><span style="color: #795E26">listTweetsByUser</span><span style="color: #000000">({</span>
-<span style="color: #000000">    </span><span style="color: #001080">userId:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;953649053631434752&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;953649053631434752&quot;</span><span style="color: #000000">,</span>
 <span style="color: #000000">});</span>
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">tweets</span><span style="color: #000000">: </span><span style="color: #267F99">Tweet</span><span style="color: #000000">[] = </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
@@ -179,8 +179,8 @@
 							</tr>
 							<tr>
 								<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by"><code>/2/users/by</code></a></td>
-								<td><a href="https://github.com/brandongregoryscott/ts-twitter-provider/issues/4"><del><code>listUsersByUsername</code></del></a></td>
-								<td>❌ expansions<br/> ❌ tweet.fields<br/> ❌ user.fields<br/> ❌ usernames<br/></td>
+								<td><a href="https://brandongregoryscott.github.io/ts-twitter-provider/classes/twitterprovider.html#listusersbyusername"><code>listUsersByUsername</code></a></td>
+								<td>✅ expansions<br/> ✅ tweet.fields<br/> ✅ user.fields<br/> ✅ usernames<br/></td>
 							</tr>
 							<tr>
 								<td><a href="https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username"><code>/2/users/by/username/:username</code></a></td>
@@ -257,6 +257,9 @@
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/listtweetsparams.html" class="tsd-kind-icon">List<wbr>Tweets<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface root">
+						<a href="interfaces/listusersbyusernameparams.html" class="tsd-kind-icon">List<wbr>Users<wbr>ByUsername<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface root">
 						<a href="interfaces/media.html" class="tsd-kind-icon">Media</a>

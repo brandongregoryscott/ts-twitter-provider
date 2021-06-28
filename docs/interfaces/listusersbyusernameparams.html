@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TweetFieldsParams | ts-twitter-provider</title>
+	<title>ListUsersByUsernameParams | ts-twitter-provider</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="tweetfieldsparams.html">TweetFieldsParams</a>
+					<a href="listusersbyusernameparams.html">ListUsersByUsernameParams</a>
 				</li>
 			</ul>
 		</div>
@@ -71,24 +71,21 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface TweetFieldsParams</h1>
+			<h1>Interface ListUsersByUsernameParams</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TweetFieldsParams</span>
+						<a href="tweetfieldsparams.html" class="tsd-signature-type">TweetFieldsParams</a>
+					</li>
+					<li>
+						<a href="userexpansionsparams.html" class="tsd-signature-type">UserExpansionsParams</a>
+					</li>
+					<li>
+						<a href="userfieldsparams.html" class="tsd-signature-type">UserFieldsParams</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<a href="baseparams.html" class="tsd-signature-type">BaseParams</a>
-							</li>
-							<li>
-								<a href="getuserbyusernameparams.html" class="tsd-signature-type">GetUserByUsernameParams</a>
-							</li>
-							<li>
-								<a href="getuserparams.html" class="tsd-signature-type">GetUserParams</a>
-							</li>
-							<li>
-								<a href="listusersbyusernameparams.html" class="tsd-signature-type">ListUsersByUsernameParams</a>
+								<span class="target">ListUsersByUsernameParams</span>
 							</li>
 						</ul>
 					</li>
@@ -100,7 +97,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="tweetfieldsparams.html#fields" class="tsd-kind-icon">fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="listusersbyusernameparams.html#expansions" class="tsd-kind-icon">expansions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="listusersbyusernameparams.html#fields" class="tsd-kind-icon">fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="listusersbyusernameparams.html#userfields" class="tsd-kind-icon">user<wbr>Fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="listusersbyusernameparams.html#usernames" class="tsd-kind-icon">usernames</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,13 +108,46 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="expansions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> expansions</h3>
+					<div class="tsd-signature tsd-kind-icon">expansions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/userexpansions.html#pinnedtweetid" class="tsd-signature-type">PinnedTweetId</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="userexpansionsparams.html">UserExpansionsParams</a>.<a href="userexpansionsparams.html#expansions">expansions</a></p>
+						<ul>
+							<li>Defined in interfaces/params/user-expansion-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="fields" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fields</h3>
 					<div class="tsd-signature tsd-kind-icon">fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/tweetfields.html" class="tsd-signature-type">TweetFields</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="tweetfieldsparams.html">TweetFieldsParams</a>.<a href="tweetfieldsparams.html#fields">fields</a></p>
 						<ul>
 							<li>Defined in interfaces/params/tweet-fields-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="userfields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>Fields</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../enums/userfields.html" class="tsd-signature-type">UserFields</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="userfieldsparams.html">UserFieldsParams</a>.<a href="userfieldsparams.html#userfields">userFields</a></p>
+						<ul>
+							<li>Defined in interfaces/params/user-fields-params.ts:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="usernames" class="tsd-anchor"></a>
+					<h3>usernames</h3>
+					<div class="tsd-signature tsd-kind-icon">usernames<span class="tsd-signature-symbol">:</span> <a href="../modules.html#arrayorcsv" class="tsd-signature-type">ArrayOrCsv</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interfaces/params/list-users-by-username.ts:22</li>
 						</ul>
 					</aside>
 				</section>
@@ -127,10 +160,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface root">
-						<a href="tweetfieldsparams.html" class="tsd-kind-icon">Tweet<wbr>Fields<wbr>Params</a>
+						<a href="listusersbyusernameparams.html" class="tsd-kind-icon">List<wbr>Users<wbr>ByUsername<wbr>Params</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="listusersbyusernameparams.html#expansions" class="tsd-kind-icon">expansions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="listusersbyusernameparams.html#fields" class="tsd-kind-icon">fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="listusersbyusernameparams.html#userfields" class="tsd-kind-icon">user<wbr>Fields</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="tweetfieldsparams.html#fields" class="tsd-kind-icon">fields</a>
+								<a href="listusersbyusernameparams.html#usernames" class="tsd-kind-icon">usernames</a>
 							</li>
 						</ul>
 					</li>
