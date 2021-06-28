@@ -1,5 +1,8 @@
 import { TweetExpansions } from "../../enums/tweet-expansions";
+import { UserExpansions } from "../../enums/user-expansions";
 import { BaseParams } from "../../interfaces/params/base-params";
+import { UserExpansionsParams } from "../../interfaces/params/user-expansion-params";
+import { User } from "../../interfaces/users/user";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
 
@@ -7,14 +10,13 @@ import { TestTwitterProvider } from "../test-twitter-provider";
 // #region Shared Spec
 // -----------------------------------------------------------------------------------------
 
-const testExpansionsReturnsExpandedFields = <TParams extends BaseParams>(
-    options: Omit<TestOptions<TParams>, "name">
+const testUserExpansionsReturnsExpandedFields = <
+    TParams extends UserExpansionsParams
+>(
+    options: Omit<TestOptions<TParams, User>, "name">
 ) =>
-    test.each([
-        [TweetExpansions.AttachmentsMediaKeys, TweetExpansions.AuthorId],
-        `${TweetExpansions.AttachmentsMediaKeys},${TweetExpansions.AuthorId}`,
-    ])(
-        "given expansions %p, it returns tweets with those expanded fields",
+    test.each([[UserExpansions.PinnedTweetId], UserExpansions.PinnedTweetId])(
+        "given expansions %p, it returns users with those expanded fields",
         async (expansions) => {
             // Arrange
             const { method } = options;
@@ -26,8 +28,8 @@ const testExpansionsReturnsExpandedFields = <TParams extends BaseParams>(
             // Assert
             expect(result.data.length).toBeGreaterThanOrEqual(1);
 
-            const tweet = result.data[0];
-            expect(tweet.author_id).toBeDefined();
+            const user = result.data[0];
+            expect(user.pinned_tweet_id).toBeDefined();
         }
     );
 
@@ -37,6 +39,6 @@ const testExpansionsReturnsExpandedFields = <TParams extends BaseParams>(
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { testExpansionsReturnsExpandedFields };
+export { testUserExpansionsReturnsExpandedFields };
 
 // #endregion Exports

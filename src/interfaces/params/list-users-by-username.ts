@@ -5,6 +5,10 @@ import {
     TweetExpansionsParams,
 } from "./tweet-expansions-params";
 import { RawTweetFieldsParams, TweetFieldsParams } from "./tweet-fields-params";
+import {
+    RawUserExpansionsParams,
+    UserExpansionsParams,
+} from "./user-expansion-params";
 import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 
 // -----------------------------------------------------------------------------------------
@@ -12,9 +16,9 @@ import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 // -----------------------------------------------------------------------------------------
 
 interface ListUsersByUsernameParams
-    extends UserFieldsParams,
-        TweetFieldsParams,
-        TweetExpansionsParams {
+    extends TweetFieldsParams,
+        UserExpansionsParams,
+        UserFieldsParams {
     usernames: ArrayOrCsv<string>;
 }
 
@@ -24,9 +28,9 @@ interface ListUsersByUsernameParams
  */
 interface RawListUsersByUsernameParams
     extends RequestParameters,
-        RawUserFieldsParams,
         RawTweetFieldsParams,
-        RawTweetExpansionsParams {
+        RawUserExpansionsParams,
+        RawUserFieldsParams {
     usernames: string;
 }
 
