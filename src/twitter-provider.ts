@@ -14,6 +14,7 @@ import { GetUserByUsernameParams } from "./interfaces/params/get-user-by-usernam
 import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-username-params";
 import { CredentialsArgs } from "twitter-v2/build/Credentials";
 import { ListUsersByUsernameParams } from "./interfaces/params/list-users-by-username";
+import { ListUsersParams } from "./interfaces/params/list-users-params";
 
 class TwitterProvider {
     // -----------------------------------------------------------------------------------------
@@ -75,7 +76,7 @@ class TwitterProvider {
         );
 
     /**
-     * List mentions by given id
+     * List mentions by given user id
      */
     public listMentionsByUser = (
         params: ListMentionsByUserParams
@@ -125,7 +126,7 @@ class TwitterProvider {
     };
 
     /**
-     * List users by given id(s)
+     * List users by given username(s)
      */
     public listUsersByUsername = async (
         params: ListUsersByUsernameParams
@@ -133,6 +134,17 @@ class TwitterProvider {
         this.client.get(
             Endpoint.usersBy(),
             UserParamMapper.toListUsersByUsernameParams(params)
+        );
+
+    /**
+     * List users by given username(s)
+     */
+    public listUsers = async (
+        params: ListUsersParams
+    ): Promise<TwitterResponse<User[]>> =>
+        this.client.get(
+            Endpoint.users(),
+            UserParamMapper.toListUsersParams(params)
         );
 
     // #endregion Public Methods

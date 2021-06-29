@@ -11,23 +11,23 @@ import { RawUserFieldsParams, UserFieldsParams } from "./user-fields-params";
 // #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-interface ListUsersByUsernameParams
+interface ListUsersParams
     extends TweetFieldsParams,
         UserExpansionsParams,
         UserFieldsParams {
-    usernames: ArrayOrCsv<string>;
+    ids: ArrayOrCsv<string>;
 }
 
 /**
  * @hidden
- * Interface representing what the /users/by endpoint expects directly
+ * Interface representing what the /users endpoint expects directly
  */
-interface RawListUsersByUsernameParams
+interface RawListUsersParams
     extends RequestParameters,
         RawTweetFieldsParams,
         RawUserExpansionsParams,
         RawUserFieldsParams {
-    usernames: string;
+    ids: string;
 }
 
 // #endregion Interfaces
@@ -36,6 +36,6 @@ interface RawListUsersByUsernameParams
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { ListUsersByUsernameParams, RawListUsersByUsernameParams };
+export { ListUsersParams, RawListUsersParams };
 
 // #endregion Exports

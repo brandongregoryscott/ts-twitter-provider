@@ -12,6 +12,10 @@ import {
     ListUsersByUsernameParams,
     RawListUsersByUsernameParams,
 } from "../interfaces/params/list-users-by-username";
+import {
+    ListUsersParams,
+    RawListUsersParams,
+} from "../interfaces/params/list-users-params";
 import { UserExpansionsParams } from "../interfaces/params/user-expansion-params";
 import { ParamUtils } from "./param-utils";
 import { FieldToExpansionsMappings } from "./types/field-to-expansions-mappings";
@@ -39,6 +43,8 @@ const UserParamMapper = {
         params: GetUserByUsernameParams
     ): RawGetUserByUsernameParams => _toRawParams(params),
     toGetUserParams: (params: GetUserParams): RawGetUserParams =>
+        _toRawParams(params),
+    toListUsersParams: (params: ListUsersParams): RawListUsersParams =>
         _toRawParams(params),
     toListUsersByUsernameParams: (
         params: ListUsersByUsernameParams
