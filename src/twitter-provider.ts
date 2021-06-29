@@ -15,8 +15,9 @@ import { ListTweetsByUsernameParams } from "./interfaces/params/list-tweets-by-u
 import { CredentialsArgs } from "twitter-v2/build/Credentials";
 import { ListUsersByUsernameParams } from "./interfaces/params/list-users-by-username";
 import { ListUsersParams } from "./interfaces/params/list-users-params";
+import { TwitterProvider as TwitterProviderInterface } from "./interfaces/twitter-provider";
 
-class TwitterProvider {
+class TwitterProvider implements TwitterProviderInterface {
     // -----------------------------------------------------------------------------------------
     // #region Public Members
     // -----------------------------------------------------------------------------------------
@@ -137,7 +138,7 @@ class TwitterProvider {
         );
 
     /**
-     * List users by given username(s)
+     * List users by given id(s)
      */
     public listUsers = async (
         params: ListUsersParams
