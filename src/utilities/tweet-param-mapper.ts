@@ -53,22 +53,16 @@ const _fieldToExpansionMappings: FieldToExpansionsMappings = [
 
 /** @hidden */
 const TweetParamMapper = {
-    toGetTweetParams(params: GetTweetParams): RawGetTweetParams {
-        return _toRawTweetParams(params);
-    },
-    toListMentionsByUserParams(
+    toGetTweetParams: (params: GetTweetParams): RawGetTweetParams =>
+        _toRawTweetParams(params),
+    toListMentionsByUserParams: (
         params: ListMentionsByUserParams
-    ): RawListMentionsByUserParams {
-        return _toRawTweetParams(params);
-    },
-    toListTweetsParams(params: ListTweetsParams): RawListTweetsParams {
-        return _toRawTweetParams(params);
-    },
-    toListTweetsByUserParams(
+    ): RawListMentionsByUserParams => _toRawTweetParams(params),
+    toListTweetsParams: (params: ListTweetsParams): RawListTweetsParams =>
+        _toRawTweetParams(params),
+    toListTweetsByUserParams: (
         params: ListTweetsByUserParams
-    ): RawListTweetsByUserParams {
-        return _toRawTweetParams(params);
-    },
+    ): RawListTweetsByUserParams => _toRawTweetParams(params),
 };
 
 // #endregion Public Functions

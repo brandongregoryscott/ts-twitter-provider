@@ -12,6 +12,7 @@ import {
     ListUsersByUsernameParams,
     RawListUsersByUsernameParams,
 } from "../interfaces/params/list-users-by-username";
+import { UserExpansionsParams } from "../interfaces/params/user-expansion-params";
 import { ParamUtils } from "./param-utils";
 import { FieldToExpansionsMappings } from "./types/field-to-expansions-mappings";
 
@@ -34,36 +35,31 @@ const _fieldToExpansionMappings: FieldToExpansionsMappings = [
 
 /** @hidden */
 const UserParamMapper = {
-    toGetUserByUsernameParams(
+    toGetUserByUsernameParams: (
         params: GetUserByUsernameParams
-    ): RawGetUserByUsernameParams {
-        const preprocessedParams = ParamUtils.preprocessForExpansions(
-            params,
-            _fieldToExpansionMappings
-        );
-
-        return ParamUtils.toRawParams(preprocessedParams);
-    },
-    toGetUserParams(params: GetUserParams): RawGetUserParams {
-        const preprocessedParams = ParamUtils.preprocessForExpansions(
-            params,
-            _fieldToExpansionMappings
-        );
-        return ParamUtils.toRawParams(preprocessedParams);
-    },
-    toListUsersByUsernameParams(
+    ): RawGetUserByUsernameParams => _toRawParams(params),
+    toGetUserParams: (params: GetUserParams): RawGetUserParams =>
+        _toRawParams(params),
+    toListUsersByUsernameParams: (
         params: ListUsersByUsernameParams
-    ): RawListUsersByUsernameParams {
-        const preprocessedParams = ParamUtils.preprocessForExpansions(
-            params,
-            _fieldToExpansionMappings
-        );
-
-        return ParamUtils.toRawParams(preprocessedParams);
-    },
+    ): RawListUsersByUsernameParams => _toRawParams(params),
 };
 
 // #endregion Public Functions
+
+// -----------------------------------------------------------------------------------------
+// #region Private Functions
+// -----------------------------------------------------------------------------------------
+
+const _toRawParams = <TParams, TRawParams>(params: TParams): TRawParams =>
+    ParamUtils.toRawParams(_preprocessForExpansions(params));
+
+const _preprocessForExpansions = <TParams extends UserExpansionsParams>(
+    params: TParams
+): TParams =>
+    ParamUtils.preprocessForExpansions(params, _fieldToExpansionMappings);
+
+// #endregion Private Functions
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
