@@ -15,9 +15,6 @@ class UserProvider implements UserProviderInterface {
     // #region Public Members
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Reference to the underlying Twitter client if direct access is required
-     */
     public readonly client: Twitter;
 
     // #endregion Public Members
@@ -36,9 +33,6 @@ class UserProvider implements UserProviderInterface {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Get a single user by id
-     */
     public getUser = (
         params: GetUserParams
     ): Promise<TwitterResponse<User | undefined>> =>
@@ -47,9 +41,6 @@ class UserProvider implements UserProviderInterface {
             UserParamMapper.toGetUserParams(params)
         );
 
-    /**
-     * Get a single user by username
-     */
     public getUserByUsername = (
         params: GetUserByUsernameParams
     ): Promise<TwitterResponse<User | undefined>> =>
@@ -58,9 +49,6 @@ class UserProvider implements UserProviderInterface {
             UserParamMapper.toGetUserByUsernameParams(params)
         );
 
-    /**
-     * List users by given username(s)
-     */
     public listUsersByUsername = async (
         params: ListUsersByUsernameParams
     ): Promise<TwitterResponse<User[]>> =>
@@ -69,9 +57,6 @@ class UserProvider implements UserProviderInterface {
             UserParamMapper.toListUsersByUsernameParams(params)
         );
 
-    /**
-     * List users by given id(s)
-     */
     public listUsers = async (
         params: ListUsersParams
     ): Promise<TwitterResponse<User[]>> =>

@@ -10,6 +10,9 @@ import { UserProvider } from "./user-provider";
 // -----------------------------------------------------------------------------------------
 
 interface TwitterProvider extends Provider, TweetProvider, UserProvider {
+    /**
+     * List tweets by given username
+     */
     listTweetsByUsername(
         params: ListTweetsByUsernameParams
     ): Promise<TwitterResponse<Tweet[]>>;

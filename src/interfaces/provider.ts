@@ -5,6 +5,9 @@ import Twitter from "twitter-v2";
 // -----------------------------------------------------------------------------------------
 
 interface Provider {
+    /**
+     * Reference to the underlying Twitter client if direct access is required
+     */
     client: Twitter;
 }
 

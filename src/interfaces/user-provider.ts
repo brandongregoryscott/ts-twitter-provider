@@ -11,16 +11,28 @@ import { User } from "./users/user";
 // -----------------------------------------------------------------------------------------
 
 interface UserProvider extends Provider {
+    /**
+     * Get a single user by id
+     */
     getUser(params: GetUserParams): Promise<TwitterResponse<User | undefined>>;
 
+    /**
+     * Get a single user by username
+     */
     getUserByUsername(
         params: GetUserByUsernameParams
     ): Promise<TwitterResponse<User | undefined>>;
 
+    /**
+     * List users by given username(s)
+     */
     listUsersByUsername(
         params: ListUsersByUsernameParams
     ): Promise<TwitterResponse<User[]>>;
 
+    /**
+     * List users by given id(s)
+     */
     listUsers(params: ListUsersParams): Promise<TwitterResponse<User[]>>;
 }
 

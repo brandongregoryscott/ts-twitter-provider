@@ -12,16 +12,28 @@ import { TwitterResponse } from "./twitter-response";
 // -----------------------------------------------------------------------------------------
 
 interface TweetProvider extends Provider {
+    /**
+     * Get a single tweet by id
+     */
     getTweet(
         params: GetTweetParams
     ): Promise<TwitterResponse<Tweet | undefined>>;
 
+    /**
+     * List mentions by given user id
+     */
     listMentionsByUser(
         params: ListMentionsByUserParams
     ): Promise<TwitterResponse<Tweet[]>>;
 
+    /**
+     * List tweets by given id(s)
+     */
     listTweets(params: ListTweetsParams): Promise<TwitterResponse<Tweet[]>>;
 
+    /**
+     * List tweets by given user id
+     */
     listTweetsByUser(
         params: ListTweetsByUserParams
     ): Promise<TwitterResponse<Tweet[]>>;

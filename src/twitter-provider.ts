@@ -21,9 +21,6 @@ class TwitterProvider implements TwitterProviderInterface {
     // #region Public Members
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Reference to the underlying Twitter client if direct access is required
-     */
     public readonly client: Twitter;
 
     // #endregion Public Members
@@ -53,57 +50,36 @@ class TwitterProvider implements TwitterProviderInterface {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Get a single tweet by id
-     */
     public getTweet = (
         params: GetTweetParams
     ): Promise<TwitterResponse<Tweet | undefined>> =>
         this.tweetProvider.getTweet(params);
 
-    /**
-     * Get a single user by id
-     */
     public getUser = (
         params: GetUserParams
     ): Promise<TwitterResponse<User | undefined>> =>
         this.userProvider.getUser(params);
 
-    /**
-     * Get a single user by username
-     */
     public getUserByUsername = (
         params: GetUserByUsernameParams
     ): Promise<TwitterResponse<User | undefined>> =>
         this.userProvider.getUserByUsername(params);
 
-    /**
-     * List mentions by given user id
-     */
     public listMentionsByUser = (
         params: ListMentionsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.tweetProvider.listMentionsByUser(params);
 
-    /**
-     * List tweets by given id(s)
-     */
     public listTweets = (
         params: ListTweetsParams
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.tweetProvider.listTweets(params);
 
-    /**
-     * List tweets by given user id
-     */
     public listTweetsByUser = (
         params: ListTweetsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
         this.tweetProvider.listTweetsByUser(params);
 
-    /**
-     * List tweets by given username
-     */
     public listTweetsByUsername = async (
         params: ListTweetsByUsernameParams
     ): Promise<TwitterResponse<Tweet[]>> => {
@@ -118,17 +94,11 @@ class TwitterProvider implements TwitterProviderInterface {
         return this.listTweetsByUser({ ...params, id });
     };
 
-    /**
-     * List users by given username(s)
-     */
     public listUsersByUsername = (
         params: ListUsersByUsernameParams
     ): Promise<TwitterResponse<User[]>> =>
         this.userProvider.listUsersByUsername(params);
 
-    /**
-     * List users by given id(s)
-     */
     public listUsers = (
         params: ListUsersParams
     ): Promise<TwitterResponse<User[]>> => this.userProvider.listUsers(params);

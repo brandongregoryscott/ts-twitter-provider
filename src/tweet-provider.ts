@@ -15,9 +15,6 @@ class TweetProvider implements TweetProviderInterface {
     // #region Public Members
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Reference to the underlying Twitter client if direct access is required
-     */
     public readonly client: Twitter;
 
     // #endregion Public Members
@@ -36,9 +33,6 @@ class TweetProvider implements TweetProviderInterface {
     // #region Public Methods
     // -----------------------------------------------------------------------------------------
 
-    /**
-     * Get a single tweet by id
-     */
     public getTweet = (
         params: GetTweetParams
     ): Promise<TwitterResponse<Tweet | undefined>> =>
@@ -47,9 +41,6 @@ class TweetProvider implements TweetProviderInterface {
             TweetParamMapper.toGetTweetParams(params)
         );
 
-    /**
-     * List mentions by given user id
-     */
     public listMentionsByUser = (
         params: ListMentionsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
@@ -58,9 +49,6 @@ class TweetProvider implements TweetProviderInterface {
             TweetParamMapper.toListMentionsByUserParams(params)
         );
 
-    /**
-     * List tweets by given id(s)
-     */
     public listTweets = (
         params: ListTweetsParams
     ): Promise<TwitterResponse<Tweet[]>> =>
@@ -69,9 +57,6 @@ class TweetProvider implements TweetProviderInterface {
             TweetParamMapper.toListTweetsParams(params)
         );
 
-    /**
-     * List tweets by given user id
-     */
     public listTweetsByUser = (
         params: ListTweetsByUserParams
     ): Promise<TwitterResponse<Tweet[]>> =>
