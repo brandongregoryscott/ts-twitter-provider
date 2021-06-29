@@ -54,6 +54,7 @@ jobs:
                   git add .
                   git commit --amend --no-edit
                   git push
+                  git push --tags
 
     notify_success:
         runs-on: ubuntu-latest
