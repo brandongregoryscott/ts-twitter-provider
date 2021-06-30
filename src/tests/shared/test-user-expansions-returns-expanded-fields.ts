@@ -1,6 +1,4 @@
-import { TweetExpansions } from "../../enums/tweet-expansions";
 import { UserExpansions } from "../../enums/user-expansions";
-import { BaseParams } from "../../interfaces/params/base-params";
 import { UserExpansionsParams } from "../../interfaces/params/user-expansion-params";
 import { User } from "../../interfaces/users/user";
 import { TestOptions } from "../interfaces/test-options";

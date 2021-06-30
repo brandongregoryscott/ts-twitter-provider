@@ -55,6 +55,8 @@ export { CoreUtils } from "./utilities/core-utils";
 // #region Providers
 // -----------------------------------------------------------------------------------------
 
+export { UserProvider } from "./user-provider";
+export { TweetProvider } from "./tweet-provider";
 export { TwitterProvider } from "./twitter-provider";
 
 // #endregion Providers

@@ -1,11 +1,11 @@
-import { TwitterProvider } from "../twitter-provider";
+import { UserProvider } from "../user-provider";
 import { TestUtils } from "./test-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
 // -----------------------------------------------------------------------------------------
 
-const TestTwitterProvider = new TwitterProvider(TestUtils.credentials);
+const TestUserProvider = new UserProvider(TestUtils.credentials);
 
 // #endregion Constants
 
@@ -13,6 +13,6 @@ const TestTwitterProvider = new TwitterProvider(TestUtils.credentials);
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { TestTwitterProvider };
+export { TestUserProvider };
 
 // #endregion Exports
