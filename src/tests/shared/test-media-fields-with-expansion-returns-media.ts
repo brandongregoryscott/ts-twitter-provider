@@ -1,8 +1,8 @@
 import { TweetExpansions } from "../../enums/tweet-expansions";
 import { BaseParams } from "../../interfaces/params/base-params";
-import { ALL_MEDIA_FIELDS } from "../constants/media-fields";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
+import { TestUtils } from "../test-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Shared Spec
@@ -12,7 +12,7 @@ const testMediaFieldsWithExpansionReturnsMedia = <TParams extends BaseParams>(
     options: Omit<TestOptions<TParams>, "name">
 ) => {
     const { method } = options;
-    test.each([ALL_MEDIA_FIELDS, ALL_MEDIA_FIELDS.join()])(
+    test.each([TestUtils.allMediaFields, TestUtils.allMediaFields.join()])(
         `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', it returns media`,
         async (mediaFields) => {
             // Arrange

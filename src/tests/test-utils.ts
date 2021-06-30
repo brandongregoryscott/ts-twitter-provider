@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import { User } from "../interfaces/users/user";
 import faker from "faker";
+import { MediaFields } from "../enums/media-fields";
 
 // Load API keys from .env
 dotenv.config();
@@ -8,6 +9,13 @@ dotenv.config();
 // -----------------------------------------------------------------------------------------
 // #region Constants
 // -----------------------------------------------------------------------------------------
+
+const allMediaFields: MediaFields[] = [
+    MediaFields.Height,
+    MediaFields.MediaKey,
+    MediaFields.Type,
+    MediaFields.Width,
+];
 
 const credentials = {
     consumer_key: process.env.CONSUMER_KEY!,
@@ -39,6 +47,7 @@ const TestUtils = {
     // #region Public Members
     // -----------------------------------------------------------------------------------------
 
+    allMediaFields,
     credentials,
     users,
 

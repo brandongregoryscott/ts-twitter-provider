@@ -1,7 +1,7 @@
 import { BaseParams } from "../../interfaces/params/base-params";
-import { ALL_MEDIA_FIELDS } from "../constants/media-fields";
 import { TestOptions } from "../interfaces/test-options";
 import { TestTwitterProvider } from "../test-twitter-provider";
+import { TestUtils } from "../test-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Shared Spec
@@ -17,7 +17,7 @@ const testMediaFieldsWithoutExpansionReturnsMedia = <
         // Arrange
         const params = Object.assign(options.params, {
             expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
-            mediaFields: ALL_MEDIA_FIELDS,
+            mediaFields: TestUtils.allMediaFields,
         });
 
         // Act

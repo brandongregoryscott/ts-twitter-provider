@@ -25,7 +25,6 @@ import { testMediaFieldsWithoutExpansionReturnsMedia } from "./tests/shared/test
 import { TestTwitterProvider } from "./tests/test-twitter-provider";
 import { PollFields } from "./enums/poll-fields";
 import { UserFields } from "./enums/user-fields";
-import { ALL_MEDIA_FIELDS } from "./tests/constants/media-fields";
 import { TestUtils } from "./tests/test-utils";
 
 describe("TweetProvider", () => {
@@ -257,7 +256,7 @@ describe("TweetProvider", () => {
             }
         );
 
-        test.each([ALL_MEDIA_FIELDS, ALL_MEDIA_FIELDS.join()])(
+        test.each([TestUtils.allMediaFields, TestUtils.allMediaFields.join()])(
             `given mediaFields %p and '${TweetExpansions.AttachmentsMediaKeys}', returns media`,
             async (mediaFields) => {
                 // Arrange
@@ -300,7 +299,7 @@ describe("TweetProvider", () => {
             const result = await TestTwitterProvider.getTweet({
                 id,
                 expansions: [], // <-- Intentionally not sending through TweetExpansions.AttachmentMediaKeys
-                mediaFields: ALL_MEDIA_FIELDS,
+                mediaFields: TestUtils.allMediaFields,
             });
 
             // Assert
