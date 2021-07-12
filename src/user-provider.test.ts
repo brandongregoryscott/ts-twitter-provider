@@ -9,6 +9,7 @@ import { testUserFieldsReturnsFields } from "./tests/shared/test-user-fields-ret
 import { testTweetFieldsReturnsFields } from "./tests/shared/test-tweet-fields-returns-tweets";
 import { TestUtils } from "./tests/test-utils";
 import { TestUserProvider } from "./tests/test-user-provider";
+import { ListUsersParams } from "./interfaces/params/list-users-params";
 
 describe("UserProvider", () => {
     // -----------------------------------------------------------------------------------------
@@ -337,4 +338,60 @@ describe("UserProvider", () => {
     });
 
     // #endregion listUsersByUsername
+
+    // -----------------------------------------------------------------------------------------
+    // #region listUsers
+    // -----------------------------------------------------------------------------------------
+
+    describe("listUsers", () => {
+        testReturnsUsers<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            name: "given a valid id, it returns a user",
+            params: {
+                ids: TestUtils.users.brandonscott.id,
+            },
+        });
+
+        testReturnsUsers<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            name: "given comma separated ids, it returns users",
+            params: {
+                ids: `${TestUtils.users.brandonscott.id},${TestUtils.users.twitterdev.id}`,
+            },
+        });
+
+        testReturnsUsers<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            name: "given array of ids, it returns users",
+            params: {
+                ids: [
+                    TestUtils.users.brandonscott.id,
+                    TestUtils.users.twitterdev.id,
+                ],
+            },
+        });
+
+        testTweetFieldsReturnsFields<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            params: {
+                ids: TestUtils.users.twitterdev.id,
+            },
+        });
+
+        testUserFieldsReturnsFields<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            params: {
+                ids: TestUtils.users.twitterdev.id,
+            },
+        });
+
+        testUserExpansionsReturnsExpandedFields<ListUsersParams>({
+            method: (sut) => sut.listUsers,
+            params: {
+                ids: TestUtils.users.twitterdev.id,
+            },
+        });
+    });
+
+    // #endregion listUsers
 });
