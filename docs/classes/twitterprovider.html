@@ -80,6 +80,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/twitterprovider.html" class="tsd-signature-type">TwitterProvider</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
@@ -93,6 +99,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="twitterprovider.html#client" class="tsd-kind-icon">client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="twitterprovider.html#tweetprovider" class="tsd-kind-icon">tweet<wbr>Provider</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="twitterprovider.html#userprovider" class="tsd-kind-icon">user<wbr>Provider</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -105,6 +113,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listtweets" class="tsd-kind-icon">list<wbr>Tweets</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listtweetsbyuser" class="tsd-kind-icon">list<wbr>Tweets<wbr>ByUser</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listtweetsbyusername" class="tsd-kind-icon">list<wbr>Tweets<wbr>ByUsername</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listusers" class="tsd-kind-icon">list<wbr>Users</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="twitterprovider.html#listusersbyusername" class="tsd-kind-icon">list<wbr>Users<wbr>ByUsername</a></li>
 							</ul>
 						</section>
@@ -123,7 +132,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in twitter-provider.ts:26</li>
+									<li>Defined in twitter-provider.ts:33</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,8 +153,9 @@
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> client</h3>
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
 					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#client">client</a></p>
 						<ul>
-							<li>Defined in twitter-provider.ts:26</li>
+							<li>Defined in twitter-provider.ts:24</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -153,6 +163,26 @@
 							<p>Reference to the underlying Twitter client if direct access is required</p>
 						</div>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="tweetprovider" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> tweet<wbr>Provider</h3>
+					<div class="tsd-signature tsd-kind-icon">tweet<wbr>Provider<span class="tsd-signature-symbol">:</span> <a href="tweetprovider.html" class="tsd-signature-type">TweetProvider</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in twitter-provider.ts:32</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="userprovider" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> user<wbr>Provider</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Provider<span class="tsd-signature-symbol">:</span> <a href="userprovider.html" class="tsd-signature-type">UserProvider</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in twitter-provider.ts:33</li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -166,8 +196,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#gettweet">getTweet</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:47</li>
+									<li>Defined in twitter-provider.ts:53</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -194,6 +225,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#getuser">getUser</a></p>
 								<ul>
 									<li>Defined in twitter-provider.ts:58</li>
 								</ul>
@@ -222,8 +254,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#getuserbyusername">getUserByUsername</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:69</li>
+									<li>Defined in twitter-provider.ts:63</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -250,13 +283,14 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listmentionsbyuser">listMentionsByUser</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:80</li>
+									<li>Defined in twitter-provider.ts:68</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
 								<div class="lead">
-									<p>List mentions by given id</p>
+									<p>List mentions by given user id</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -278,8 +312,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listtweets">listTweets</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:91</li>
+									<li>Defined in twitter-provider.ts:73</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -306,8 +341,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listtweetsbyuser">listTweetsByUser</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:102</li>
+									<li>Defined in twitter-provider.ts:78</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -334,8 +370,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listtweetsbyusername">listTweetsByUsername</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:113</li>
+									<li>Defined in twitter-provider.ts:83</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
@@ -354,6 +391,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="listusers" class="tsd-anchor"></a>
+					<h3>list<wbr>Users</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Users<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/listusersparams.html" class="tsd-signature-type">ListUsersParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listusers">listUsers</a></p>
+								<ul>
+									<li>Defined in twitter-provider.ts:102</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
+								<div class="lead">
+									<p>List users by given id(s)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <a href="../interfaces/listusersparams.html" class="tsd-signature-type">ListUsersParams</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/twitterresponse.html" class="tsd-signature-type">TwitterResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="listusersbyusername" class="tsd-anchor"></a>
 					<h3>list<wbr>Users<wbr>ByUsername</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -362,13 +428,14 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/twitterprovider.html">TwitterProvider</a>.<a href="../interfaces/twitterprovider.html#listusersbyusername">listUsersByUsername</a></p>
 								<ul>
-									<li>Defined in twitter-provider.ts:130</li>
+									<li>Defined in twitter-provider.ts:97</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography tsd-comment-shorttext">
 								<div class="lead">
-									<p>List users by given id(s)</p>
+									<p>List users by given username(s)</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -398,6 +465,12 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="twitterprovider.html#client" class="tsd-kind-icon">client</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="twitterprovider.html#tweetprovider" class="tsd-kind-icon">tweet<wbr>Provider</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="twitterprovider.html#userprovider" class="tsd-kind-icon">user<wbr>Provider</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="twitterprovider.html#gettweet" class="tsd-kind-icon">get<wbr>Tweet</a>
 							</li>
@@ -418,6 +491,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="twitterprovider.html#listtweetsbyusername" class="tsd-kind-icon">list<wbr>Tweets<wbr>ByUsername</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="twitterprovider.html#listusers" class="tsd-kind-icon">list<wbr>Users</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="twitterprovider.html#listusersbyusername" class="tsd-kind-icon">list<wbr>Users<wbr>ByUsername</a>
