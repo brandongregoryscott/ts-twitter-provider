@@ -23,12 +23,11 @@ const CoreUtils = {
     /**
      * Splits a csv and trims each value, returning a sanitized string
      */
-    trimCsv(input: string): string {
-        return input
+    trimCsv: (input: string): string =>
+        input
             .split(",")
             .map((value: string) => value.trim())
-            .join();
-    },
+            .join(),
 };
 
 // #endregion Public Functions

@@ -1,15 +1,11 @@
-import { MediaFields } from "../../enums/media-fields";
+import { UserProvider } from "../user-provider";
+import { TestUtils } from "./test-utils";
 
 // -----------------------------------------------------------------------------------------
 // #region Constants
 // -----------------------------------------------------------------------------------------
 
-const ALL_MEDIA_FIELDS = [
-    MediaFields.Height,
-    MediaFields.MediaKey,
-    MediaFields.Type,
-    MediaFields.Width,
-];
+const TestUserProvider = new UserProvider(TestUtils.credentials);
 
 // #endregion Constants
 
@@ -17,6 +13,6 @@ const ALL_MEDIA_FIELDS = [
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { ALL_MEDIA_FIELDS };
+export { TestUserProvider };
 
 // #endregion Exports

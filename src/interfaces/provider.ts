@@ -1,18 +1,22 @@
-import { TwitterProvider } from "../twitter-provider";
-import { TestUtils } from "./test-utils";
+import Twitter from "twitter-v2";
 
 // -----------------------------------------------------------------------------------------
-// #region Constants
+// #region Interfaces
 // -----------------------------------------------------------------------------------------
 
-const TestTwitterProvider = new TwitterProvider(TestUtils.credentials);
+interface Provider {
+    /**
+     * Reference to the underlying Twitter client if direct access is required
+     */
+    client: Twitter;
+}
 
-// #endregion Constants
+// #endregion Interfaces
 
 // -----------------------------------------------------------------------------------------
 // #region Exports
 // -----------------------------------------------------------------------------------------
 
-export { TestTwitterProvider };
+export { Provider };
 
 // #endregion Exports
